@@ -1,6 +1,6 @@
 import 'package:jaspr_html_convert/jaspr_html_convert.dart';
 
 void main() {
-  var awesome = Awesome();
-  print('awesome: ${awesome.isAwesome}');
+  var result = parseHtml("<h1>Hello, World!</h1>");
+  print('Result: $result');
 }

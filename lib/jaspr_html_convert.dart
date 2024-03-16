@@ -1,8 +1,12 @@
-/// Support for doing something awesome.
+/// jaspr_html_convert, Library to convert raw HTML to Jaspr components
 ///
-/// More dartdocs go here.
-library;
+/// ```sh
+/// # activate openapi_spec
+/// dart pub global activate jaspr_html_convert
+///
+/// # see usage
+/// jaspr_html_convert --help
+/// ```
+library jaspr_html_convert;
 
-export 'src/jaspr_html_convert_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+export 'src/parse.dart';
