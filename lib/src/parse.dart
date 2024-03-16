@@ -1,6 +1,7 @@
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:recase/recase.dart';
 
 // ------------------------------------------
 // METHOD: convertHtmlToJaspr
@@ -68,15 +69,75 @@ String _convertElement(Element e, String source) {
     out += '],';
   }
 
-  // Add classes
+  /// Add classes
   if (e.className.isNotEmpty) {
     out += "classes: '${e.className}',";
+  }
+
+  final Map<String, String> unsupportedAttrMap = {};
+  final Map<String, String> specialAttrMap = {};
+
+  /// Add Jaspr supported attributes
+  for (final attr in e.attributes.entries) {
+    if (attr.key == 'class') {
+      continue;
+    }
+    String attrKey = attr.key.toString();
+
+    /// Handle unsupported attributes separately
+    if (_unsupportedAttributes.contains(attrKey)) {
+      unsupportedAttrMap[attrKey] = attr.value;
+      continue;
+    }
+
+    /// Handle special attributes separately
+    if (eName == 'input' && attrKey == 'type') {
+      specialAttrMap[attrKey] = 'InputType.${attr.value.snakeCase}';
+      continue;
+    }
+    if (eName == 'button' && attrKey == 'type') {
+      specialAttrMap[attrKey] = 'ButtonType.${attr.value.snakeCase}';
+      continue;
+    }
+    if (eName == 'form' && attrKey == 'method') {
+      specialAttrMap[attrKey] = 'FormMethod.${attr.value.snakeCase}';
+      continue;
+    }
+
+    /// Add protections for specific attribute names
+    if (attrKey == 'for') {
+      attrKey = 'htmlFor';
+    }
+
+    out += "$attrKey: '${attr.value}',";
+  }
+
+  if (specialAttrMap.isNotEmpty) {
+    for (final attr in specialAttrMap.entries) {
+      out += "${attr.key}: ${attr.value},";
+    }
+  }
+
+  /// Add unsupported attributes
+  if (unsupportedAttrMap.isNotEmpty) {
+    out += 'attributes: {';
+    for (final attr in unsupportedAttrMap.entries) {
+      out += "'${attr.key}': '${attr.value}',";
+    }
+    out += '},';
   }
 
   out += '),\n';
 
   return out;
 }
+
+/// List of unsupported attributes
+/// These attributes are not directly supported by Jaspr and need to be passed in via an attribute map
+final _unsupportedAttributes = [
+  'autocomplete',
+  'required',
+];
 
 /// Refer to Jaspr package for list of supported components
 /// https://github.com/schultek/jaspr/tree/main/packages/jaspr/lib/src/components/html
