@@ -34,7 +34,10 @@ String _convertElement(Element e, String source) {
     return '';
   }
 
-  final sourceContainsParent = source.contains('<${e.localName}');
+  final eName = e.localName;
+  final noChildren = ['br', 'img'].contains(eName);
+
+  final sourceContainsParent = source.contains('<$eName');
 
   /// Implies element added by parser and not actually in source
   if (!sourceContainsParent && e.children.isEmpty) {
@@ -42,13 +45,28 @@ String _convertElement(Element e, String source) {
   }
 
   String out = '';
-  out = '\n${e.localName}([';
+
+  // Handle elements that do not expect to have children
+  if (sourceContainsParent) {
+    if (noChildren) {
+      out = '\nimg(\n';
+    } else {
+      out = '\n$eName([';
+    }
+  }
 
   for (final child in e.children) {
     out += _convertElement(child, source);
   }
 
-  out += '],';
+  // Do not include this parent element, added by parser
+  if (!sourceContainsParent) {
+    return out;
+  }
+
+  if (!noChildren) {
+    out += '],';
+  }
 
   // Add classes
   if (e.className.isNotEmpty) {
