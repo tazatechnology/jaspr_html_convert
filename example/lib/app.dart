@@ -50,8 +50,8 @@ class AppState extends State<App> {
                 text('Jaspr HTML Converter'),
               ],
               classes: [
-                'text-base',
-                'font-semibold',
+                'text-lg',
+                'font-bold',
                 'leading-6',
                 'text-gray-900',
               ].join(' '),
@@ -104,7 +104,6 @@ class AppState extends State<App> {
         div(
           [
             DartInputArea(
-              key: UniqueKey(),
               input: context.watch(inputProvider),
               onInput: (value) {
                 context.read(inputProvider.notifier).state = value;

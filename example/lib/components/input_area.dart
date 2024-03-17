@@ -23,6 +23,8 @@ class DartInputArea extends StatefulComponent {
 class DartInputAreaState extends State<DartInputArea> {
   @override
   Iterable<Component> build(BuildContext context) sync* {
+    final btnClasses = 'ring-1 ring-inset ring-gray-200 w-22';
+
     yield div(
       [
         label(
@@ -31,12 +33,49 @@ class DartInputAreaState extends State<DartInputArea> {
           ],
           classes: [
             'block',
-            'text-sm',
+            'text-md',
             'font-bold',
             'leading-6',
             'text-gray-900',
           ].join(' '),
           htmlFor: 'input-area',
+        ),
+        div(
+          [
+            SecondaryButton(
+              label: 'Hello World',
+              size: ButtonSize.sm,
+              classes: btnClasses,
+              onClick: () {
+                context.read(inputProvider.notifier).state = DEFAULT_INPUT;
+              },
+            ),
+            SecondaryButton(
+              label: 'Example 1',
+              size: ButtonSize.sm,
+              classes: btnClasses,
+              onClick: () {
+                context.read(inputProvider.notifier).state = EXAMPLE_1;
+              },
+            ),
+            SecondaryButton(
+              label: 'Example 2',
+              size: ButtonSize.sm,
+              classes: btnClasses,
+              onClick: () {
+                context.read(inputProvider.notifier).state = EXAMPLE_2;
+              },
+            ),
+            SecondaryButton(
+              label: 'Example 2',
+              size: ButtonSize.sm,
+              classes: btnClasses,
+              onClick: () {
+                context.read(inputProvider.notifier).state = EXAMPLE_3;
+              },
+            ),
+          ],
+          classes: ['py-2', 'space-x-3'].join(' '),
         ),
         div(
           [
