@@ -8395,17 +8395,21 @@
       this._debugLifecycleState = t0;
       this._framework$_element = null;
     },
-    DartInputAreaState_build_closure: function DartInputAreaState_build_closure(t0) {
-      this.context = t0;
+    DartInputAreaState_build_closure: function DartInputAreaState_build_closure(t0, t1) {
+      this.$this = t0;
+      this.context = t1;
     },
-    DartInputAreaState_build_closure0: function DartInputAreaState_build_closure0(t0) {
-      this.context = t0;
+    DartInputAreaState_build_closure0: function DartInputAreaState_build_closure0(t0, t1) {
+      this.$this = t0;
+      this.context = t1;
     },
-    DartInputAreaState_build_closure1: function DartInputAreaState_build_closure1(t0) {
-      this.context = t0;
+    DartInputAreaState_build_closure1: function DartInputAreaState_build_closure1(t0, t1) {
+      this.$this = t0;
+      this.context = t1;
     },
-    DartInputAreaState_build_closure2: function DartInputAreaState_build_closure2(t0) {
-      this.context = t0;
+    DartInputAreaState_build_closure2: function DartInputAreaState_build_closure2(t0, t1) {
+      this.$this = t0;
+      this.context = t1;
     },
     ConverterOptions: function ConverterOptions(t0) {
       this.key = t0;
@@ -16307,7 +16311,12 @@
     $signature: 49
   };
   A.Text1.prototype = {$isText1: 1};
-  A.TextAreaElement.prototype = {$isTextAreaElement: 1};
+  A.TextAreaElement.prototype = {
+    set$value(receiver, value) {
+      receiver.value = value;
+    },
+    $isTextAreaElement: 1
+  };
   A.Window.prototype = {
     _requestAnimationFrame$1(receiver, callback) {
       var t1 = receiver.requestAnimationFrame(A.convertDartClosureToJS(type$.void_Function_num._as(callback), 1));
@@ -25328,7 +25337,7 @@
                 t1 = type$.JSArray_Component;
                 t2 = type$.JSArray_String;
                 t3 = A.label(A._setArrayType([new A.Text("Raw HTML:", false, null)], t1), B.JSArray_methods.join$1(A._setArrayType(["block", "text-md", "font-bold", "leading-6", "text-gray-900"], t2), " "), "input-area");
-                t4 = A.div(A._setArrayType([A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Hello World", new A.DartInputAreaState_build_closure(context), B.ButtonSize_1), A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Example 1", new A.DartInputAreaState_build_closure0(context), B.ButtonSize_1), A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Example 2", new A.DartInputAreaState_build_closure1(context), B.ButtonSize_1), A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Example 3", new A.DartInputAreaState_build_closure2(context), B.ButtonSize_1)], t1), B.JSArray_methods.join$1(A._setArrayType(["py-2", "space-x-3"], t2), " "), null);
+                t4 = A.div(A._setArrayType([A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Hello World", new A.DartInputAreaState_build_closure($async$self, context), B.ButtonSize_1), A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Example 1", new A.DartInputAreaState_build_closure0($async$self, context), B.ButtonSize_1), A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Example 2", new A.DartInputAreaState_build_closure1($async$self, context), B.ButtonSize_1), A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Example 3", new A.DartInputAreaState_build_closure2($async$self, context), B.ButtonSize_1)], t1), B.JSArray_methods.join$1(A._setArrayType(["py-2", "space-x-3"], t2), " "), null);
                 t5 = A._setArrayType([new A.Text($async$self._component.input, false, null)], t1);
                 t6 = B.JSArray_methods.join$1(A._setArrayType(["resize-none", "block", "w-full", "h-full", "rounded-md", "border-0", "p-3", "text-gray-900", "shadow-sm", "ring-1", "ring-inset", "ring-gray-300", "placeholder:text-gray-400", "focus:ring-2", "focus:ring-inset", "focus:ring-indigo-600", "font-mono", "text-sm"], t2), " ");
                 t7 = $async$self._component.onInput;
@@ -25355,41 +25364,53 @@
   };
   A.DartInputAreaState_build_closure.prototype = {
     call$0() {
-      var t1 = $.$get$inputProvider().get$notifier(),
-        t2 = A.ProviderScope__scopeOf(this.context, false);
+      var t1, t2,
+        _s33_ = "<div><h1>Hello, World!</h1></div>";
+      B.TextAreaElement_methods.set$value(type$.TextAreaElement._as(window.document.querySelector("#input-area")), _s33_);
+      t1 = $.$get$inputProvider().get$notifier();
+      t2 = A.ProviderScope__scopeOf(this.context, false);
       t2 = A.InheritedElement.prototype.get$component.call(t2);
       t2 = type$.ProviderListenable_StateController_String._as(t1).read$1(0, t2.container);
-      J.getInterceptor$z(t2).super$StateNotifier$state(t2, A.instanceType(t2)._precomputed1._as("<div><h1>Hello, World!</h1></div>"));
+      J.getInterceptor$z(t2).super$StateNotifier$state(t2, A.instanceType(t2)._precomputed1._as(_s33_));
     },
     $signature: 1
   };
   A.DartInputAreaState_build_closure0.prototype = {
     call$0() {
-      var t1 = $.$get$inputProvider().get$notifier(),
-        t2 = A.ProviderScope__scopeOf(this.context, false);
+      var t1, t2,
+        _s408_ = '<div class="bg-white px-6 py-24 sm:py-32 lg:px-8">\n  <div class="mx-auto max-w-2xl text-center">\n    <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Support center</h2>\n    <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>\n  </div>\n</div>\n';
+      B.TextAreaElement_methods.set$value(type$.TextAreaElement._as(window.document.querySelector("#input-area")), _s408_);
+      t1 = $.$get$inputProvider().get$notifier();
+      t2 = A.ProviderScope__scopeOf(this.context, false);
       t2 = A.InheritedElement.prototype.get$component.call(t2);
       t2 = type$.ProviderListenable_StateController_String._as(t1).read$1(0, t2.container);
-      J.getInterceptor$z(t2).super$StateNotifier$state(t2, A.instanceType(t2)._precomputed1._as('<div class="bg-white px-6 py-24 sm:py-32 lg:px-8">\n  <div class="mx-auto max-w-2xl text-center">\n    <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Support center</h2>\n    <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>\n  </div>\n</div>\n'));
+      J.getInterceptor$z(t2).super$StateNotifier$state(t2, A.instanceType(t2)._precomputed1._as(_s408_));
     },
     $signature: 1
   };
   A.DartInputAreaState_build_closure1.prototype = {
     call$0() {
-      var t1 = $.$get$inputProvider().get$notifier(),
-        t2 = A.ProviderScope__scopeOf(this.context, false);
+      var t1, t2,
+        _s943_ = '<div class="bg-white">\n  <div class="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">\n    <div class="mx-auto max-w-2xl text-center">\n      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Boost your productivity.<br>Start using our app today.</h2>\n      <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea.</p>\n      <div class="mt-10 flex items-center justify-center gap-x-6">\n        <a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>\n        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span aria-hidden="true">\u2192</span></a>\n      </div>\n    </div>\n  </div>\n</div>\n';
+      B.TextAreaElement_methods.set$value(type$.TextAreaElement._as(window.document.querySelector("#input-area")), _s943_);
+      t1 = $.$get$inputProvider().get$notifier();
+      t2 = A.ProviderScope__scopeOf(this.context, false);
       t2 = A.InheritedElement.prototype.get$component.call(t2);
       t2 = type$.ProviderListenable_StateController_String._as(t1).read$1(0, t2.container);
-      J.getInterceptor$z(t2).super$StateNotifier$state(t2, A.instanceType(t2)._precomputed1._as('<div class="bg-white">\n  <div class="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">\n    <div class="mx-auto max-w-2xl text-center">\n      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Boost your productivity.<br>Start using our app today.</h2>\n      <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea.</p>\n      <div class="mt-10 flex items-center justify-center gap-x-6">\n        <a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>\n        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span aria-hidden="true">\u2192</span></a>\n      </div>\n    </div>\n  </div>\n</div>\n'));
+      J.getInterceptor$z(t2).super$StateNotifier$state(t2, A.instanceType(t2)._precomputed1._as(_s943_));
     },
     $signature: 1
   };
   A.DartInputAreaState_build_closure2.prototype = {
     call$0() {
-      var t1 = $.$get$inputProvider().get$notifier(),
-        t2 = A.ProviderScope__scopeOf(this.context, false);
+      var t1, t2,
+        _s1438_ = '<div class="bg-white py-16 sm:py-24 lg:py-32">\n  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">\n    <div class="max-w-xl text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:col-span-7">\n      <h2 class="inline sm:block lg:inline xl:block">Want product news and updates?</h2>\n      <p class="inline sm:block lg:inline xl:block">Sign up for our newsletter.</p>\n    </div>\n    <form class="w-full max-w-md lg:col-span-5 lg:pt-2">\n      <div class="flex gap-x-4">\n        <label for="email-address" class="sr-only">Email address</label>\n        <input id="email-address" name="email" type="email" autocomplete="email" required class="min-w-0 flex-auto rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Enter your email">\n        <button type="submit" class="flex-none rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Subscribe</button>\n      </div>\n      <p class="mt-4 text-sm leading-6 text-gray-900">We care about your data. Read our <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">privacy&nbsp;policy</a>.</p>\n    </form>\n  </div>\n</div>\n';
+      B.TextAreaElement_methods.set$value(type$.TextAreaElement._as(window.document.querySelector("#input-area")), _s1438_);
+      t1 = $.$get$inputProvider().get$notifier();
+      t2 = A.ProviderScope__scopeOf(this.context, false);
       t2 = A.InheritedElement.prototype.get$component.call(t2);
       t2 = type$.ProviderListenable_StateController_String._as(t1).read$1(0, t2.container);
-      J.getInterceptor$z(t2).super$StateNotifier$state(t2, A.instanceType(t2)._precomputed1._as('<div class="bg-white py-16 sm:py-24 lg:py-32">\n  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">\n    <div class="max-w-xl text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:col-span-7">\n      <h2 class="inline sm:block lg:inline xl:block">Want product news and updates?</h2>\n      <p class="inline sm:block lg:inline xl:block">Sign up for our newsletter.</p>\n    </div>\n    <form class="w-full max-w-md lg:col-span-5 lg:pt-2">\n      <div class="flex gap-x-4">\n        <label for="email-address" class="sr-only">Email address</label>\n        <input id="email-address" name="email" type="email" autocomplete="email" required class="min-w-0 flex-auto rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Enter your email">\n        <button type="submit" class="flex-none rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Subscribe</button>\n      </div>\n      <p class="mt-4 text-sm leading-6 text-gray-900">We care about your data. Read our <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">privacy&nbsp;policy</a>.</p>\n    </form>\n  </div>\n</div>\n'));
+      J.getInterceptor$z(t2).super$StateNotifier$state(t2, A.instanceType(t2)._precomputed1._as(_s1438_));
     },
     $signature: 1
   };
@@ -30055,6 +30076,7 @@
     B.NodeList_methods = A.NodeList0.prototype;
     B.PlainJavaScriptObject_methods = J.PlainJavaScriptObject.prototype;
     B.SelectElement_methods = A.SelectElement.prototype;
+    B.TextAreaElement_methods = A.TextAreaElement.prototype;
     B.UnknownJavaScriptObject_methods = J.UnknownJavaScriptObject.prototype;
     B.Window_methods = A.Window.prototype;
     B.AsciiDecoder_false_127 = new A.AsciiDecoder(false, 127);
