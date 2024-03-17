@@ -1,4 +1,6 @@
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr_html_convert_app/providers.dart';
+import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:jaspr_tailwind_ui/jaspr_tailwind_ui.dart';
 
 // ==========================================
@@ -42,19 +44,25 @@ class DartInputAreaState extends State<DartInputArea> {
               SecondaryButton(
                 label: 'Example 1',
                 size: ButtonSize.xs,
-                onClick: () {},
+                onClick: () {
+                  context.read(inputProvider.notifier).state = EXAMPLE_1.trim();
+                },
                 classes: 'ml-3 ring-1 ring-inset ring-gray-300 w-20 mr-0.5',
               ),
               SecondaryButton(
                 label: 'Example 2',
                 size: ButtonSize.xs,
-                onClick: () {},
+                onClick: () {
+                  context.read(inputProvider.notifier).state = EXAMPLE_2.trim();
+                },
                 classes: 'ml-3 ring-1 ring-inset ring-gray-300 w-20 mr-0.5',
               ),
               SecondaryButton(
                 label: 'Example 3',
                 size: ButtonSize.xs,
-                onClick: () {},
+                onClick: () {
+                  context.read(inputProvider.notifier).state = EXAMPLE_3.trim();
+                },
                 classes: 'ml-3 ring-1 ring-inset ring-gray-300 w-20 mr-5',
               ),
             ])

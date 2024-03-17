@@ -1,4 +1,5 @@
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr_html_convert_app/adapters/hljs.dart' as hljs;
 
 // ==========================================
 // CLASS: JasprRenderArea
@@ -18,6 +19,11 @@ class JasprRenderArea extends StatefulComponent {
 class JasprRenderAreaState extends State<JasprRenderArea> {
   @override
   Iterable<Component> build(BuildContext context) sync* {
+    /// Ensure that the code is highlighted after the component is rendered.
+    context.binding.addPostFrameCallback(() {
+      hljs.highlightAll();
+    });
+
     yield div(
       [
         label(

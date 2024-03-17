@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_html_convert_app/components/input_area.dart';
 import 'package:jaspr_html_convert_app/components/render_area.dart';
 import 'package:jaspr_html_convert/jaspr_html_convert.dart';
-import 'package:jaspr_html_convert_app/adapters/hljs.dart' as hljs;
 import 'package:jaspr_html_convert_app/providers.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:jaspr_tailwind_ui/jaspr_tailwind_ui.dart';
@@ -23,15 +22,12 @@ class AppState extends State<App> {
 
   void convert() {
     final rawInput = context.read(inputProvider);
-    if (rawInput.isEmpty) {
+    if (rawInput.trim().isEmpty) {
       return;
     }
     setState(() {
       context.read(outputProvider.notifier).state =
           JasprConverter().convert(rawInput);
-      context.binding.addPostFrameCallback(() {
-        hljs.highlightAll();
-      });
     });
   }
 
