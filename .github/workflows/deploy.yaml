@@ -1,0 +1,27 @@
+name: 'Jaspr HTML Convert App'
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  example:
+    name: 'Demo Application'
+    runs-on: ubuntu-22.04
+    
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Build
+        working-directory: ./example
+        run: |
+          dart pub global activate jaspr_cli
+          jaspr build
+
+      - name: Deploy Docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: example/build/jaspr
