@@ -8379,8 +8379,9 @@
       this.$this = t0;
       this.context = t1;
     },
-    AppState_build__closure: function AppState_build__closure(t0) {
-      this.context = t0;
+    AppState_build__closure: function AppState_build__closure(t0, t1) {
+      this.$this = t0;
+      this.context = t1;
     },
     AppState_build_closure0: function AppState_build_closure0(t0) {
       this.context = t0;
@@ -25277,7 +25278,8 @@
   };
   A.AppState_build_closure.prototype = {
     call$0() {
-      this.$this.setState$1(new A.AppState_build__closure(this.context));
+      var t1 = this.$this;
+      t1.setState$1(new A.AppState_build__closure(t1, this.context));
     },
     $signature: 1
   };
@@ -25296,6 +25298,7 @@
       t1 = A.InheritedElement.prototype.get$component.call(t1);
       t1 = t4._as(t3).read$1(0, t1.container);
       J.getInterceptor$z(t1).super$StateNotifier$state(t1, A.instanceType(t1)._precomputed1._as(""));
+      B.TextAreaElement_methods.set$value(type$.TextAreaElement._as(window.document.querySelector("#input-area")), "");
     },
     $signature: 1
   };
