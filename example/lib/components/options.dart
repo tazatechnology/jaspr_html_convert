@@ -18,6 +18,20 @@ class ConverterOptions extends StatefulComponent {
 class ConverterOptionsState extends State<ConverterOptions> {
   @override
   Iterable<Component> build(BuildContext context) sync* {
+    yield label(
+      [
+        text('Converter Options:'),
+      ],
+      classes: [
+        'block',
+        'text-md',
+        'font-bold',
+        'leading-6',
+        'text-gray-900',
+        'pb-3',
+      ].join(' '),
+      htmlFor: 'input-area',
+    );
     yield BoolConvertorOption();
   }
 }
@@ -42,13 +56,6 @@ class BoolConvertorOptionState extends State<BoolConvertorOption> {
       [
         span(
           [
-            label(
-              [
-                text('Select all'),
-              ],
-              classes: 'sr-only',
-              htmlFor: 'select-all',
-            ),
             input(
               [],
               classes:
@@ -65,13 +72,6 @@ class BoolConvertorOptionState extends State<BoolConvertorOption> {
           ],
           classes:
               'inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2',
-        ),
-        label(
-          [
-            text('Select message type'),
-          ],
-          classes: 'sr-only',
-          htmlFor: 'message-type',
         ),
         p(
           [
