@@ -70,7 +70,7 @@ class JasprConverter {
       for (final node in e.nodes) {
         if (node.nodeType == Node.TEXT_NODE &&
             (node.text?.trim().isNotEmpty ?? false)) {
-          out += "text('${node.text!.trim()}'),";
+          out += "text('${node.text!.replaceAll('\n', '')}'),";
         }
       }
     }
