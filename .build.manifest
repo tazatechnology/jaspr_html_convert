@@ -1,6 +1,9 @@
 .dart_tool/package_config.json
 .packages
 highlight.css
+img/jaspr-192.png
+img/jaspr-32.png
+img/jaspr-64.png
 index.html
 main.dart.js
 packages/$sdk/dev_compiler/amd/require.js
