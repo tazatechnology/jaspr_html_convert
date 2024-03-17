@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_html_convert_app/providers.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:jaspr_tailwind_ui/jaspr_tailwind_ui.dart';
+import 'dart:html';
 
 // ==========================================
 // CLASS: DartInputArea
@@ -21,6 +22,14 @@ class DartInputArea extends StatefulComponent {
 }
 
 class DartInputAreaState extends State<DartInputArea> {
+  /// Get the input area
+  TextAreaElement get inputArea =>
+      window.document.querySelector('#input-area') as TextAreaElement;
+
+  // ------------------------------------------
+  // METHOD: build
+  // ------------------------------------------
+
   @override
   Iterable<Component> build(BuildContext context) sync* {
     final btnClasses = 'ring-1 ring-inset ring-gray-200 w-22';
@@ -47,6 +56,7 @@ class DartInputAreaState extends State<DartInputArea> {
               size: ButtonSize.sm,
               classes: btnClasses,
               onClick: () {
+                inputArea.value = DEFAULT_INPUT;
                 context.read(inputProvider.notifier).state = DEFAULT_INPUT;
               },
             ),
@@ -55,6 +65,7 @@ class DartInputAreaState extends State<DartInputArea> {
               size: ButtonSize.sm,
               classes: btnClasses,
               onClick: () {
+                inputArea.value = EXAMPLE_1;
                 context.read(inputProvider.notifier).state = EXAMPLE_1;
               },
             ),
@@ -63,6 +74,7 @@ class DartInputAreaState extends State<DartInputArea> {
               size: ButtonSize.sm,
               classes: btnClasses,
               onClick: () {
+                inputArea.value = EXAMPLE_2;
                 context.read(inputProvider.notifier).state = EXAMPLE_2;
               },
             ),
@@ -71,6 +83,7 @@ class DartInputAreaState extends State<DartInputArea> {
               size: ButtonSize.sm,
               classes: btnClasses,
               onClick: () {
+                inputArea.value = EXAMPLE_3;
                 context.read(inputProvider.notifier).state = EXAMPLE_3;
               },
             ),
