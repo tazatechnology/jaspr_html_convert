@@ -179,6 +179,7 @@ class Example extends StatelessComponent {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
+    final x = [];
     yield Text('Example');
   }
 }

@@ -42,9 +42,7 @@ class JasprConverter {
 
   String _convertElement(Element e, String source) {
     final eName = e.localName;
-    if (!_components.contains(eName)) {
-      return '';
-    }
+    final unSupportedComponent = !_components.contains(eName);
 
     final noChildren = ['br', 'img'].contains(eName);
 
@@ -60,9 +58,13 @@ class JasprConverter {
     // Handle elements that do not expect to have children
     if (sourceContainsParent) {
       if (noChildren) {
-        out = '\nimg(\n';
+        out = '\n$eName(\n';
       } else {
-        out = '\n$eName([';
+        if (unSupportedComponent) {
+          out = "DomComponent(tag: '$eName',children: [";
+        } else {
+          out = '\n$eName([';
+        }
       }
     }
 
@@ -111,12 +113,19 @@ class JasprConverter {
       if (attr.key == 'class') {
         continue;
       }
+
       String attrKey = attr.key.toString();
+
+      if (unSupportedComponent && attrKey != 'id') {
+        unsupportedAttrMap[attrKey] = attr.value;
+        continue;
+      }
 
       // Add protections for specific attribute names
       if (attrKey == 'for') {
         attrKey = 'htmlFor';
       }
+
       // Handle unsupported attributes separately
       if (_unsupportedAttributes.contains(attrKey) ||
           attrKey.startsWith('aria') ||
@@ -146,7 +155,10 @@ class JasprConverter {
         specialAttrMap[attrKey] = 'Unit.pixels(${attr.value})';
         continue;
       }
-
+      if (eName == 'img' && (attrKey == 'width' || attrKey == 'height')) {
+        specialAttrMap[attrKey] = attr.value;
+        continue;
+      }
       out += "$attrKey: '${attr.value}',";
     }
 
