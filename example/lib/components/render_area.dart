@@ -170,16 +170,3 @@ class JasprRenderAreaState extends State<JasprRenderArea> {
     );
   }
 }
-
-// TODO Remove
-class Example extends StatelessComponent {
-  const Example({
-    super.key,
-  });
-
-  @override
-  Iterable<Component> build(BuildContext context) sync* {
-    final x = [];
-    yield Text('Example');
-  }
-}

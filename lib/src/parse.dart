@@ -105,16 +105,32 @@ class JasprConverter {
       }
     }
 
+    /// Add styles as a raw map
+    if (e.attributes.containsKey('style')) {
+      final rawStyle = e.attributes['style'].toString();
+      final rawStyles = rawStyle.split(';');
+      if (rawStyles.isNotEmpty) {
+        out += 'styles: Styles.raw({';
+        for (final s in rawStyles) {
+          final style = s.split(':');
+          if (style.length == 2) {
+            out += "'${style[0].trim()}': '${style[1].trim()}',";
+          }
+        }
+        out += '}),';
+      }
+    }
+
     final Map<String, String> unsupportedAttrMap = {};
     final Map<String, String> specialAttrMap = {};
 
     // Add Jaspr supported attributes
     for (final attr in e.attributes.entries) {
-      if (attr.key == 'class') {
+      String attrKey = attr.key.toString();
+
+      if (attrKey == 'class' || attrKey == 'style') {
         continue;
       }
-
-      String attrKey = attr.key.toString();
 
       if (unSupportedComponent && attrKey != 'id') {
         unsupportedAttrMap[attrKey] = attr.value;
@@ -157,6 +173,10 @@ class JasprConverter {
       }
       if (eName == 'img' && (attrKey == 'width' || attrKey == 'height')) {
         specialAttrMap[attrKey] = attr.value;
+        continue;
+      }
+      if (eName == 'svg' && (attrKey == 'x' || attrKey == 'y')) {
+        unsupportedAttrMap[attrKey] = attr.value;
         continue;
       }
       out += "$attrKey: '${attr.value}',";
