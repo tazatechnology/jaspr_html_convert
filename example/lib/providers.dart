@@ -10,9 +10,22 @@ final outputProvider = StateProvider<String>((ref) {
   return '';
 });
 
+final classAsListProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
 const DEFAULT_INPUT = '<div><h1>Hello, World!</h1></div>';
 
 const EXAMPLE_1 = """
+<div class="bg-white px-6 py-24 sm:py-32 lg:px-8">
+  <div class="mx-auto max-w-2xl text-center">
+    <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Support center</h2>
+    <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+  </div>
+</div>
+""";
+
+const EXAMPLE_2 = """
 <div class="bg-white">
   <div class="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
@@ -23,15 +36,6 @@ const EXAMPLE_1 = """
         <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span aria-hidden="true">→</span></a>
       </div>
     </div>
-  </div>
-</div>
-""";
-
-const EXAMPLE_2 = """
-<div class="bg-white px-6 py-24 sm:py-32 lg:px-8">
-  <div class="mx-auto max-w-2xl text-center">
-    <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Support center</h2>
-    <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
   </div>
 </div>
 """;

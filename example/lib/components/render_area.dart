@@ -21,7 +21,9 @@ class JasprRenderAreaState extends State<JasprRenderArea> {
   Iterable<Component> build(BuildContext context) sync* {
     /// Ensure that the code is highlighted after the component is rendered.
     context.binding.addPostFrameCallback(() {
-      hljs.highlightAll();
+      if (component.output.isNotEmpty) {
+        hljs.highlightAll();
+      }
     });
 
     yield div(

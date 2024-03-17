@@ -1,5 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_html_convert_app/components/input_area.dart';
+import 'package:jaspr_html_convert_app/components/options.dart';
 import 'package:jaspr_html_convert_app/components/render_area.dart';
 import 'package:jaspr_html_convert/jaspr_html_convert.dart';
 import 'package:jaspr_html_convert_app/providers.dart';
@@ -26,8 +27,11 @@ class AppState extends State<App> {
       return;
     }
     setState(() {
-      context.read(outputProvider.notifier).state =
-          JasprConverter().convert(rawInput);
+      final c = JasprConverter(
+        classesAsList: context.read(classAsListProvider),
+      );
+
+      context.read(outputProvider.notifier).state = c.convert(rawInput);
     });
   }
 
@@ -62,12 +66,11 @@ class AppState extends State<App> {
                       'shadow-sm text-white font-medium bg-indigo-600 hover:bg-indigo-500 w-24',
                 ),
                 SecondaryButton(
-                  label: 'Reset',
+                  label: 'Clear',
                   size: ButtonSize.lg,
                   onClick: () {
                     setState(() {
-                      context.read(inputProvider.notifier).state =
-                          DEFAULT_INPUT;
+                      context.read(inputProvider.notifier).state = '';
                       context.read(outputProvider.notifier).state = '';
                     });
                   },
@@ -88,6 +91,14 @@ class AppState extends State<App> {
             'sm:flex',
             'sm:items-center',
             'sm:justify-between',
+          ].join(' '),
+        ),
+        div(
+          [
+            ConverterOptions(),
+          ],
+          classes: [
+            'pt-4',
           ].join(' '),
         ),
         div(

@@ -25,53 +25,18 @@ class DartInputAreaState extends State<DartInputArea> {
   Iterable<Component> build(BuildContext context) sync* {
     yield div(
       [
-        div(
+        label(
           [
-            label(
-              [
-                text('Raw HTML:'),
-              ],
-              classes: [
-                'block',
-                'text-sm',
-                'font-bold',
-                'leading-6',
-                'text-gray-900',
-              ].join(' '),
-              htmlFor: 'input-area',
-            ),
-            div([
-              SecondaryButton(
-                label: 'Example 1',
-                size: ButtonSize.xs,
-                onClick: () {
-                  context.read(inputProvider.notifier).state = EXAMPLE_1.trim();
-                },
-                classes: 'ml-3 ring-1 ring-inset ring-gray-300 w-20 mr-0.5',
-              ),
-              SecondaryButton(
-                label: 'Example 2',
-                size: ButtonSize.xs,
-                onClick: () {
-                  context.read(inputProvider.notifier).state = EXAMPLE_2.trim();
-                },
-                classes: 'ml-3 ring-1 ring-inset ring-gray-300 w-20 mr-0.5',
-              ),
-              SecondaryButton(
-                label: 'Example 3',
-                size: ButtonSize.xs,
-                onClick: () {
-                  context.read(inputProvider.notifier).state = EXAMPLE_3.trim();
-                },
-                classes: 'ml-3 ring-1 ring-inset ring-gray-300 w-20 mr-5',
-              ),
-            ])
+            text('Raw HTML:'),
           ],
           classes: [
-            'sm:flex',
-            'sm:items-center',
-            'sm:justify-between',
+            'block',
+            'text-sm',
+            'font-bold',
+            'leading-6',
+            'text-gray-900',
           ].join(' '),
+          htmlFor: 'input-area',
         ),
         div(
           [
