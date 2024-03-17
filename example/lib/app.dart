@@ -3,6 +3,8 @@ import 'package:jaspr_html_convert_app/components/input_area.dart';
 import 'package:jaspr_html_convert_app/components/render_area.dart';
 import 'package:jaspr_html_convert/jaspr_html_convert.dart';
 import 'package:jaspr_html_convert_app/adapters/hljs.dart' as hljs;
+import 'package:jaspr_html_convert_app/providers.dart';
+import 'package:jaspr_riverpod/jaspr_riverpod.dart';
 import 'package:jaspr_tailwind_ui/jaspr_tailwind_ui.dart';
 
 class App extends StatefulComponent {
@@ -15,20 +17,18 @@ class App extends StatefulComponent {
 }
 
 class AppState extends State<App> {
-  static const defaultInput = '<div><h1>Hello, World!</h1></div>';
-  String rawInput = defaultInput;
-  String convertedOutput = '';
-
   // ------------------------------------------
   // METHOD: convert
   // ------------------------------------------
 
   void convert() {
+    final rawInput = context.read(inputProvider);
     if (rawInput.isEmpty) {
       return;
     }
     setState(() {
-      convertedOutput = JasprConverter().convert(rawInput);
+      context.read(outputProvider.notifier).state =
+          JasprConverter().convert(rawInput);
       context.binding.addPostFrameCallback(() {
         hljs.highlightAll();
       });
@@ -70,8 +70,9 @@ class AppState extends State<App> {
                   size: ButtonSize.lg,
                   onClick: () {
                     setState(() {
-                      rawInput = defaultInput;
-                      convertedOutput = '';
+                      context.read(inputProvider.notifier).state =
+                          DEFAULT_INPUT;
+                      context.read(outputProvider.notifier).state = '';
                     });
                   },
                   classes: 'ml-3 ring-1 ring-inset ring-gray-100 w-24',
@@ -97,13 +98,13 @@ class AppState extends State<App> {
           [
             DartInputArea(
               key: UniqueKey(),
-              input: rawInput,
+              input: context.watch(inputProvider),
               onInput: (value) {
-                rawInput = value;
+                context.read(inputProvider.notifier).state = value;
               },
             ),
             JasprRenderArea(
-              output: convertedOutput,
+              output: context.watch(outputProvider),
             ),
           ],
           classes: 'grid grid-cols-2 gap-2 pt-5 h-5/6',
