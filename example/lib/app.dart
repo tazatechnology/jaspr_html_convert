@@ -47,12 +47,18 @@ class AppState extends State<App> {
           [
             h3(
               [
+                img(
+                  src: 'img/jaspr-64.png',
+                  classes: 'h-7 pr-3',
+                ),
                 text('Jaspr HTML Converter'),
               ],
               classes: [
                 'text-lg',
                 'font-bold',
                 'leading-6',
+                'inline-flex',
+                'items-center',
                 'text-gray-900',
               ].join(' '),
             ),

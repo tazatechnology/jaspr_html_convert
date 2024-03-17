@@ -67,7 +67,7 @@ class DartInputAreaState extends State<DartInputArea> {
               },
             ),
             SecondaryButton(
-              label: 'Example 2',
+              label: 'Example 3',
               size: ButtonSize.sm,
               classes: btnClasses,
               onClick: () {
