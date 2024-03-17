@@ -623,6 +623,9 @@
     sort$1$ax(receiver, a0) {
       return J.getInterceptor$ax(receiver).sort$1(receiver, a0);
     },
+    split$1$s(receiver, a0) {
+      return J.getInterceptor$s(receiver).split$1(receiver, a0);
+    },
     take$1$ax(receiver, a0) {
       return J.getInterceptor$ax(receiver).take$1(receiver, a0);
     },
@@ -631,6 +634,9 @@
     },
     toString$0$(receiver) {
       return J.getInterceptor$(receiver).toString$0(receiver);
+    },
+    trim$0$s(receiver) {
+      return J.getInterceptor$s(receiver).trim$0(receiver);
     },
     where$1$ax(receiver, a0) {
       return J.getInterceptor$ax(receiver).where$1(receiver, a0);
@@ -25098,15 +25104,14 @@
       return B.JSString_methods.trim$0(output);
     },
     _convertElement$2(e, source) {
-      var t1, noChildren, t2, sourceContainsParent, t3, t4, out, t5, t6, unsupportedAttrMap, specialAttrMap, t7, attrKey,
-        eName = e.localName;
-      if (!B.JSArray_methods.contains$1($._components, eName))
-        return "";
-      t1 = type$.JSArray_String;
-      noChildren = B.JSArray_methods.contains$1(A._setArrayType(["br", "img"], t1), eName);
-      t2 = A.S(eName);
-      sourceContainsParent = B.JSString_methods.contains$1(source, "<" + t2);
-      t3 = !sourceContainsParent;
+      var t4, out, t5, t6, rawStyles, _i, style, unsupportedAttrMap, specialAttrMap, t7, t8, attrKey, t9,
+        eName = e.localName,
+        unSupportedComponent = !B.JSArray_methods.contains$1($._components, eName),
+        t1 = type$.JSArray_String,
+        noChildren = B.JSArray_methods.contains$1(A._setArrayType(["br", "img"], t1), eName),
+        t2 = A.S(eName),
+        sourceContainsParent = B.JSString_methods.contains$1(source, "<" + t2),
+        t3 = !sourceContainsParent;
       if (t3) {
         t4 = type$.WhereTypeIterable_Element;
         t4 = A.List_List$of(new A.WhereTypeIterable(e.get$children(0)._childNodes, t4), false, t4._eval$1("Iterable.E")).length === 0;
@@ -25115,7 +25120,10 @@
       if (t4)
         return "";
       if (sourceContainsParent)
-        out = noChildren ? "\nimg(\n" : "\n" + t2 + "([";
+        if (noChildren)
+          out = "\n" + t2 + "(\n";
+        else
+          out = unSupportedComponent ? "DomComponent(tag: '" + t2 + "',children: [" : "\n" + t2 + "([";
       else
         out = "";
       t2 = e.get$nodes(0);
@@ -25146,35 +25154,84 @@
         out += "],";
       if (e.get$className(0).length !== 0)
         out = this.classesAsList ? out + ("classes: ['" + new A.MappedListIterable(A._setArrayType(e.get$className(0).split(" "), t1), type$.String_Function_String._as(new A.JasprConverter__convertElement_closure()), type$.MappedListIterable_String_String).join$1(0, "', '") + "',].join(' '),") : out + ("classes: '" + e.get$className(0) + "',");
+      if (e.attributes.containsKey$1("style")) {
+        rawStyles = J.toString$0$(e.attributes.$index(0, "style")).split(";");
+        t1 = rawStyles.length;
+        if (t1 !== 0) {
+          out += "styles: Styles.raw({";
+          for (_i = 0; _i < t1; ++_i) {
+            style = J.split$1$s(rawStyles[_i], ":");
+            t2 = style.length;
+            if (t2 === 2) {
+              if (0 >= t2)
+                return A.ioore(style, 0);
+              t2 = J.trim$0$s(style[0]);
+              if (1 >= style.length)
+                return A.ioore(style, 1);
+              out += "'" + t2 + "': '" + J.trim$0$s(style[1]) + "',";
+            }
+          }
+          out += "}),";
+        }
+      }
       t1 = type$.String;
       unsupportedAttrMap = A.LinkedHashMap_LinkedHashMap$_empty(t1, t1);
       specialAttrMap = A.LinkedHashMap_LinkedHashMap$_empty(t1, t1);
-      for (t1 = e.attributes.get$entries(0), t1 = t1.get$iterator(t1), t2 = eName === "form", t3 = eName === "button", t4 = eName === "input"; t1.moveNext$0();) {
-        t5 = t1.get$current();
-        t6 = t5.key;
-        t7 = J.getInterceptor$(t6);
-        if (t7.$eq(t6, "class"))
+      for (t1 = e.attributes.get$entries(0), t1 = t1.get$iterator(t1), t2 = eName === "svg", t3 = eName === "img", t4 = eName === "form", t5 = eName === "button", t6 = eName === "input", t7 = eName === "path"; t1.moveNext$0();) {
+        t8 = t1.get$current();
+        attrKey = J.toString$0$(t8.key);
+        if (attrKey === "class" || attrKey === "style")
           continue;
-        attrKey = t7.toString$0(t6);
-        if (B.JSArray_methods.contains$1($._unsupportedAttributes, attrKey)) {
-          unsupportedAttrMap.$indexSet(0, attrKey, t5.value);
-          continue;
-        }
-        if (t4 && attrKey === "type") {
-          specialAttrMap.$indexSet(0, attrKey, "InputType." + A.ReCase$(t5.value)._getSnakeCase$0());
-          continue;
-        }
-        if (t3 && attrKey === "type") {
-          specialAttrMap.$indexSet(0, attrKey, "ButtonType." + A.ReCase$(t5.value)._getSnakeCase$0());
-          continue;
-        }
-        if (t2 && attrKey === "method") {
-          specialAttrMap.$indexSet(0, attrKey, "FormMethod." + A.ReCase$(t5.value)._getSnakeCase$0());
+        if (unSupportedComponent && attrKey !== "id") {
+          unsupportedAttrMap.$indexSet(0, attrKey, t8.value);
           continue;
         }
         if (attrKey === "for")
           attrKey = "htmlFor";
-        out += attrKey + ": '" + A.S(t5.value) + "',";
+        if (B.JSArray_methods.contains$1($._unsupportedAttributes, attrKey) || B.JSString_methods.startsWith$1(attrKey, "aria") || B.JSString_methods.startsWith$1(attrKey, "stroke")) {
+          if (!(t7 && attrKey === "stroke-width")) {
+            unsupportedAttrMap.$indexSet(0, attrKey, t8.value);
+            continue;
+          }
+          attrKey = "strokeWidth";
+        }
+        if (t6 && attrKey === "type") {
+          specialAttrMap.$indexSet(0, attrKey, "InputType." + A.ReCase$(t8.value)._getSnakeCase$0());
+          continue;
+        }
+        if (t5 && attrKey === "type") {
+          specialAttrMap.$indexSet(0, attrKey, "ButtonType." + A.ReCase$(t8.value)._getSnakeCase$0());
+          continue;
+        }
+        if (t4 && attrKey === "method") {
+          specialAttrMap.$indexSet(0, attrKey, "FormMethod." + A.ReCase$(t8.value)._getSnakeCase$0());
+          continue;
+        }
+        if (t2)
+          t9 = attrKey === "width" || attrKey === "height";
+        else
+          t9 = false;
+        if (t9) {
+          specialAttrMap.$indexSet(0, attrKey, "Unit.pixels(" + A.S(t8.value) + ")");
+          continue;
+        }
+        if (t3)
+          t9 = attrKey === "width" || attrKey === "height";
+        else
+          t9 = false;
+        if (t9) {
+          specialAttrMap.$indexSet(0, attrKey, t8.value);
+          continue;
+        }
+        if (t2)
+          t9 = attrKey === "x" || attrKey === "y";
+        else
+          t9 = false;
+        if (t9) {
+          unsupportedAttrMap.$indexSet(0, attrKey, t8.value);
+          continue;
+        }
+        out += attrKey + ": '" + A.S(t8.value) + "',";
       }
       if (specialAttrMap.__js_helper$_length !== 0)
         for (t1 = specialAttrMap.get$entries(0), t1 = t1.get$iterator(t1); t1.moveNext$0();) {
@@ -25243,7 +25300,7 @@
                 t2 = A._setArrayType([new A.DomComponent("img", null, "h-7 pr-3", null, t2, null, null, null, null), new A.Text("Jaspr HTML Converter", false, null)], t3);
                 t4 = type$.JSArray_String;
                 $async$goto = 2;
-                return $async$iterator._async$_current = A.div(A._setArrayType([A.div(A._setArrayType([new A.DomComponent("h3", null, B.JSArray_methods.join$1(A._setArrayType(["text-lg", "font-bold", "leading-6", "inline-flex", "items-center", "text-gray-900"], t4), " "), null, null, null, null, t2, null), A.div(A._setArrayType([new A.PrimaryButton("Convert", $async$self.get$convert(), B.ButtonSize_3, "shadow-sm text-white font-medium bg-indigo-600 hover:bg-indigo-500 w-24", null), A.SecondaryButton$("ml-3 ring-1 ring-inset ring-gray-100 w-24", "Clear", new A.AppState_build_closure($async$self, context), B.ButtonSize_3)], t3), B.JSArray_methods.join$1(A._setArrayType(["mt-3", "sm:ml-4", "sm:mt-0"], t4), " "), null)], t3), B.JSArray_methods.join$1(A._setArrayType(["border-b", "border-gray-200", "pb-5", "sm:flex", "sm:items-center", "sm:justify-between"], t4), " "), null), A.div(A._setArrayType([new A.ConverterOptions(null)], t3), B.JSArray_methods.join$1(A._setArrayType(["pt-4"], t4), " "), null), A.div(A._setArrayType([new A.DartInputArea(A.ProviderContext_watch(context, $.$get$inputProvider(), t1), new A.AppState_build_closure0(context), null), new A.JasprRenderArea(A.ProviderContext_watch(context, $.$get$outputProvider(), t1), null)], t3), "grid grid-cols-2 gap-2 pt-5 h-5/6", null)], t3), "h-screen w-screen p-5", null), 1;
+                return $async$iterator._async$_current = A.div(A._setArrayType([A.div(A._setArrayType([new A.DomComponent("h3", null, B.JSArray_methods.join$1(A._setArrayType(["md:text-md", "sm:text-lg", "font-bold", "leading-6", "inline-flex", "items-center", "text-gray-900"], t4), " "), null, null, null, null, t2, null), A.div(A._setArrayType([new A.PrimaryButton("Convert", $async$self.get$convert(), B.ButtonSize_3, "shadow-sm text-white font-medium bg-indigo-600 hover:bg-indigo-500 w-20 md:w-24", null), A.SecondaryButton$("ml-3 ring-1 ring-inset ring-gray-100 w-20 md:w-24", "Clear", new A.AppState_build_closure($async$self, context), B.ButtonSize_3)], t3), B.JSArray_methods.join$1(A._setArrayType(["mt-3", "sm:ml-4", "sm:mt-0"], t4), " "), null)], t3), B.JSArray_methods.join$1(A._setArrayType(["border-b", "border-gray-200", "pb-5", "flex", "items-center", "justify-between"], t4), " "), null), A.div(A._setArrayType([new A.ConverterOptions(null)], t3), B.JSArray_methods.join$1(A._setArrayType(["pt-4"], t4), " "), null), A.div(A._setArrayType([new A.DartInputArea(A.ProviderContext_watch(context, $.$get$inputProvider(), t1), new A.AppState_build_closure0(context), null), new A.JasprRenderArea(A.ProviderContext_watch(context, $.$get$outputProvider(), t1), null)], t3), "grid grid-cols-2 gap-2 pt-5 h-5/6", null)], t3), "h-screen w-screen p-5", null), 1;
               case 2:
                 // after yield
                 // implicit return
@@ -25440,8 +25497,12 @@
               case 0:
                 // Function start
                 $async$goto = 2;
-                return $async$iterator._async$_current = new A.BoolConvertorOption(null), 1;
+                return $async$iterator._async$_current = A.label(A._setArrayType([new A.Text("Converter Options:", false, null)], type$.JSArray_Component), B.JSArray_methods.join$1(A._setArrayType(["block", "text-md", "font-bold", "leading-6", "text-gray-900", "pb-3"], type$.JSArray_String), " "), "input-area"), 1;
               case 2:
+                // after yield
+                $async$goto = 3;
+                return $async$iterator._async$_current = new A.BoolConvertorOption(null), 1;
+              case 3:
                 // after yield
                 // implicit return
                 return 0;
@@ -25465,7 +25526,7 @@
     build$body$BoolConvertorOptionState($async$context) {
       return function() {
         var context = $async$context;
-        var $async$goto = 0, $async$handler = 1, $async$currentError, t1, t2, t3, t4, t5, t6;
+        var $async$goto = 0, $async$handler = 1, $async$currentError, t1, t2, t3, t4, t5;
         return function $async$build$1($async$iterator, $async$errorCode, $async$result) {
           if ($async$errorCode === 1) {
             $async$currentError = $async$result;
@@ -25476,19 +25537,18 @@
               case 0:
                 // Function start
                 t1 = type$.JSArray_Component;
-                t2 = A.label(A._setArrayType([new A.Text("Select all", false, null)], t1), "sr-only", "select-all");
-                t3 = A._setArrayType([], t1);
-                t4 = J.toString$0$(A.ProviderContext_watch(context, $.$get$classAsListProvider(), type$.bool));
-                t5 = type$.String;
-                t6 = A.LinkedHashMap_LinkedHashMap$of(A.LinkedHashMap_LinkedHashMap$_empty(t5, t5), t5, t5);
-                t6.$indexSet(0, "type", "checkbox");
-                t6.$indexSet(0, "name", "select-all");
-                t6.$indexSet(0, "value", t4);
-                t4 = A.LinkedHashMap_LinkedHashMap$_empty(t5, type$.void_Function_Event);
-                t5 = type$.dynamic;
-                t4.addAll$1(0, A.events__events$closure().call$2$2$onChange$onInput(new A.BoolConvertorOptionState_build_closure(context), null, t5, t5));
+                t2 = A._setArrayType([], t1);
+                t3 = J.toString$0$(A.ProviderContext_watch(context, $.$get$classAsListProvider(), type$.bool));
+                t4 = type$.String;
+                t5 = A.LinkedHashMap_LinkedHashMap$of(A.LinkedHashMap_LinkedHashMap$_empty(t4, t4), t4, t4);
+                t5.$indexSet(0, "type", "checkbox");
+                t5.$indexSet(0, "name", "select-all");
+                t5.$indexSet(0, "value", t3);
+                t3 = A.LinkedHashMap_LinkedHashMap$_empty(t4, type$.void_Function_Event);
+                t4 = type$.dynamic;
+                t3.addAll$1(0, A.events__events$closure().call$2$2$onChange$onInput(new A.BoolConvertorOptionState_build_closure(context), null, t4, t4));
                 $async$goto = 2;
-                return $async$iterator._async$_current = A.span(A._setArrayType([A.span(A._setArrayType([t2, new A.DomComponent("input", "select-all", "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600", null, t6, t4, null, t3, null)], t1), "inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2"), A.label(A._setArrayType([new A.Text("Select message type", false, null)], t1), "sr-only", "message-type"), new A.DomComponent("p", null, "-ml-px block w-full rounded-l-none rounded-r-md border-0 bg-white py-1.5 pl-3 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", null, null, null, null, A._setArrayType([new A.Text("Classes as List", false, null)], t1), null)], t1), "inline-flex rounded-md shadow-sm"), 1;
+                return $async$iterator._async$_current = A.span(A._setArrayType([A.span(A._setArrayType([new A.DomComponent("input", "select-all", "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600", null, t5, t3, null, t2, null)], t1), "inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2"), new A.DomComponent("p", null, "-ml-px block w-full rounded-l-none rounded-r-md border-0 bg-white py-1.5 pl-3 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", null, null, null, null, A._setArrayType([new A.Text("Classes as List", false, null)], t1), null)], t1), "inline-flex rounded-md shadow-sm"), 1;
               case 2:
                 // after yield
                 // implicit return
@@ -30458,7 +30518,7 @@
     $.Uri__cachedBaseString = "";
     $.Uri__cachedBaseUri = null;
     $.Element__nextHashCode = 1;
-    $._unsupportedAttributes = A._setArrayType(["autocomplete", "required"], type$.JSArray_String);
+    $._unsupportedAttributes = A._setArrayType(["autocomplete", "required", "fill", "fill-rule", "clip-rule", "version", "xmlns"], type$.JSArray_String);
     $._components = A._setArrayType(["a", "b", "br", "code", "em", "i", "s", "small", "span", "strong", "u", "audio", "img", "video", "embed", "iframe", "object", "source", "svg", "rect", "circle", "ellipse", "line", "path", "polygon", "polyline", "button", "form", "input", "label", "datalist", "legend", "meter", "progress", "optgroup", "option", "select", "fieldset", "textarea", "details", "dialog", "summary", "link", "script", "article", "aside", "body", "footer", "head", "header", "html", "h1", "h2", "h3", "h4", "h5", "h6", "nav", "section", "blockquote", "div", "ul", "ol", "li", "hr", "p", "pre"], type$.JSArray_String);
     $._currentUriBase = null;
     $._current = null;
