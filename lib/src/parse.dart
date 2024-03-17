@@ -1,6 +1,6 @@
+// import 'package:dart_style/dart_style.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:dart_style/dart_style.dart';
 import 'package:recase/recase.dart';
 
 // ==========================================
@@ -32,7 +32,8 @@ class JasprConverter {
     }
 
     output = output.trim();
-    return DartFormatter().format('final components = [$output];');
+    // return DartFormatter().format('final components = [$output];');
+    return output;
   }
 
   // ------------------------------------------

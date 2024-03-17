@@ -1,0 +1,31 @@
+name: jaspr_html_convert_app
+description: Example application of for jaspr_html_convert package.
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  jaspr: ^0.10.0  
+  jaspr_tailwind_ui:
+    git:
+      url: https://github.com/tazatechnology/jaspr_tailwind_ui.git
+      ref: main
+
+  jaspr_html_convert:
+    path: ../
+  js: ^0.6.7
+
+dev_dependencies:
+  build_runner: ^2.4.0
+  build_web_compilers: ^4.0.4
+  import_sorter: ^4.6.0
+  jaspr_builder: ^0.10.0
+  lints: ^3.0.0
+
+import_sorter:
+  comments: false
+
+jaspr:
+  uses-ssr: false
