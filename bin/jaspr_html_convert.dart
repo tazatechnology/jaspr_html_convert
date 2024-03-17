@@ -42,6 +42,7 @@ void main() {
 </div>
 """;
 
-  var result = convertHtmlToJaspr(input);
+  final converter = JasprConverter();
+  var result = converter.convert(input);
   print(result);
 }

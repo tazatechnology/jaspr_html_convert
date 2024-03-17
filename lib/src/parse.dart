@@ -3,139 +3,154 @@ import 'package:html/parser.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:recase/recase.dart';
 
-// ------------------------------------------
-// METHOD: convertHtmlToJaspr
-// ------------------------------------------
+// ==========================================
+// CLASS: JasprConverter
+// ==========================================
 
-/// Converts an HTML string input into Jaspr components
-String convertHtmlToJaspr(String source) {
-  String output = '';
+class JasprConverter {
+  const JasprConverter({
+    this.classesAsList = false,
+  });
 
-  final doc = parse(source);
+  /// Convert classes to list of strings with a join statement
+  ///
+  /// Useful for easily adding/removing classes in component code
+  final bool classesAsList;
 
-  for (final element in doc.children.first.children) {
-    output += _convertElement(element, source);
-  }
+  // ------------------------------------------
+  // METHOD: convert
+  // ------------------------------------------
 
-  output = output.trim();
-  return DartFormatter().format('final components = [$output];');
-}
+  /// Converts an HTML string input into Jaspr components
+  String convert(String source) {
+    String output = '';
 
-// ------------------------------------------
-// METHOD: _convertElement
-// ------------------------------------------
+    final doc = parse(source);
 
-String _convertElement(Element e, String source) {
-  final eName = e.localName;
-  if (!_components.contains(eName)) {
-    return '';
-  }
-
-  final noChildren = ['br', 'img'].contains(eName);
-
-  final sourceContainsParent = source.contains('<$eName');
-
-  // Implies element added by parser and not actually in source
-  if (!sourceContainsParent && e.children.isEmpty) {
-    return '';
-  }
-
-  String out = '';
-
-  // Handle elements that do not expect to have children
-  if (sourceContainsParent) {
-    if (noChildren) {
-      out = '\nimg(\n';
-    } else {
-      out = '\n$eName([';
+    for (final element in doc.children.first.children) {
+      output += _convertElement(element, source);
     }
+
+    output = output.trim();
+    return DartFormatter().format('final components = [$output];');
   }
 
-  // Look for any inner text
-  if (e.hasChildNodes()) {
-    for (final node in e.nodes) {
-      if (node.nodeType == Node.TEXT_NODE &&
-          (node.text?.trim().isNotEmpty ?? false)) {
-        out += "text('${node.text!.trim()}'),";
+  // ------------------------------------------
+  // METHOD: _convertElement
+  // ------------------------------------------
+
+  String _convertElement(Element e, String source) {
+    final eName = e.localName;
+    if (!_components.contains(eName)) {
+      return '';
+    }
+
+    final noChildren = ['br', 'img'].contains(eName);
+
+    final sourceContainsParent = source.contains('<$eName');
+
+    // Implies element added by parser and not actually in source
+    if (!sourceContainsParent && e.children.isEmpty) {
+      return '';
+    }
+
+    String out = '';
+
+    // Handle elements that do not expect to have children
+    if (sourceContainsParent) {
+      if (noChildren) {
+        out = '\nimg(\n';
+      } else {
+        out = '\n$eName([';
       }
     }
-  }
 
-  // Recursively convert nested DOM elements
-  for (final child in e.children) {
-    out += _convertElement(child, source);
-  }
+    // Look for any inner text
+    if (e.hasChildNodes()) {
+      for (final node in e.nodes) {
+        if (node.nodeType == Node.TEXT_NODE &&
+            (node.text?.trim().isNotEmpty ?? false)) {
+          out += "text('${node.text!.trim()}'),";
+        }
+      }
+    }
 
-  // Do not include this parent element, added by parser
-  if (!sourceContainsParent) {
+    // Recursively convert nested DOM elements
+    for (final child in e.children) {
+      out += _convertElement(child, source);
+    }
+
+    // Do not include this parent element, added by parser
+    if (!sourceContainsParent) {
+      return out;
+    }
+
+    if (!noChildren) {
+      out += '],';
+    }
+
+    /// Add classes
+    if (e.className.isNotEmpty) {
+      out += "classes: '${e.className}',";
+    }
+
+    final Map<String, String> unsupportedAttrMap = {};
+    final Map<String, String> specialAttrMap = {};
+
+    // Add Jaspr supported attributes
+    for (final attr in e.attributes.entries) {
+      if (attr.key == 'class') {
+        continue;
+      }
+      String attrKey = attr.key.toString();
+
+      // Handle unsupported attributes separately
+      if (_unsupportedAttributes.contains(attrKey)) {
+        unsupportedAttrMap[attrKey] = attr.value;
+        continue;
+      }
+
+      // Handle special attributes separately
+      if (eName == 'input' && attrKey == 'type') {
+        specialAttrMap[attrKey] = 'InputType.${attr.value.snakeCase}';
+        continue;
+      }
+      if (eName == 'button' && attrKey == 'type') {
+        specialAttrMap[attrKey] = 'ButtonType.${attr.value.snakeCase}';
+        continue;
+      }
+      if (eName == 'form' && attrKey == 'method') {
+        specialAttrMap[attrKey] = 'FormMethod.${attr.value.snakeCase}';
+        continue;
+      }
+
+      // Add protections for specific attribute names
+      if (attrKey == 'for') {
+        attrKey = 'htmlFor';
+      }
+
+      out += "$attrKey: '${attr.value}',";
+    }
+
+    if (specialAttrMap.isNotEmpty) {
+      for (final attr in specialAttrMap.entries) {
+        out += "${attr.key}: ${attr.value},";
+      }
+    }
+
+    // Add unsupported attributes
+    if (unsupportedAttrMap.isNotEmpty) {
+      out += 'attributes: {';
+      for (final attr in unsupportedAttrMap.entries) {
+        out += "'${attr.key}': '${attr.value}',";
+      }
+      out += '},';
+    }
+
+    out += '),\n';
+
     return out;
   }
-
-  if (!noChildren) {
-    out += '],';
-  }
-
-  /// Add classes
-  if (e.className.isNotEmpty) {
-    out += "classes: '${e.className}',";
-  }
-
-  final Map<String, String> unsupportedAttrMap = {};
-  final Map<String, String> specialAttrMap = {};
-
-  // Add Jaspr supported attributes
-  for (final attr in e.attributes.entries) {
-    if (attr.key == 'class') {
-      continue;
-    }
-    String attrKey = attr.key.toString();
-
-    // Handle unsupported attributes separately
-    if (_unsupportedAttributes.contains(attrKey)) {
-      unsupportedAttrMap[attrKey] = attr.value;
-      continue;
-    }
-
-    // Handle special attributes separately
-    if (eName == 'input' && attrKey == 'type') {
-      specialAttrMap[attrKey] = 'InputType.${attr.value.snakeCase}';
-      continue;
-    }
-    if (eName == 'button' && attrKey == 'type') {
-      specialAttrMap[attrKey] = 'ButtonType.${attr.value.snakeCase}';
-      continue;
-    }
-    if (eName == 'form' && attrKey == 'method') {
-      specialAttrMap[attrKey] = 'FormMethod.${attr.value.snakeCase}';
-      continue;
-    }
-
-    /// Add protections for specific attribute names
-    if (attrKey == 'for') {
-      attrKey = 'htmlFor';
-    }
-
-    out += "$attrKey: '${attr.value}',";
-  }
-
-  if (specialAttrMap.isNotEmpty) {
-    for (final attr in specialAttrMap.entries) {
-      out += "${attr.key}: ${attr.value},";
-    }
-  }
-
-  /// Add unsupported attributes
-  if (unsupportedAttrMap.isNotEmpty) {
-    out += 'attributes: {';
-    for (final attr in unsupportedAttrMap.entries) {
-      out += "'${attr.key}': '${attr.value}',";
-    }
-    out += '},';
-  }
-
-  out += '),\n';
-
-  return out;
 }
 
 /// List of unsupported attributes

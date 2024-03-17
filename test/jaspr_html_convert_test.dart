@@ -3,6 +3,6 @@ import 'package:test/test.dart';
 
 void main() {
   group('A group of tests', () {
-    convertHtmlToJaspr("Test");
+    JasprConverter().convert("Test");
   });
 }
