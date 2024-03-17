@@ -299,14 +299,11 @@ void main() {
 
 """;
 
-  input = """
-<div class="bg-white px-6 py-24 sm:py-32 lg:px-8">
-  <div class="mx-auto max-w-2xl text-center">
-    <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Support center</h2>
-    <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
-  </div>
-</div>
-""";
+//   input = """
+// <svg viewBox="-60 -60 60 60" xmlns="http://www.w3.org/2000/svg" width="600" height="600" version="1.1">
+//    <path fill="red" stroke="blue" stroke-width="3" d="M -0.1552523 -50.822140300000001"/>
+// </svg>
+// """;
 
   final converter = JasprConverter(
     classesAsList: true,

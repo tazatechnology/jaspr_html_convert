@@ -1,9 +1,7 @@
-import 'package:test/test.dart';
-
-import 'package:jaspr_html_convert/jaspr_html_convert.dart';
+import 'components.dart' as components;
+import 'examples.dart' as examples;
 
 void main() {
-  group('Placeholder Test', () {
-    JasprConverter().convert("<div><h1>Hello, World!</h1></div>");
-  });
+  components.main();
+  examples.main();
 }

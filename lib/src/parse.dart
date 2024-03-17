@@ -113,10 +113,20 @@ class JasprConverter {
       }
       String attrKey = attr.key.toString();
 
+      // Add protections for specific attribute names
+      if (attrKey == 'for') {
+        attrKey = 'htmlFor';
+      }
       // Handle unsupported attributes separately
-      if (_unsupportedAttributes.contains(attrKey)) {
-        unsupportedAttrMap[attrKey] = attr.value;
-        continue;
+      if (_unsupportedAttributes.contains(attrKey) ||
+          attrKey.startsWith('aria') ||
+          attrKey.startsWith('stroke')) {
+        if (eName == 'path' && attrKey == 'stroke-width') {
+          attrKey = 'strokeWidth';
+        } else {
+          unsupportedAttrMap[attrKey] = attr.value;
+          continue;
+        }
       }
 
       // Handle special attributes separately
@@ -132,10 +142,9 @@ class JasprConverter {
         specialAttrMap[attrKey] = 'FormMethod.${attr.value.snakeCase}';
         continue;
       }
-
-      // Add protections for specific attribute names
-      if (attrKey == 'for') {
-        attrKey = 'htmlFor';
+      if (eName == 'svg' && (attrKey == 'width' || attrKey == 'height')) {
+        specialAttrMap[attrKey] = 'Unit.pixels(${attr.value})';
+        continue;
       }
 
       out += "$attrKey: '${attr.value}',";
@@ -167,6 +176,11 @@ class JasprConverter {
 final _unsupportedAttributes = [
   'autocomplete',
   'required',
+  'fill',
+  'fill-rule',
+  'clip-rule',
+  'version',
+  'xmlns',
 ];
 
 /// Refer to Jaspr package for list of supported components
