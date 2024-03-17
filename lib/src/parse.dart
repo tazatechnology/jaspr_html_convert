@@ -18,12 +18,7 @@ String convertHtmlToJaspr(String source) {
   }
 
   output = output.trim();
-  try {
-    return DartFormatter().format('final components = [$output];');
-  } catch (e) {
-    print(e);
-    return output;
-  }
+  return DartFormatter().format('final components = [$output];');
 }
 
 // ------------------------------------------
@@ -31,16 +26,16 @@ String convertHtmlToJaspr(String source) {
 // ------------------------------------------
 
 String _convertElement(Element e, String source) {
-  if (!_components.contains(e.localName)) {
+  final eName = e.localName;
+  if (!_components.contains(eName)) {
     return '';
   }
 
-  final eName = e.localName;
   final noChildren = ['br', 'img'].contains(eName);
 
   final sourceContainsParent = source.contains('<$eName');
 
-  /// Implies element added by parser and not actually in source
+  // Implies element added by parser and not actually in source
   if (!sourceContainsParent && e.children.isEmpty) {
     return '';
   }
@@ -56,6 +51,17 @@ String _convertElement(Element e, String source) {
     }
   }
 
+  // Look for any inner text
+  if (e.hasChildNodes()) {
+    for (final node in e.nodes) {
+      if (node.nodeType == Node.TEXT_NODE &&
+          (node.text?.trim().isNotEmpty ?? false)) {
+        out += "text('${node.text!.trim()}'),";
+      }
+    }
+  }
+
+  // Recursively convert nested DOM elements
   for (final child in e.children) {
     out += _convertElement(child, source);
   }
@@ -77,20 +83,20 @@ String _convertElement(Element e, String source) {
   final Map<String, String> unsupportedAttrMap = {};
   final Map<String, String> specialAttrMap = {};
 
-  /// Add Jaspr supported attributes
+  // Add Jaspr supported attributes
   for (final attr in e.attributes.entries) {
     if (attr.key == 'class') {
       continue;
     }
     String attrKey = attr.key.toString();
 
-    /// Handle unsupported attributes separately
+    // Handle unsupported attributes separately
     if (_unsupportedAttributes.contains(attrKey)) {
       unsupportedAttrMap[attrKey] = attr.value;
       continue;
     }
 
-    /// Handle special attributes separately
+    // Handle special attributes separately
     if (eName == 'input' && attrKey == 'type') {
       specialAttrMap[attrKey] = 'InputType.${attr.value.snakeCase}';
       continue;
