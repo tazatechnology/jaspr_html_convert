@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_html_convert_app/components/input_area.dart';
 import 'package:jaspr_html_convert_app/components/options.dart';
@@ -17,6 +19,10 @@ class App extends StatefulComponent {
 }
 
 class AppState extends State<App> {
+  /// Get the input area
+  TextAreaElement get inputArea =>
+      window.document.querySelector('#input-area') as TextAreaElement;
+
   // ------------------------------------------
   // METHOD: convert
   // ------------------------------------------
@@ -78,6 +84,7 @@ class AppState extends State<App> {
                     setState(() {
                       context.read(inputProvider.notifier).state = '';
                       context.read(outputProvider.notifier).state = '';
+                      inputArea.value = '';
                     });
                   },
                   classes: 'ml-3 ring-1 ring-inset ring-gray-100 w-24',
