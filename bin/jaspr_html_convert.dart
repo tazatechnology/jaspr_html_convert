@@ -42,7 +42,9 @@ void main() {
 </div>
 """;
 
-  final converter = JasprConverter();
+  final converter = JasprConverter(
+    classesAsList: false,
+  );
   var result = converter.convert(input);
   print(result);
 }

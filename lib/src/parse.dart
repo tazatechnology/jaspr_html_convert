@@ -91,7 +91,15 @@ class JasprConverter {
 
     /// Add classes
     if (e.className.isNotEmpty) {
-      out += "classes: '${e.className}',";
+      if (classesAsList) {
+        final classList = e.className
+            .split(' ')
+            .map((e) => e.replaceAll(RegExp(r'\s+'), ' ').trim())
+            .join("', '");
+        out += "classes: ['$classList',].join(' '),";
+      } else {
+        out += "classes: '${e.className}',";
+      }
     }
 
     final Map<String, String> unsupportedAttrMap = {};
