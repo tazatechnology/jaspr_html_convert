@@ -128,10 +128,10 @@ class AppState extends State<App> {
               output: context.watch(outputProvider),
             ),
           ],
-          classes: 'grid grid-cols-2 gap-2 pt-5 h-5/6',
+          classes: 'grid grid-cols-2 gap-2 pt-5 h-full',
         )
       ],
-      classes: 'h-screen w-screen p-5',
+      classes: 'h-screen w-screen p-5 overflow-scroll',
     );
   }
 }
