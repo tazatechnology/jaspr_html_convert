@@ -79,7 +79,7 @@ class BoolConvertorOptionState extends State<BoolConvertorOption> {
             text('Classes as List'),
           ],
           classes:
-              '-ml-px block w-full rounded-l-none rounded-r-md border-0 bg-white py-1.5 pl-3 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+              '-ml-px block w-full rounded-l-none rounded-r-md border-0 bg-white py-1.5 pl-3 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm sm:leading-6',
         ),
       ],
       classes: 'inline-flex rounded-md shadow-sm',

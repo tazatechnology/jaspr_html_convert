@@ -110,7 +110,7 @@ class AppState extends State<App> {
                   size: ButtonSize.lg,
                   onClick: convert,
                   classes:
-                      'shadow-sm text-white font-medium bg-indigo-600 hover:bg-indigo-500 w-20 md:w-24',
+                      'shadow-sm text-white bg-indigo-600 hover:bg-indigo-500 text-xs md:text-sm w-18 md:w-24',
                 ),
                 SecondaryButton(
                   label: 'Clear',
@@ -122,7 +122,8 @@ class AppState extends State<App> {
                       inputArea.value = '';
                     });
                   },
-                  classes: 'ml-3 ring-1 ring-inset ring-gray-100 w-20 md:w-24',
+                  classes:
+                      'ml-3 ring-1 ring-inset ring-gray-100 text-xs md:text-sm w-18 md:w-24',
                 ),
               ],
               classes: [
@@ -161,7 +162,7 @@ class AppState extends State<App> {
               output: context.watch(outputProvider),
             ),
           ],
-          classes: 'grid grid-cols-2 gap-2 pt-5 h-full',
+          classes: 'grid grid-cols-0 md:grid-cols-2 gap-2 pt-5 h-full',
         )
       ],
       classes: 'h-screen w-screen p-5 overflow-scroll',

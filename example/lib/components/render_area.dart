@@ -116,7 +116,8 @@ class JasprRenderAreaState extends State<JasprRenderArea> {
               classes: [
                 'block',
                 'w-full',
-                'h-full',
+                'h-96',
+                'md:h-full',
                 'rounded-md',
                 'border-0',
                 'p-3',
