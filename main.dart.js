@@ -8012,16 +8012,6 @@
       t1.$indexSet(0, "for", htmlFor);
       return new A.DomComponent("label", _null, classes, _null, t1, _null, _null, children, _null);
     },
-    path(children, d, fill, strokeWidth) {
-      var _null = null,
-        t1 = type$.String;
-      t1 = A.LinkedHashMap_LinkedHashMap$of(A.LinkedHashMap_LinkedHashMap$_empty(t1, t1), t1, t1);
-      t1.$indexSet(0, "d", d);
-      if (fill != null)
-        t1.$indexSet(0, "fill", "transparent");
-      t1.$indexSet(0, "stroke-width", strokeWidth);
-      return new A.DomComponent("path", _null, _null, _null, t1, _null, _null, children, _null);
-    },
     span(children, classes) {
       var _null = null;
       return new A.DomComponent("span", _null, classes, _null, _null, _null, _null, children, _null);
@@ -8080,8 +8070,6 @@
     SchedulerBinding_scheduleBuild_closure: function SchedulerBinding_scheduleBuild_closure(t0, t1) {
       this.$this = t0;
       this.buildCallback = t1;
-    },
-    _NamedColor: function _NamedColor() {
     },
     SyncBinding: function SyncBinding() {
     },
@@ -23870,7 +23858,6 @@
     },
     $signature: 1
   };
-  A._NamedColor.prototype = {};
   A.SyncBinding.prototype = {};
   A.SyncStateMixin.prototype = {};
   A.StateCodec.prototype = {};
@@ -25283,7 +25270,7 @@
       var $async$self = this;
       return function() {
         var context = $async$context;
-        var $async$goto = 0, $async$handler = 1, $async$currentError, t3, t4, t1, t2;
+        var $async$goto = 0, $async$handler = 1, $async$currentError, t6, t1, t2, t3, t4, t5;
         return function $async$build$1($async$iterator, $async$errorCode, $async$result) {
           if ($async$errorCode === 1) {
             $async$currentError = $async$result;
@@ -25293,14 +25280,17 @@
             switch ($async$goto) {
               case 0:
                 // Function start
-                t1 = type$.String;
-                t2 = A.LinkedHashMap_LinkedHashMap$of(A.LinkedHashMap_LinkedHashMap$_empty(t1, t1), t1, t1);
-                t2.$indexSet(0, "src", "img/jaspr-64.png");
-                t3 = type$.JSArray_Component;
-                t2 = A._setArrayType([new A.DomComponent("img", null, "h-7 pr-3", null, t2, null, null, null, null), new A.Text("Jaspr HTML Converter", false, null)], t3);
-                t4 = type$.JSArray_String;
+                t1 = type$.JSArray_Component;
+                t2 = type$.JSArray_String;
+                t3 = A._setArrayType([A.span(A._setArrayType([A.span(A._setArrayType([], t1), B.JSArray_methods.join$1(A._setArrayType(["fa-fw", "fa-brands", "fa-github"], t2), " "))], t1), B.JSArray_methods.join$1(A._setArrayType(["w-7", "h-7", "mr-2", "rounded", "border", "opacity-75", "border-slate-200", "hover:border-slate-600", "inline-flex", "items-center", "justify-center", "text-[18px]"], t2), " "))], t1);
+                t4 = type$.String;
+                t5 = A.LinkedHashMap_LinkedHashMap$of(A.LinkedHashMap_LinkedHashMap$_empty(t4, t4), t4, t4);
+                t5.$indexSet(0, "href", "https://github.com/tazatechnology/jaspr_html_convert");
+                t6 = A.LinkedHashMap_LinkedHashMap$of(A.LinkedHashMap_LinkedHashMap$_empty(t4, t4), t4, t4);
+                t6.$indexSet(0, "src", "img/jaspr-64.png");
+                t3 = A._setArrayType([new A.DomComponent("img", null, "h-7 pr-3", null, t6, null, null, null, null), new A.DomComponent("a", null, null, null, t5, null, null, t3, null), new A.Text("Jaspr HTML Converter", false, null)], t1);
                 $async$goto = 2;
-                return $async$iterator._async$_current = A.div(A._setArrayType([A.div(A._setArrayType([new A.DomComponent("h3", null, B.JSArray_methods.join$1(A._setArrayType(["md:text-md", "sm:text-lg", "font-bold", "leading-6", "inline-flex", "items-center", "text-gray-900"], t4), " "), null, null, null, null, t2, null), A.div(A._setArrayType([new A.PrimaryButton("Convert", $async$self.get$convert(), B.ButtonSize_3, "shadow-sm text-white font-medium bg-indigo-600 hover:bg-indigo-500 w-20 md:w-24", null), A.SecondaryButton$("ml-3 ring-1 ring-inset ring-gray-100 w-20 md:w-24", "Clear", new A.AppState_build_closure($async$self, context), B.ButtonSize_3)], t3), B.JSArray_methods.join$1(A._setArrayType(["mt-3", "sm:ml-4", "sm:mt-0"], t4), " "), null)], t3), B.JSArray_methods.join$1(A._setArrayType(["border-b", "border-gray-200", "pb-5", "flex", "items-center", "justify-between"], t4), " "), null), A.div(A._setArrayType([new A.ConverterOptions(null)], t3), B.JSArray_methods.join$1(A._setArrayType(["pt-4"], t4), " "), null), A.div(A._setArrayType([new A.DartInputArea(A.ProviderContext_watch(context, $.$get$inputProvider(), t1), new A.AppState_build_closure0(context), null), new A.JasprRenderArea(A.ProviderContext_watch(context, $.$get$outputProvider(), t1), null)], t3), "grid grid-cols-2 gap-2 pt-5 h-full", null)], t3), "h-screen w-screen p-5 overflow-scroll", null), 1;
+                return $async$iterator._async$_current = A.div(A._setArrayType([A.div(A._setArrayType([new A.DomComponent("h3", null, B.JSArray_methods.join$1(A._setArrayType(["md:text-md", "sm:text-lg", "font-bold", "leading-6", "inline-flex", "items-center", "text-gray-900"], t2), " "), null, null, null, null, t3, null), A.div(A._setArrayType([new A.PrimaryButton("Convert", $async$self.get$convert(), B.ButtonSize_3, "shadow-sm text-white font-medium bg-indigo-600 hover:bg-indigo-500 w-20 md:w-24", null), A.SecondaryButton$("ml-3 ring-1 ring-inset ring-gray-100 w-20 md:w-24", "Clear", new A.AppState_build_closure($async$self, context), B.ButtonSize_3)], t1), B.JSArray_methods.join$1(A._setArrayType(["mt-3", "sm:ml-4", "sm:mt-0"], t2), " "), null)], t1), B.JSArray_methods.join$1(A._setArrayType(["border-b", "border-gray-200", "pb-5", "flex", "items-center", "justify-between"], t2), " "), null), A.div(A._setArrayType([new A.ConverterOptions(null)], t1), B.JSArray_methods.join$1(A._setArrayType(["pt-4"], t2), " "), null), A.div(A._setArrayType([new A.DartInputArea(A.ProviderContext_watch(context, $.$get$inputProvider(), t4), new A.AppState_build_closure0(context), null), new A.JasprRenderArea(A.ProviderContext_watch(context, $.$get$outputProvider(), t4), null)], t1), "grid grid-cols-2 gap-2 pt-5 h-full", null)], t1), "h-screen w-screen p-5 overflow-scroll", null), 1;
               case 2:
                 // after yield
                 // implicit return
@@ -25595,7 +25585,7 @@
       var $async$self = this;
       return function() {
         var context = $async$context;
-        var $async$goto = 0, $async$handler = 1, $async$currentError, t2, t3, copySvg, checkSvg, t4, t5, t6, t1;
+        var $async$goto = 0, $async$handler = 1, $async$currentError, t2, t3, t4, t5, t6, t1;
         return function $async$build$1($async$iterator, $async$errorCode, $async$result) {
           if ($async$errorCode === 1) {
             $async$currentError = $async$result;
@@ -25609,16 +25599,11 @@
                 t1.toString;
                 B.JSArray_methods.add$1(t1.SchedulerBinding__postFrameCallbacks, type$.void_Function._as(new A.JasprRenderAreaState_build_closure($async$self)));
                 t1 = type$.JSArray_Component;
-                t2 = A._setArrayType([A.path(A._setArrayType([], t1), "M12.9975 10.7499L11.7475 10.7499C10.6429 10.7499 9.74747 11.6453 9.74747 12.7499L9.74747 21.2499C9.74747 22.3544 10.6429 23.2499 11.7475 23.2499L20.2475 23.2499C21.352 23.2499 22.2475 22.3544 22.2475 21.2499L22.2475 12.7499C22.2475 11.6453 21.352 10.7499 20.2475 10.7499L18.9975 10.7499", B.C__NamedColor, "1.5"), A.path(A._setArrayType([], t1), "M17.9975 12.2499L13.9975 12.2499C13.4452 12.2499 12.9975 11.8022 12.9975 11.2499L12.9975 9.74988C12.9975 9.19759 13.4452 8.74988 13.9975 8.74988L17.9975 8.74988C18.5498 8.74988 18.9975 9.19759 18.9975 9.74988L18.9975 11.2499C18.9975 11.8022 18.5498 12.2499 17.9975 12.2499Z", B.C__NamedColor, "1.5"), A.path(A._setArrayType([], t1), "M13.7475 16.2499L18.2475 16.2499", null, "1.5"), A.path(A._setArrayType([], t1), "M13.7475 19.2499L18.2475 19.2499", null, "1.5")], t1);
-                t3 = type$.String;
-                t3 = A.LinkedHashMap_LinkedHashMap$of(A.LinkedHashMap_LinkedHashMap$_empty(t3, t3), t3, t3);
-                t3.$indexSet(0, "viewBox", "0 0 32 32");
-                copySvg = new A.DomComponent("svg", null, "h-6 w-6 stroke-slate-100 transition group-hover:rotate-[-4deg] group-hover:stroke-slate-600", null, t3, null, null, t2, null);
-                checkSvg = A.span(A._setArrayType([new A.Text("\u2713", false, null)], t1), "px-1.5 py-0.5");
                 t2 = type$.JSArray_String;
                 t3 = A.label(A._setArrayType([new A.Text("Jaspr Component Code:", false, null)], t1), B.JSArray_methods.join$1(A._setArrayType(["block", "text-md", "font-bold", "leading-6", "text-gray-900"], t2), " "), "render-area");
-                t4 = $async$self.copyInProgress ? checkSvg : copySvg;
-                t4 = A._setArrayType([new A.Text("Copy Code", false, null), t4], t1);
+                t4 = A._setArrayType([], t1);
+                t5 = $async$self.copyInProgress ? "fa-solid fa-check-circle w-4" : "fa-regular fa-clipboard w-4";
+                t4 = A._setArrayType([new A.Text("Copy Code", false, null), new A.DomComponent("i", null, t5, null, null, null, null, t4, null)], t1);
                 t5 = A._setArrayType(["inline-flex", "items-center", "gap-x-1.5", "rounded-md"], t2);
                 if ($async$self._component.output.length === 0)
                   B.JSArray_methods.addAll$1(t5, A._setArrayType(["cursor-not-allowed", "bg-gray-300"], t2));
@@ -29664,7 +29649,7 @@
       _inherit = hunkHelpers.inherit,
       _inheritMany = hunkHelpers.inheritMany;
     _inherit(A.Object, null);
-    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, J.ArrayIterator, A.Converter, A.Iterable, A.CastIterator, A.Closure, A.MapBase, A.Error, A.ListBase, A.SentinelValue, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.SkipWhileIterator, A.EmptyIterator, A.WhereTypeIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A._Record, A.ConstantMap, A._KeysOrValuesOrElementsIterator, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A._Cell, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A._SyncStarIterator, A.AsyncError, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.Stream, A._StreamIterator, A._Zone, A._HashMapKeyIterator, A.SetBase, A._HashSetIterator, A._LinkedHashSetCell, A._LinkedHashSetIterator, A._LinkedListIterator, A.LinkedListEntry, A._DoubleLinkedQueueEntry, A._DoubleLinkedQueueIterator, A._ListQueueIterator, A.Codec, A._Base64Decoder, A._Utf8Encoder, A._Utf8Decoder, A.DateTime, A.Duration, A._Enum, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.MapEntry, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Events, A._EventStreamSubscription, A.ImmutableListMixin, A.FixedSizeListIterator, A._DOMWindowCrossFrame, A.NullRejectionException, A.ByteReader, A.AttributeName, A._ParentNode, A._NonElementParentNode, A._ElementAndDocument, A.Node, A.TreeVisitor, A.HtmlParser, A.Phase, A.ParseError, A.ReparseException, A.EncodingBytes, A.ContentAttrParser, A._EncodingRangeException, A.HtmlInputStream, A.Token, A.TagAttribute, A.HtmlTokenizer, A.TreeBuilder, A.Pair, A._AppBinding_Object_SchedulerBinding, A.RenderObject, A.EventBinding, A.SchedulerBinding, A._NamedColor, A.SyncBinding, A.SyncStateMixin, A.BuildOwner, A.ComponentsBinding, A.Component, A.Element, A._InactiveElements, A.Key, A.RenderObjectElement, A.State, A.JasprConverter, A.ProviderDependencies, A.SyncScopeMixin, A.ButtonStyle, A.TailwindThemeData, A.Context, A.Style, A.ParsedPath, A.PathException, A.ReCase, A.AlwaysAliveProviderListenable, A.AlwaysAliveProviderBase, A._StateReader, A.ProviderContainer, A.ProviderOverride, A.ProviderElementBase, A.ProviderOrFamily, A.ProviderListenable, A.ProviderSubscription, A.OverrideWithValueMixin, A._ProviderElementProxy_Object_ProviderListenable, A.ProviderScheduler, A._ValueListenable, A.ResultData, A.ResultError, A.StateNotifier, A.SourceFile, A.SourceLocationMixin, A.SourceSpanMixin, A.Highlighter, A._Highlight, A._Line, A.SourceLocation, A.Chain, A.Frame, A.LazyChain, A.LazyTrace, A.Trace, A.UnparsedFrame, A.VMTrace]);
+    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, J.ArrayIterator, A.Converter, A.Iterable, A.CastIterator, A.Closure, A.MapBase, A.Error, A.ListBase, A.SentinelValue, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.SkipWhileIterator, A.EmptyIterator, A.WhereTypeIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A._Record, A.ConstantMap, A._KeysOrValuesOrElementsIterator, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A._Cell, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A._SyncStarIterator, A.AsyncError, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.Stream, A._StreamIterator, A._Zone, A._HashMapKeyIterator, A.SetBase, A._HashSetIterator, A._LinkedHashSetCell, A._LinkedHashSetIterator, A._LinkedListIterator, A.LinkedListEntry, A._DoubleLinkedQueueEntry, A._DoubleLinkedQueueIterator, A._ListQueueIterator, A.Codec, A._Base64Decoder, A._Utf8Encoder, A._Utf8Decoder, A.DateTime, A.Duration, A._Enum, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.MapEntry, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Events, A._EventStreamSubscription, A.ImmutableListMixin, A.FixedSizeListIterator, A._DOMWindowCrossFrame, A.NullRejectionException, A.ByteReader, A.AttributeName, A._ParentNode, A._NonElementParentNode, A._ElementAndDocument, A.Node, A.TreeVisitor, A.HtmlParser, A.Phase, A.ParseError, A.ReparseException, A.EncodingBytes, A.ContentAttrParser, A._EncodingRangeException, A.HtmlInputStream, A.Token, A.TagAttribute, A.HtmlTokenizer, A.TreeBuilder, A.Pair, A._AppBinding_Object_SchedulerBinding, A.RenderObject, A.EventBinding, A.SchedulerBinding, A.SyncBinding, A.SyncStateMixin, A.BuildOwner, A.ComponentsBinding, A.Component, A.Element, A._InactiveElements, A.Key, A.RenderObjectElement, A.State, A.JasprConverter, A.ProviderDependencies, A.SyncScopeMixin, A.ButtonStyle, A.TailwindThemeData, A.Context, A.Style, A.ParsedPath, A.PathException, A.ReCase, A.AlwaysAliveProviderListenable, A.AlwaysAliveProviderBase, A._StateReader, A.ProviderContainer, A.ProviderOverride, A.ProviderElementBase, A.ProviderOrFamily, A.ProviderListenable, A.ProviderSubscription, A.OverrideWithValueMixin, A._ProviderElementProxy_Object_ProviderListenable, A.ProviderScheduler, A._ValueListenable, A.ResultData, A.ResultError, A.StateNotifier, A.SourceFile, A.SourceLocationMixin, A.SourceSpanMixin, A.Highlighter, A._Highlight, A._Line, A.SourceLocation, A.Chain, A.Frame, A.LazyChain, A.LazyTrace, A.Trace, A.UnparsedFrame, A.VMTrace]);
     _inheritMany(J.Interceptor, [J.JSBool, J.JSNull, J.JavaScriptObject, J.JavaScriptBigInt, J.JavaScriptSymbol, J.JSNumber, J.JSString]);
     _inheritMany(J.JavaScriptObject, [J.LegacyJavaScriptObject, J.JSArray, A.NativeByteBuffer, A.NativeTypedData, A.EventTarget, A.Blob, A.DomException, A.Event, A._FileList_JavaScriptObject_ListMixin, A._HtmlCollection_JavaScriptObject_ListMixin, A.Location, A._NodeList_JavaScriptObject_ListMixin, A.__NamedNodeMap_JavaScriptObject_ListMixin]);
     _inheritMany(J.LegacyJavaScriptObject, [J.PlainJavaScriptObject, J.UnknownJavaScriptObject, J.JavaScriptFunction, A._JasprConfig, A._ComponentConfig]);
@@ -30293,7 +30278,6 @@
     B.C_StateEncoder = new A.StateEncoder();
     B.C_Utf8Codec = new A.Utf8Codec();
     B.C_Utf8Encoder = new A.Utf8Encoder();
-    B.C__NamedColor = new A._NamedColor();
     B.C__RootZone = new A._RootZone();
     B.Duration_0 = new A.Duration(0);
     B.Duration_1000000 = new A.Duration(1000000);
