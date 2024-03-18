@@ -25101,7 +25101,7 @@
         t2 = t3.__interceptors$_current;
         output += this._convertElement$2(t2 == null ? t1._as(t2) : t2, source);
       }
-      return B.JSString_methods.trim$0(output);
+      return "[" + B.JSString_methods.trim$0(output) + "]";
     },
     _convertElement$2(e, source) {
       var t4, out, t5, t6, rawStyles, _i, style, unsupportedAttrMap, specialAttrMap, t7, t8, attrKey, t9,
@@ -30518,7 +30518,7 @@
     $.Uri__cachedBaseString = "";
     $.Uri__cachedBaseUri = null;
     $.Element__nextHashCode = 1;
-    $._unsupportedAttributes = A._setArrayType(["autocomplete", "required", "fill", "fill-rule", "clip-rule", "version", "xmlns"], type$.JSArray_String);
+    $._unsupportedAttributes = A._setArrayType(["autocomplete", "required", "fill", "fill-rule", "clip-rule", "version", "xmlns", "placeholder"], type$.JSArray_String);
     $._components = A._setArrayType(["a", "b", "br", "code", "em", "i", "s", "small", "span", "strong", "u", "audio", "img", "video", "embed", "iframe", "object", "source", "svg", "rect", "circle", "ellipse", "line", "path", "polygon", "polyline", "button", "form", "input", "label", "datalist", "legend", "meter", "progress", "optgroup", "option", "select", "fieldset", "textarea", "details", "dialog", "summary", "link", "script", "article", "aside", "body", "footer", "head", "header", "html", "h1", "h2", "h3", "h4", "h5", "h6", "nav", "section", "blockquote", "div", "ul", "ol", "li", "hr", "p", "pre"], type$.JSArray_String);
     $._currentUriBase = null;
     $._current = null;
