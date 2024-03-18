@@ -1,7 +1,7 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:test/test.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:test/test.dart';
 
 import 'package:jaspr_html_convert/jaspr_html_convert.dart';
 

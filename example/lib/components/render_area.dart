@@ -1,6 +1,9 @@
-import 'package:jaspr/jaspr.dart';
-import 'package:jaspr_html_convert_app/adapters/hljs.dart' as hljs;
 import 'dart:html' show window;
+
+import 'package:jaspr/jaspr.dart';
+
+import 'package:jaspr_html_convert_app/adapters/hljs.dart' as hljs;
+
 // ==========================================
 // CLASS: JasprRenderArea
 // ==========================================

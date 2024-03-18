@@ -4,7 +4,6 @@
 init:
 # Install the required dependencies
 	@dart pub get
-	@cd example && make init
 
 format:
 # Execute the code formatters

@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr_html_convert_app/providers.dart';
 import 'package:jaspr_riverpod/jaspr_riverpod.dart';
+
+import 'package:jaspr_html_convert_app/providers.dart';
 
 // ==========================================
 // CLASS: ConverterOptions
