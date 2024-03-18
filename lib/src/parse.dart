@@ -31,8 +31,8 @@ class JasprConverter {
       output += _convertElement(element, source);
     }
 
-    output = output.trim();
-    // return DartFormatter().format('final components = [$output];');
+    output = '[${output.trim()}]';
+    // return DartFormatter().format('final x = $output;');
     return output;
   }
 
