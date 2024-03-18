@@ -213,6 +213,7 @@ final _unsupportedAttributes = [
   'clip-rule',
   'version',
   'xmlns',
+  'placeholder',
 ];
 
 /// Refer to Jaspr package for list of supported components
