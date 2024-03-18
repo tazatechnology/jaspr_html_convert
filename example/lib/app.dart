@@ -48,6 +48,38 @@ class AppState extends State<App> {
 
   @override
   Iterable<Component> build(BuildContext context) sync* {
+    final githubLink = a(
+      [
+        span(
+          [
+            span(
+              [],
+              classes: [
+                'fa-fw',
+                'fa-brands',
+                'fa-github',
+              ].join(' '),
+            ),
+          ],
+          classes: [
+            'w-7',
+            'h-7',
+            'mr-2',
+            'rounded',
+            'border',
+            'opacity-75',
+            'border-slate-200',
+            'hover:border-slate-600',
+            'inline-flex',
+            'items-center',
+            'justify-center',
+            'text-[18px]',
+          ].join(' '),
+        ),
+      ],
+      href: 'https://github.com/tazatechnology/jaspr_html_convert',
+    );
+
     yield div(
       [
         div(
@@ -58,6 +90,7 @@ class AppState extends State<App> {
                   src: 'img/jaspr-64.png',
                   classes: 'h-7 pr-3',
                 ),
+                githubLink,
                 text('Jaspr HTML Converter'),
               ],
               classes: [

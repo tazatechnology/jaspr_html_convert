@@ -51,38 +51,6 @@ class JasprRenderAreaState extends State<JasprRenderArea> {
       }
     });
 
-    final copySvg = svg(
-      [
-        path(
-          [],
-          d: 'M12.9975 10.7499L11.7475 10.7499C10.6429 10.7499 9.74747 11.6453 9.74747 12.7499L9.74747 21.2499C9.74747 22.3544 10.6429 23.2499 11.7475 23.2499L20.2475 23.2499C21.352 23.2499 22.2475 22.3544 22.2475 21.2499L22.2475 12.7499C22.2475 11.6453 21.352 10.7499 20.2475 10.7499L18.9975 10.7499',
-          strokeWidth: '1.5',
-          fill: Colors.transparent,
-        ),
-        path(
-          [],
-          d: 'M17.9975 12.2499L13.9975 12.2499C13.4452 12.2499 12.9975 11.8022 12.9975 11.2499L12.9975 9.74988C12.9975 9.19759 13.4452 8.74988 13.9975 8.74988L17.9975 8.74988C18.5498 8.74988 18.9975 9.19759 18.9975 9.74988L18.9975 11.2499C18.9975 11.8022 18.5498 12.2499 17.9975 12.2499Z',
-          strokeWidth: '1.5',
-          fill: Colors.transparent,
-        ),
-        path(
-          [],
-          d: 'M13.7475 16.2499L18.2475 16.2499',
-          strokeWidth: '1.5',
-        ),
-        path(
-          [],
-          d: 'M13.7475 19.2499L18.2475 19.2499',
-          strokeWidth: '1.5',
-        ),
-      ],
-      classes:
-          'h-6 w-6 stroke-slate-100 transition group-hover:rotate-[-4deg] group-hover:stroke-slate-600',
-      viewBox: '0 0 32 32',
-    );
-
-    final checkSvg = span([text('✓')], classes: 'px-1.5 py-0.5');
-
     yield div(
       [
         label(
@@ -103,7 +71,12 @@ class JasprRenderAreaState extends State<JasprRenderArea> {
             button(
               [
                 text('Copy Code'),
-                copyInProgress ? checkSvg : copySvg,
+                i(
+                  [],
+                  classes: copyInProgress
+                      ? 'fa-solid fa-check-circle w-4'
+                      : 'fa-regular fa-clipboard w-4',
+                ),
               ],
               classes: [
                 'inline-flex',
