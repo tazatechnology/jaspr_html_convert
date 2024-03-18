@@ -9,12 +9,18 @@ The purpose of this package is to facilitate the conversion of raw HTML code int
 
 ## Live Application
 
-Source code for application (written using `jaspr`) that demonstrates the use of this package can be found in the `example/` directory. To see the application in action and use it for your conversion needs, visit the following link:
+To see the package in action and use it for your conversion needs, visit the following link:
 
 https://tazatechnology.github.io/jaspr_html_convert/
+
+Source code for the application (written using `jaspr`) that demonstrates the use of this package can be found in the `example/` directory. 
+
+----------------
+
+### Screenshot
 
 ![Screenshot](/assets/app_screenshot.png)
 
 ## Contributing
 
-If you would like to contribute to this project, please feel free to report any issues or submit pull requests. We are always looking for ways to improve the package and make it more useful for the community.
+If you would like to contribute to this project, please feel free to report any issues or submit pull requests.
