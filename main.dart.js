@@ -25088,7 +25088,7 @@
         t2 = t3.__interceptors$_current;
         output += this._convertElement$2(t2 == null ? t1._as(t2) : t2, source);
       }
-      return "[" + B.JSString_methods.trim$0(output) + "]";
+      return "[" + B.JSString_methods.trim$0(A.stringReplaceAllUnchecked(output, "\n\n", "\n")) + "]";
     },
     _convertElement$2(e, source) {
       var t4, out, t5, t6, rawStyles, _i, style, unsupportedAttrMap, specialAttrMap, t7, t8, attrKey, t9,
@@ -25290,7 +25290,7 @@
                 t6.$indexSet(0, "src", "img/jaspr-64.png");
                 t3 = A._setArrayType([new A.DomComponent("img", null, "h-7 pr-3", null, t6, null, null, null, null), new A.DomComponent("a", null, null, null, t5, null, null, t3, null), new A.Text("Jaspr HTML Converter", false, null)], t1);
                 $async$goto = 2;
-                return $async$iterator._async$_current = A.div(A._setArrayType([A.div(A._setArrayType([new A.DomComponent("h3", null, B.JSArray_methods.join$1(A._setArrayType(["md:text-md", "sm:text-lg", "font-bold", "leading-6", "inline-flex", "items-center", "text-gray-900"], t2), " "), null, null, null, null, t3, null), A.div(A._setArrayType([new A.PrimaryButton("Convert", $async$self.get$convert(), B.ButtonSize_3, "shadow-sm text-white font-medium bg-indigo-600 hover:bg-indigo-500 w-20 md:w-24", null), A.SecondaryButton$("ml-3 ring-1 ring-inset ring-gray-100 w-20 md:w-24", "Clear", new A.AppState_build_closure($async$self, context), B.ButtonSize_3)], t1), B.JSArray_methods.join$1(A._setArrayType(["mt-3", "sm:ml-4", "sm:mt-0"], t2), " "), null)], t1), B.JSArray_methods.join$1(A._setArrayType(["border-b", "border-gray-200", "pb-5", "flex", "items-center", "justify-between"], t2), " "), null), A.div(A._setArrayType([new A.ConverterOptions(null)], t1), B.JSArray_methods.join$1(A._setArrayType(["pt-4"], t2), " "), null), A.div(A._setArrayType([new A.DartInputArea(A.ProviderContext_watch(context, $.$get$inputProvider(), t4), new A.AppState_build_closure0(context), null), new A.JasprRenderArea(A.ProviderContext_watch(context, $.$get$outputProvider(), t4), null)], t1), "grid grid-cols-2 gap-2 pt-5 h-full", null)], t1), "h-screen w-screen p-5 overflow-scroll", null), 1;
+                return $async$iterator._async$_current = A.div(A._setArrayType([A.div(A._setArrayType([new A.DomComponent("h3", null, B.JSArray_methods.join$1(A._setArrayType(["md:text-md", "sm:text-lg", "font-bold", "leading-6", "inline-flex", "items-center", "text-gray-900"], t2), " "), null, null, null, null, t3, null), A.div(A._setArrayType([new A.PrimaryButton("Convert", $async$self.get$convert(), B.ButtonSize_3, "shadow-sm text-white bg-indigo-600 hover:bg-indigo-500 text-xs md:text-sm w-18 md:w-24", null), A.SecondaryButton$("ml-3 ring-1 ring-inset ring-gray-100 text-xs md:text-sm w-18 md:w-24", "Clear", new A.AppState_build_closure($async$self, context), B.ButtonSize_3)], t1), B.JSArray_methods.join$1(A._setArrayType(["mt-3", "sm:ml-4", "sm:mt-0"], t2), " "), null)], t1), B.JSArray_methods.join$1(A._setArrayType(["border-b", "border-gray-200", "pb-5", "flex", "items-center", "justify-between"], t2), " "), null), A.div(A._setArrayType([new A.ConverterOptions(null)], t1), B.JSArray_methods.join$1(A._setArrayType(["pt-4"], t2), " "), null), A.div(A._setArrayType([new A.DartInputArea(A.ProviderContext_watch(context, $.$get$inputProvider(), t4), new A.AppState_build_closure0(context), null), new A.JasprRenderArea(A.ProviderContext_watch(context, $.$get$outputProvider(), t4), null)], t1), "grid grid-cols-0 md:grid-cols-2 gap-2 pt-5 h-full", null)], t1), "h-screen w-screen p-5 overflow-scroll", null), 1;
               case 2:
                 // after yield
                 // implicit return
@@ -25389,7 +25389,7 @@
                 t3 = A.label(A._setArrayType([new A.Text("Raw HTML:", false, null)], t1), B.JSArray_methods.join$1(A._setArrayType(["block", "text-md", "font-bold", "leading-6", "text-gray-900"], t2), " "), "input-area");
                 t4 = A.div(A._setArrayType([A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Hello World", new A.DartInputAreaState_build_closure($async$self, context), B.ButtonSize_1), A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Example 1", new A.DartInputAreaState_build_closure0($async$self, context), B.ButtonSize_1), A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Example 2", new A.DartInputAreaState_build_closure1($async$self, context), B.ButtonSize_1), A.SecondaryButton$("ring-1 ring-inset ring-gray-200 w-22", "Example 3", new A.DartInputAreaState_build_closure2($async$self, context), B.ButtonSize_1)], t1), B.JSArray_methods.join$1(A._setArrayType(["py-2", "space-x-3"], t2), " "), null);
                 t5 = A._setArrayType([new A.Text($async$self._component.input, false, null)], t1);
-                t6 = B.JSArray_methods.join$1(A._setArrayType(["resize-none", "block", "w-full", "h-full", "rounded-md", "border-0", "p-3", "text-gray-900", "shadow-sm", "ring-1", "ring-inset", "ring-gray-300", "placeholder:text-gray-400", "focus:ring-2", "focus:ring-inset", "focus:ring-indigo-600", "font-mono", "text-sm"], t2), " ");
+                t6 = B.JSArray_methods.join$1(A._setArrayType(["resize-none", "block", "w-full", "h-96", "md:h-full", "rounded-md", "border-0", "p-3", "text-gray-900", "shadow-sm", "ring-1", "ring-inset", "ring-gray-300", "placeholder:text-gray-400", "focus:ring-2", "focus:ring-inset", "focus:ring-indigo-600", "font-mono", "text-sm"], t2), " ");
                 t7 = $async$self._component.onInput;
                 t8 = type$.String;
                 t9 = A.LinkedHashMap_LinkedHashMap$of(A.LinkedHashMap_LinkedHashMap$_empty(t8, t8), t8, t8);
@@ -25538,7 +25538,7 @@
                 t4 = type$.dynamic;
                 t3.addAll$1(0, A.events__events$closure().call$2$2$onChange$onInput(new A.BoolConvertorOptionState_build_closure(context), null, t4, t4));
                 $async$goto = 2;
-                return $async$iterator._async$_current = A.span(A._setArrayType([A.span(A._setArrayType([new A.DomComponent("input", "select-all", "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600", null, t5, t3, null, t2, null)], t1), "inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2"), new A.DomComponent("p", null, "-ml-px block w-full rounded-l-none rounded-r-md border-0 bg-white py-1.5 pl-3 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", null, null, null, null, A._setArrayType([new A.Text("Classes as List", false, null)], t1), null)], t1), "inline-flex rounded-md shadow-sm"), 1;
+                return $async$iterator._async$_current = A.span(A._setArrayType([A.span(A._setArrayType([new A.DomComponent("input", "select-all", "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600", null, t5, t3, null, t2, null)], t1), "inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2"), new A.DomComponent("p", null, "-ml-px block w-full rounded-l-none rounded-r-md border-0 bg-white py-1.5 pl-3 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 text-sm sm:leading-6", null, null, null, null, A._setArrayType([new A.Text("Classes as List", false, null)], t1), null)], t1), "inline-flex rounded-md shadow-sm"), 1;
               case 2:
                 // after yield
                 // implicit return
@@ -25618,13 +25618,13 @@
                 t5.push("text-white");
                 t5.push("text-sm");
                 t5.push("px-2");
-                t5.push("py-0.5");
+                t5.push("py-1");
                 t5.push("pl-4");
                 t5.push("rounded");
                 t4 = A.div(A._setArrayType([A.button(t4, null, B.JSArray_methods.join$1(t5, " "), null, null, $async$self.get$copyToClipboard(), B.ButtonType_button)], t1), B.JSArray_methods.join$1(A._setArrayType(["py-2", "space-x-3"], t2), " "), null);
                 t5 = A._setArrayType([new A.DomComponent("code", null, "language-dart rounded-md", null, null, null, null, A._setArrayType([new A.Text($async$self._component.output, false, null)], t1), null)], t1);
                 $async$goto = 2;
-                return $async$iterator._async$_current = A.div(A._setArrayType([t3, t4, A.div(A._setArrayType([new A.DomComponent("pre", "render-area", B.JSArray_methods.join$1(A._setArrayType(["block", "w-full", "h-full", "rounded-md", "border-0", "p-3", "text-gray-900", "shadow-sm", "ring-1", "ring-inset", "ring-gray-300", "placeholder:text-gray-400", "focus:ring-2", "focus:ring-inset", "focus:ring-indigo-600", "font-mono", "text-sm"], t2), " "), null, null, null, null, t5, null)], t1), B.JSArray_methods.join$1(A._setArrayType(["mt-2", "h-full"], t2), " "), null)], t1), "h-full", new A.UniqueKey()), 1;
+                return $async$iterator._async$_current = A.div(A._setArrayType([t3, t4, A.div(A._setArrayType([new A.DomComponent("pre", "render-area", B.JSArray_methods.join$1(A._setArrayType(["block", "w-full", "h-96", "md:h-full", "rounded-md", "border-0", "p-3", "text-gray-900", "shadow-sm", "ring-1", "ring-inset", "ring-gray-300", "placeholder:text-gray-400", "focus:ring-2", "focus:ring-inset", "focus:ring-indigo-600", "font-mono", "text-sm"], t2), " "), null, null, null, null, t5, null)], t1), B.JSArray_methods.join$1(A._setArrayType(["mt-2", "h-full"], t2), " "), null)], t1), "h-full", new A.UniqueKey()), 1;
               case 2:
                 // after yield
                 // implicit return
