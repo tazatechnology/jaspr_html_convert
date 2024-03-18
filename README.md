@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/tazatechnology/jaspr_html_convert/actions/workflows/tests.yaml"><img src="https://img.shields.io/github/actions/workflow/status/tazatechnology/jaspr_html_convert/tests.yaml?branch=main&label=tests&labelColor=333940&logo=github" alt="tests"></a>
-  <a href="https://github.com/tazatechnology/jaspr_html_convert/actions/workflows/deploy.yaml"><img src="https://img.shields.io/github/actions/workflow/status/tazatechnology/jaspr_html_convert/deploy.yaml?branch=main&label=deploy&labelColor=333940&logo=github" alt="tests"></a>
+  <a href="https://github.com/tazatechnology/jaspr_html_convert/actions/workflows/deploy.yaml"><img src="https://img.shields.io/github/actions/workflow/status/tazatechnology/jaspr_html_convert/deploy.yaml?branch=main&label=deploy&labelColor=333940&logo=github" alt="deploy"></a>
 </p>
 
 The purpose of this package is to facilitate the conversion of raw HTML code into `jaspr` components.
