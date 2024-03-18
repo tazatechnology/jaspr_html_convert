@@ -1,27 +1,25 @@
-name: Deploy
+name: CI
 on:
+  workflow_dispatch: {}
+  pull_request: {}
   push:
     branches:
       - main
-  workflow_dispatch: {}
 
 jobs:
-  deploy:
-    name: Deploy
+  test:
+    name: Test and Build
     runs-on: ubuntu-22.04
     
     steps:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
 
+      - name: Test Package
+        run: dart pub get && make test
+
       - name: Build Application
         working-directory: ./example
         run: |
           dart pub global activate jaspr_cli
           jaspr build
-
-      - name: Deploy Docs
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: example/build/jaspr

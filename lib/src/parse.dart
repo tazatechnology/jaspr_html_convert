@@ -32,7 +32,7 @@ class JasprConverter {
       output += _convertElement(element, source);
     }
 
-    output = '[${output.trim()}]';
+    output = '[${output.replaceAll('\n\n', '\n').trim()}]';
     // return DartFormatter().format('final x = $output;');
     return output;
   }

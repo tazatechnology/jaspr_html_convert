@@ -94,7 +94,7 @@ class JasprRenderAreaState extends State<JasprRenderArea> {
                 'text-white',
                 'text-sm',
                 'px-2',
-                'py-0.5',
+                'py-1',
                 'pl-4',
                 'rounded',
               ].join(' '),
