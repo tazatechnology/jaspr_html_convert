@@ -1,8 +1,8 @@
-// import 'package:dart_style/dart_style.dart';
-
+import 'package:collection/collection.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
-import 'package:recase/recase.dart';
+
+import 'components.dart';
 
 // ==========================================
 // CLASS: JasprConverter
@@ -33,7 +33,6 @@ class JasprConverter {
     }
 
     output = '[${output.replaceAll('\n\n', '\n').trim()}]';
-    // return DartFormatter().format('final x = $output;');
     return output;
   }
 
@@ -43,9 +42,14 @@ class JasprConverter {
 
   String _convertElement(Element e, String source) {
     final eName = e.localName;
-    final unSupportedComponent = !_components.contains(eName);
 
-    final noChildren = ['br', 'img'].contains(eName);
+    final c = components.firstWhereOrNull(
+      (c) => c.name == eName,
+    );
+
+    final unSupportedComponent = c == null;
+
+    final selfClosing = c?.selfClosing ?? false;
 
     final sourceContainsParent = source.contains('<$eName');
 
@@ -58,7 +62,7 @@ class JasprConverter {
 
     // Handle elements that do not expect to have children
     if (sourceContainsParent) {
-      if (noChildren) {
+      if (selfClosing) {
         out = '\n$eName(\n';
       } else {
         if (unSupportedComponent) {
@@ -74,7 +78,12 @@ class JasprConverter {
       for (final node in e.nodes) {
         if (node.nodeType == Node.TEXT_NODE &&
             (node.text?.trim().isNotEmpty ?? false)) {
-          out += "text('${node.text!.replaceAll('\n', '')}'),";
+          String value = node.text!.replaceAll('\n', '');
+          // Escape any any invalid characters to avoid breaking the string
+          value = value.replaceAll(r'\', r'\\');
+          value = value.replaceAll(r"$", r"\$");
+          value = value.replaceAll(r"'", r"\'");
+          out += "text('$value'),";
         }
       }
     }
@@ -89,7 +98,7 @@ class JasprConverter {
       return out;
     }
 
-    if (!noChildren) {
+    if (!selfClosing) {
       out += '],';
     }
 
@@ -122,80 +131,91 @@ class JasprConverter {
       }
     }
 
-    final Map<String, String> unsupportedAttrMap = {};
-    final Map<String, String> specialAttrMap = {};
+    if (c != null) {
+      final Map<String, String> unsupportedAttrMap = {};
 
-    // Add Jaspr supported attributes
-    for (final attr in e.attributes.entries) {
-      String attrKey = attr.key.toString();
+      // Add attributes
+      for (final attr in e.attributes.entries) {
+        String attrKey = attr.key.toString();
 
-      if (attrKey == 'class' || attrKey == 'style') {
-        continue;
-      }
+        if (attrKey == 'class' || attrKey == 'style') {
+          continue;
+        }
 
-      if (unSupportedComponent && attrKey != 'id') {
-        unsupportedAttrMap[attrKey] = attr.value;
-        continue;
-      }
+        // Check if attribute is supported by component
+        final attrSchema =
+            c.attributes.firstWhereOrNull((a) => a.raw == attrKey);
 
-      // Add protections for specific attribute names
-      if (attrKey == 'for') {
-        attrKey = 'htmlFor';
-      }
+        // Special case for id attribute
+        if (attrKey == 'id') {
+          out += "id: '${attr.value}',";
+          continue;
+        }
 
-      // Handle unsupported attributes separately
-      if (_unsupportedAttributes.contains(attrKey) ||
-          attrKey.startsWith('aria') ||
-          attrKey.startsWith('stroke')) {
-        if (eName == 'path' && attrKey == 'stroke-width') {
-          attrKey = 'strokeWidth';
-        } else {
+        // Not supported, add to unsupported map
+        if (attrSchema == null) {
           unsupportedAttrMap[attrKey] = attr.value;
           continue;
         }
+
+        if (attrSchema.type == 'Unit') {
+          // Unit
+          final px = attr.value.toString().replaceAll('px', '');
+          out += "${attrSchema.name}: Unit.pixels($px),";
+        } else if (attrSchema.type == 'Color') {
+          if (attr.value.startsWith('#')) {
+            // Color.hex
+            out += "${attrSchema.name}: Color.hex('${attr.value}'),";
+          } else {
+            // Color.named
+            out += "${attrSchema.name}: Color.named('${attr.value}'),";
+          }
+        } else if (attrSchema.type == 'ButtonType') {
+          // ButtonType
+          out += "${attrSchema.name}: ButtonType.${attr.value},";
+        } else if (attrSchema.type == 'InputType') {
+          if (attr.value == 'datetime') {
+            // InputType.date
+            out += "${attrSchema.name}: InputType.date,";
+          } else if (attr.value == 'datetime-local') {
+            // InputType.dateTimeLocal
+            out += "${attrSchema.name}: InputType.dateTimeLocal,";
+          } else {
+            // InputType.*
+            out += "${attrSchema.name}: InputType.${attr.value},";
+          }
+        } else if (attrSchema.type == 'NumberingType') {
+          // NumberingType
+          final typeMap = {
+            'a': 'lowercaseLetters',
+            'A': 'uppercaseLetters',
+            'i': 'lowercaseRomanNumerals',
+            'I': 'uppercaseRomanNumerals',
+            '1': 'numbers',
+          };
+          if (typeMap.containsKey(attr.value)) {
+            out += "${attrSchema.name}: NumberingType.${typeMap[attr.value]},";
+          }
+        } else if (attrSchema.type == 'boolean') {
+          // boolean
+          out += "${attrSchema.name}: true,";
+        } else if (attrSchema.type == 'int' || attrSchema.type == 'double') {
+          // int/double
+          out += "${attrSchema.name}: ${attr.value},";
+        } else {
+          // String
+          out += "${attrSchema.name}: '${attr.value}',";
+        }
       }
 
-      // Handle special attributes separately
-      if (eName == 'input' && attrKey == 'type') {
-        specialAttrMap[attrKey] = 'InputType.${attr.value.snakeCase}';
-        continue;
+      // Add unsupported attributes to attributes map
+      if (unsupportedAttrMap.isNotEmpty) {
+        out += 'attributes: {';
+        for (final attr in unsupportedAttrMap.entries) {
+          out += "'${attr.key}': '${attr.value}',";
+        }
+        out += '},';
       }
-      if (eName == 'button' && attrKey == 'type') {
-        specialAttrMap[attrKey] = 'ButtonType.${attr.value.snakeCase}';
-        continue;
-      }
-      if (eName == 'form' && attrKey == 'method') {
-        specialAttrMap[attrKey] = 'FormMethod.${attr.value.snakeCase}';
-        continue;
-      }
-      if (eName == 'svg' && (attrKey == 'width' || attrKey == 'height')) {
-        specialAttrMap[attrKey] = 'Unit.pixels(${attr.value})';
-        continue;
-      }
-      if (eName == 'img' && (attrKey == 'width' || attrKey == 'height')) {
-        specialAttrMap[attrKey] = attr.value;
-        continue;
-      }
-      if (eName == 'svg' && (attrKey == 'x' || attrKey == 'y')) {
-        unsupportedAttrMap[attrKey] = attr.value;
-        continue;
-      }
-      out += "$attrKey: '${attr.value}',";
-    }
-
-    if (specialAttrMap.isNotEmpty) {
-      for (final attr in specialAttrMap.entries) {
-        out += "${attr.key}: ${attr.value},";
-      }
-    }
-
-    // Add unsupported attributes
-    if (unsupportedAttrMap.isNotEmpty) {
-      out += 'attributes: {';
-      for (final attr in unsupportedAttrMap.entries) {
-        out += "'${attr.key}': '${attr.value}',";
-      }
-      out += '},';
     }
 
     out += '),\n';
@@ -203,88 +223,3 @@ class JasprConverter {
     return out;
   }
 }
-
-/// List of unsupported attributes
-/// These attributes are not directly supported by Jaspr and need to be passed in via an attribute map
-final _unsupportedAttributes = [
-  'autocomplete',
-  'required',
-  'fill',
-  'fill-rule',
-  'clip-rule',
-  'version',
-  'xmlns',
-  'placeholder',
-];
-
-/// Refer to Jaspr package for list of supported components
-/// https://github.com/schultek/jaspr/tree/main/packages/jaspr/lib/src/components/html
-final _components = [
-  'a',
-  'b',
-  'br',
-  'code',
-  'em',
-  'i',
-  's',
-  'small',
-  'span',
-  'strong',
-  'u',
-  'audio',
-  'img',
-  'video',
-  'embed',
-  'iframe',
-  'object',
-  'source',
-  'svg',
-  'rect',
-  'circle',
-  'ellipse',
-  'line',
-  'path',
-  'polygon',
-  'polyline',
-  'button',
-  'form',
-  'input',
-  'label',
-  'datalist',
-  'legend',
-  'meter',
-  'progress',
-  'optgroup',
-  'option',
-  'select',
-  'fieldset',
-  'textarea',
-  'details',
-  'dialog',
-  'summary',
-  'link',
-  'script',
-  'article',
-  'aside',
-  'body',
-  'footer',
-  'head',
-  'header',
-  'html',
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'nav',
-  'section',
-  'blockquote',
-  'div',
-  'ul',
-  'ol',
-  'li',
-  'hr',
-  'p',
-  'pre',
-];

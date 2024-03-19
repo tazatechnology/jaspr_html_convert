@@ -88,7 +88,12 @@ void main() {
     });
 
     test('object', () {
-      final out = JasprConverter().convert("<object></object>");
+      final out = JasprConverter().convert("""
+<object data="index.html" height="300"></object>
+""");
+      assert(
+        out == "[object([],data: 'index.html',height: 300,),]",
+      );
       final outFmt = DartFormatter().format('final x = [$out];');
     });
 
@@ -99,8 +104,8 @@ void main() {
 
     test('svg', () {
       final out = JasprConverter().convert("""
-<svg x="50%" y="-1" viewBox="-60 -60 60 60" xmlns="http://www.w3.org/2000/svg" width="200" height="600" version="1.1">
-   <path fill="red" stroke="blue" stroke-width="3" d="M -0.1552523 -50.822140300000001"/>
+<svg x="50%" y="-1" viewBox="-60 -60 60 60" xmlns="http://www.w3.org/2000/svg" width="200px" height="600" version="1.1">
+   <path fill="red" stroke="#0000FF" stroke-width="3" d="M -0.1552523 -50.822140300000001"/>
 </svg>
 """);
 
@@ -109,6 +114,8 @@ void main() {
       // Ensure that the width and height are converted to jasper units
       assert(out.contains('width: Unit.pixels(200)'));
       assert(out.contains('height: Unit.pixels(600)'));
+      assert(out.contains("fill: Color.named('red')"));
+      assert(out.contains("stroke: Color.hex('#0000FF')"));
       // Ensure that the x and y are added to attributes map
       assert(out.contains("'x': '50%','y': '-1'"));
       final outFmt = DartFormatter().format('final x = [$out];');
@@ -120,7 +127,13 @@ void main() {
     });
 
     test('circle', () {
-      final out = JasprConverter().convert("<circle></circle>");
+      final out = JasprConverter().convert("""
+<circle cx="100" cy="100" r="100" fill="#1fa3ec"></circle>
+""");
+      assert(
+        out ==
+            "[circle([],cx: '100',cy: '100',r: '100',fill: Color.hex('#1fa3ec'),),]",
+      );
       final outFmt = DartFormatter().format('final x = [$out];');
     });
 
@@ -150,7 +163,14 @@ void main() {
     });
 
     test('button', () {
-      final out = JasprConverter().convert("<button></button>");
+      final out = JasprConverter().convert("""
+<button type="submit" value="Submit">Submit</button>
+<button type="reset" value="Reset">Reset</button>
+<button type="button" value="Button">Button</button>
+""");
+      assert(out.contains('ButtonType.submit'));
+      assert(out.contains('ButtonType.reset'));
+      assert(out.contains('ButtonType.button'));
       final outFmt = DartFormatter().format('final x = [$out];');
     });
 
@@ -162,9 +182,21 @@ void main() {
     test('input', () {
       final out = JasprConverter().convert("""
 <input id="email-address" name="email" type="email" autocomplete="email" required class="min-w-0 flex-auto rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Enter your email">
+<input type="submit" value="<input type=submit>">
+<input type="button" value="<input type=button>">
+<input type="reset" value="<input type=reset>">
+<input type="submit" value="<input disabled>" disabled>
+<input type="datetime" id="idt" value="1970-01-01T00:00:00Z">
+<input type="datetime-local" id="idtl" value="1970-01-01T00:00">
 """);
       // Ensure that the x and y are added to attributes map
+      assert(out.contains("id: 'email-address'"));
       assert(out.contains("'placeholder': 'Enter your email'"));
+      assert(out.contains("InputType.submit"));
+      assert(out.contains("InputType.button"));
+      assert(out.contains("InputType.reset"));
+      assert(out.contains("InputType.date"));
+      assert(out.contains("InputType.dateTimeLocal"));
       final outFmt = DartFormatter().format('final x = [$out];');
     });
 
@@ -184,7 +216,12 @@ void main() {
     });
 
     test('meter', () {
-      final out = JasprConverter().convert("<meter></meter>");
+      final out = JasprConverter().convert("""
+<meter value="2" min="0" max="10">2 out of 10</meter>
+""");
+      assert(
+        out == "[meter([text('2 out of 10'),],value: 2,min: 0,max: 10,),]",
+      );
       final outFmt = DartFormatter().format('final x = [$out];');
     });
 
@@ -333,12 +370,16 @@ void main() {
     });
 
     test('ul', () {
-      final out = JasprConverter().convert("<ul></ul>");
+      final out = JasprConverter().convert("""
+<ul><li>List Item 1<li>List Item 2<ul><li>List Item 1<li>List Item 2<ul><li>List Item 1<li>List Item 2<ul><li>List Item 1<li>List Item 2<ul><li>List Item 1<li>List Item 2<li>List Item 3</ul><li>List Item 3</ul><li>List Item 3</ul><li>List Item 3</ul><li>List Item 3</ul>
+""");
       final outFmt = DartFormatter().format('final x = [$out];');
     });
 
     test('ol', () {
-      final out = JasprConverter().convert("<ol></ol>");
+      final out = JasprConverter().convert("""
+<ol type=1><li>List Item 1<li>List Item 2<ol type=A><li>List Item 1<li>List Item 2<ol type=a><li>List Item 1<li>List Item 2<ol type=I><li>List Item 1<li>List Item 2<ol type=i><li>List Item 1<li>List Item 2<li>List Item 3</ol><li>List Item 3</ol><li>List Item 3</ol><li>List Item 3</ol><li>List Item 3</ol>
+""");
       final outFmt = DartFormatter().format('final x = [$out];');
     });
 
@@ -358,7 +399,20 @@ void main() {
     });
 
     test('pre', () {
-      final out = JasprConverter().convert("<pre></pre>");
+      final out = JasprConverter().convert("""
+<pre>P R E F O R M A T T E D T E X T
+  ! " # \$ % &amp; ' ( ) * + , - . /
+  0 1 2 3 4 5 6 7 8 9 : ; &lt; = &gt; ?
+  @ A B C D E F G H I J K L M N O
+  P Q R S T U V W X Y Z [ \\ ] ^ _
+  ` a b c d e f g h i j k l m n o
+  p q r s t u v w x y z { | } ~
+</pre>
+""");
+      assert(out.contains('text'));
+      assert(out.contains(r'\$'));
+      assert(out.contains(r'\\'));
+      assert(out.contains(r"\'"));
       final outFmt = DartFormatter().format('final x = [$out];');
     });
   });

@@ -1,7 +1,7 @@
 import 'components.dart' as components;
-import 'examples.dart' as examples;
+import 'samples.dart' as samples;
 
 void main() {
   components.main();
-  examples.main();
+  samples.main();
 }
