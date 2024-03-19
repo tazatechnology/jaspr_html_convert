@@ -55,7 +55,6 @@ pool:packages/pool/
 protobuf:packages/protobuf/
 pub_semver:packages/pub_semver/
 pubspec_parse:packages/pubspec_parse/
-recase:packages/recase/
 riverpod:packages/riverpod/
 scratch_space:packages/scratch_space/
 shelf:packages/shelf/

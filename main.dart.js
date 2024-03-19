@@ -626,6 +626,9 @@
     split$1$s(receiver, a0) {
       return J.getInterceptor$s(receiver).split$1(receiver, a0);
     },
+    startsWith$1$s(receiver, a0) {
+      return J.getInterceptor$s(receiver).startsWith$1(receiver, a0);
+    },
     take$1$ax(receiver, a0) {
       return J.getInterceptor$ax(receiver).take$1(receiver, a0);
     },
@@ -1608,13 +1611,6 @@
         index1 = index0 + 1;
         result.$indexSet(0, keyValuePairs[index], keyValuePairs[index0]);
       }
-      return result;
-    },
-    fillLiteralSet(values, result) {
-      var index,
-        $length = values.length;
-      for (index = 0; index < $length; ++index)
-        result.add$1(0, values[index]);
       return result;
     },
     _invokeClosure(closure, numberOfArguments, arg1, arg2, arg3, arg4) {
@@ -4634,9 +4630,6 @@
     },
     LinkedHashSet_LinkedHashSet$_empty($E) {
       return new A._LinkedHashSet($E._eval$1("_LinkedHashSet<0>"));
-    },
-    LinkedHashSet_LinkedHashSet$_literal(values, $E) {
-      return $E._eval$1("LinkedHashSet<0>")._as(A.fillLiteralSet(values, new A._LinkedHashSet($E._eval$1("_LinkedHashSet<0>"))));
     },
     _LinkedHashSet__newHashTable() {
       var table = Object.create(null);
@@ -8355,7 +8348,23 @@
     JasprConverter: function JasprConverter(t0) {
       this.classesAsList = t0;
     },
-    JasprConverter__convertElement_closure: function JasprConverter__convertElement_closure() {
+    JasprConverter__convertElement_closure: function JasprConverter__convertElement_closure(t0) {
+      this.eName = t0;
+    },
+    JasprConverter__convertElement_closure0: function JasprConverter__convertElement_closure0() {
+    },
+    JasprConverter__convertElement_closure1: function JasprConverter__convertElement_closure1(t0) {
+      this.attrKey = t0;
+    },
+    ComponentStructure: function ComponentStructure(t0, t1, t2) {
+      this.name = t0;
+      this.attributes = t1;
+      this.selfClosing = t2;
+    },
+    ComponentAttribute: function ComponentAttribute(t0, t1, t2) {
+      this.raw = t0;
+      this.name = t1;
+      this.type = t2;
     },
     App: function App(t0) {
       this.key = t0;
@@ -8705,18 +8714,6 @@
       _.relativeRootPattern = t3;
     },
     WindowsStyle_absolutePathToUri_closure: function WindowsStyle_absolutePathToUri_closure() {
-    },
-    ReCase$(text) {
-      var t1 = new A.ReCase(A.RegExp_RegExp("[A-Z]", false), A.LinkedHashSet_LinkedHashSet$_literal([" ", ".", "/", "_", "\\", "-"], type$.String));
-      t1.set$__ReCase__words_A(type$.List_String._as(t1._groupIntoWords$1(text)));
-      return t1;
-    },
-    ReCase: function ReCase(t0, t1) {
-      this._upperAlphaRegex = t0;
-      this.symbolSet = t1;
-      this.__ReCase__words_A = $;
-    },
-    ReCase__getSnakeCase_closure: function ReCase__getSnakeCase_closure() {
     },
     ProviderContainer$(observers, overrides, $parent) {
       var t10, t11,
@@ -9674,6 +9671,15 @@
         J.add$1$ax(t2, element);
       }
       return map;
+    },
+    IterableExtension_firstWhereOrNull(_this, test, $T) {
+      var t1, _i, element;
+      for (t1 = _this.length, _i = 0; _i < t1; ++_i) {
+        element = _this[_i];
+        if (A.boolConversionCheck(test.call$1(element)))
+          return element;
+      }
+      return null;
     },
     combineClasses(classes) {
       var t1 = B.JSArray_methods.join$1(classes, " "),
@@ -10855,7 +10861,7 @@
       t1._asyncComplete$1(null);
       return t1;
     },
-    $signature: 32
+    $signature: 27
   };
   A.SentinelValue.prototype = {};
   A.EfficientLengthIterable.prototype = {};
@@ -11971,19 +11977,19 @@
     call$1(o) {
       return this.getTag(o);
     },
-    $signature: 58
+    $signature: 77
   };
   A.initHooks_closure0.prototype = {
     call$2(o, tag) {
       return this.getUnknownTag(o, tag);
     },
-    $signature: 73
+    $signature: 86
   };
   A.initHooks_closure1.prototype = {
     call$1(tag) {
       return this.prototypeForTag(A._asString(tag));
     },
-    $signature: 84
+    $signature: 85
   };
   A._Record.prototype = {
     _getRti$0() {
@@ -12355,7 +12361,7 @@
       t1.storedCallback = null;
       f.call$0();
     },
-    $signature: 11
+    $signature: 12
   };
   A._AsyncRun__initializeScheduleImmediate_closure.prototype = {
     call$1(callback) {
@@ -12365,7 +12371,7 @@
       t2 = this.span;
       t1.firstChild ? t1.removeChild(t2) : t1.appendChild(t2);
     },
-    $signature: 68
+    $signature: 39
   };
   A._AsyncRun__scheduleImmediateJsOverride_internalCallback.prototype = {
     call$0() {
@@ -12429,13 +12435,13 @@
     call$2(error, stackTrace) {
       this.bodyFunction.call$2(1, new A.ExceptionAndStackTrace(error, type$.StackTrace._as(stackTrace)));
     },
-    $signature: 87
+    $signature: 95
   };
   A._wrapJsFunctionForAsync_closure.prototype = {
     call$2(errorCode, result) {
       this.$protected(A._asInt(errorCode), result);
     },
-    $signature: 51
+    $signature: 96
   };
   A._SyncStarIterator.prototype = {
     get$current() {
@@ -12844,13 +12850,13 @@
         t1._completeError$2(error, stackTrace);
       }
     },
-    $signature: 11
+    $signature: 12
   };
   A._Future__chainForeignFuture_closure0.prototype = {
     call$2(error, stackTrace) {
       this.$this._completeError$2(type$.Object._as(error), type$.StackTrace._as(stackTrace));
     },
-    $signature: 62
+    $signature: 90
   };
   A._Future__chainForeignFuture_closure1.prototype = {
     call$0() {
@@ -12915,7 +12921,7 @@
     call$1(_) {
       return this.originalSource;
     },
-    $signature: 94
+    $signature: 89
   };
   A._Future__propagateToListeners_handleValueCallback.prototype = {
     call$0() {
@@ -13703,8 +13709,7 @@
         if (J.$eq$(bucket[i]._collection$_element, element))
           return i;
       return -1;
-    },
-    $isLinkedHashSet: 1
+    }
   };
   A._LinkedHashSetCell.prototype = {};
   A._LinkedHashSetIterator.prototype = {
@@ -13744,13 +13749,13 @@
     call$2(k, v) {
       this.result.$indexSet(0, this.K._as(k), this.V._as(v));
     },
-    $signature: 31
+    $signature: 19
   };
   A.LinkedHashMap_LinkedHashMap$from_closure.prototype = {
     call$2(k, v) {
       this.result.$indexSet(0, this.K._as(k), this.V._as(v));
     },
-    $signature: 31
+    $signature: 19
   };
   A.LinkedList.prototype = {
     get$iterator(_) {
@@ -14046,7 +14051,7 @@
       t1._contents = t2 + ": ";
       t1._contents += A.S(v);
     },
-    $signature: 18
+    $signature: 31
   };
   A._DoubleLinkedQueueEntry.prototype = {
     _link$2(previous, next) {
@@ -14399,7 +14404,7 @@
       }
       return null;
     },
-    $signature: 19
+    $signature: 20
   };
   A._Utf8Decoder__decoderNonfatal_closure.prototype = {
     call$0() {
@@ -14411,7 +14416,7 @@
       }
       return null;
     },
-    $signature: 19
+    $signature: 20
   };
   A.AsciiCodec.prototype = {
     encode$1(source) {
@@ -15326,13 +15331,13 @@
     call$2(msg, position) {
       throw A.wrapException(A.FormatException$("Illegal IPv4 address, " + msg, this.host, position));
     },
-    $signature: 93
+    $signature: 83
   };
   A.Uri_parseIPv6Address_error.prototype = {
     call$2(msg, position) {
       throw A.wrapException(A.FormatException$("Illegal IPv6 address, " + msg, this.host, position));
     },
-    $signature: 44
+    $signature: 75
   };
   A.Uri_parseIPv6Address_parseHex.prototype = {
     call$2(start, end) {
@@ -15344,7 +15349,7 @@
         this.error.call$2("each part must be in the range of `0x0..0xFFFF`", start);
       return value;
     },
-    $signature: 45
+    $signature: 70
   };
   A._Uri.prototype = {
     get$_text() {
@@ -15642,7 +15647,7 @@
     call$1(s) {
       return A._Uri__uriEncode(B.List_XRg0, A._asString(s), B.C_Utf8Codec, false);
     },
-    $signature: 8
+    $signature: 11
   };
   A.UriData.prototype = {
     get$uri() {
@@ -15683,7 +15688,7 @@
       B.NativeUint8List_methods.fillRange$3(t1, 0, 96, defaultTransition);
       return t1;
     },
-    $signature: 39
+    $signature: 66
   };
   A._createTables_setChars.prototype = {
     call$3(target, chars, transition) {
@@ -15695,7 +15700,7 @@
         target[t2] = transition;
       }
     },
-    $signature: 20
+    $signature: 25
   };
   A._createTables_setRange.prototype = {
     call$3(target, range, transition) {
@@ -15714,7 +15719,7 @@
         target[t1] = transition;
       }
     },
-    $signature: 20
+    $signature: 25
   };
   A._SimpleUri.prototype = {
     get$hasAuthority() {
@@ -16303,7 +16308,7 @@
       t1.toString;
       return t1;
     },
-    $signature: 49
+    $signature: 60
   };
   A.Text1.prototype = {$isText1: 1};
   A.TextAreaElement.prototype = {
@@ -16447,7 +16452,7 @@
     call$1(e) {
       return this.onData.call$1(type$.Event._as(e));
     },
-    $signature: 9
+    $signature: 8
   };
   A.ImmutableListMixin.prototype = {
     get$iterator(receiver) {
@@ -16996,7 +17001,7 @@
     call$1(el) {
       return type$.Element_2._as(el).remove$0(0);
     },
-    $signature: 64
+    $signature: 53
   };
   A._ConcatTextVisitor.prototype = {
     toString$0(_) {
@@ -17641,7 +17646,7 @@
         return A.ioore(t1, 0);
       t1[0].attributes.putIfAbsent$2(attr, new A.Phase_startTagHtml__closure(value));
     },
-    $signature: 21
+    $signature: 28
   };
   A.Phase_startTagHtml__closure.prototype = {
     call$0() {
@@ -19225,7 +19230,7 @@
         return A.ioore(t1, 1);
       t1[1].attributes.putIfAbsent$2(attr, new A.InBodyPhase_startTagBody__closure(value));
     },
-    $signature: 21
+    $signature: 28
   };
   A.InBodyPhase_startTagBody__closure.prototype = {
     call$0() {
@@ -19530,7 +19535,7 @@
     call$1(t) {
       return type$.StringToken._as(t).get$data(0);
     },
-    $signature: 75
+    $signature: 51
   };
   A.InCaptionPhase.prototype = {
     processStartTag$1(token) {
@@ -20987,7 +20992,7 @@
       }
       return result;
     },
-    $signature: 81
+    $signature: 48
   };
   A.entitiesByFirstChar__closure.prototype = {
     call$0() {
@@ -23350,7 +23355,7 @@
       t2 = result._contents = t4 + B.JSString_methods.substring$2(t5, last, t5.length);
       t1.format = t2.charCodeAt(0) == 0 ? t2 : t2;
     },
-    $signature: 88
+    $signature: 34
   };
   A.BrowserAppBinding.prototype = {
     scheduleFrame$1(frameCallback) {
@@ -23699,7 +23704,7 @@
       if (t1 != null)
         J.clear$0$ax(t1);
     },
-    $signature: 22
+    $signature: 33
   };
   A.RootDomRenderObject.prototype = {};
   A.EventBinding.prototype = {
@@ -23722,7 +23727,7 @@
     call$1($event) {
       this.$this.fn.call$1($event);
     },
-    $signature: 9
+    $signature: 8
   };
   A._JasprConfig.prototype = {};
   A._ComponentConfig.prototype = {};
@@ -23744,7 +23749,7 @@
       type$.Event._as(_);
       return this.onClick.call$0();
     },
-    $signature: 9
+    $signature: 8
   };
   A._callWithValue_closure.prototype = {
     call$1(e) {
@@ -23772,7 +23777,7 @@
       }
       this.fn.call$1(this.V._as(t1));
     },
-    $signature: 9
+    $signature: 8
   };
   A._callWithValue__closure.prototype = {
     call$0() {
@@ -24102,7 +24107,7 @@
     call$1(_) {
       return this.end.call$0();
     },
-    $signature: 11
+    $signature: 12
   };
   A._Root.prototype = {
     createElement$0(_) {
@@ -24196,7 +24201,7 @@
       A._asString(b);
       return A.S(a) + " " + b;
     },
-    $signature: 34
+    $signature: 44
   };
   A.DomElement_updateRenderObject_closure0.prototype = {
     call$2(a, b) {
@@ -24208,7 +24213,7 @@
       t1.addAll$1(0, b);
       return t1;
     },
-    $signature: 23
+    $signature: 32
   };
   A.DomElement_updateRenderObject_closure1.prototype = {
     call$2(a, b) {
@@ -24220,7 +24225,7 @@
       t1.addAll$1(0, b);
       return t1;
     },
-    $signature: 23
+    $signature: 32
   };
   A.DomElement_updateRenderObject_closure2.prototype = {
     call$2(a, b) {
@@ -24542,7 +24547,7 @@
     call$1(e) {
       return e._updateAncestorSiblingRecursively$1(true);
     },
-    $signature: 12
+    $signature: 17
   };
   A._InactiveElements.prototype = {
     _unmount$2(element, detachNode) {
@@ -24574,7 +24579,7 @@
       var t1 = this.detachNode && !type$.RenderObjectElement._is(this.element);
       this.$this._unmount$2(child, t1);
     },
-    $signature: 12
+    $signature: 17
   };
   A.InheritedComponent.prototype = {
     createElement$0(_) {
@@ -24830,7 +24835,7 @@
       var t1 = this.forgottenChildren.contains$1(0, child);
       return t1 ? null : child;
     },
-    $signature: 48
+    $signature: 97
   };
   A.RenderObject.prototype = {};
   A.RenderObjectElement.prototype = {
@@ -25091,56 +25096,60 @@
       return "[" + B.JSString_methods.trim$0(A.stringReplaceAllUnchecked(output, "\n\n", "\n")) + "]";
     },
     _convertElement$2(e, source) {
-      var t4, out, t5, t6, rawStyles, _i, style, unsupportedAttrMap, specialAttrMap, t7, t8, attrKey, t9,
+      var sourceContainsParent, t2, t3, out, t4, t5, value, rawStyles, _i, style, unsupportedAttrMap, attrKey, attrSchema, t6, px, t7, typeMap,
         eName = e.localName,
-        unSupportedComponent = !B.JSArray_methods.contains$1($._components, eName),
-        t1 = type$.JSArray_String,
-        noChildren = B.JSArray_methods.contains$1(A._setArrayType(["br", "img"], t1), eName),
-        t2 = A.S(eName),
-        sourceContainsParent = B.JSString_methods.contains$1(source, "<" + t2),
-        t3 = !sourceContainsParent;
-      if (t3) {
-        t4 = type$.WhereTypeIterable_Element;
-        t4 = A.List_List$of(new A.WhereTypeIterable(e.get$children(0)._childNodes, t4), false, t4._eval$1("Iterable.E")).length === 0;
+        c = A.IterableExtension_firstWhereOrNull(B.List_VzM, new A.JasprConverter__convertElement_closure(eName), type$.ComponentStructure),
+        unSupportedComponent = c == null,
+        t1 = unSupportedComponent ? null : c.selfClosing,
+        selfClosing = t1 === true;
+      t1 = A.S(eName);
+      sourceContainsParent = B.JSString_methods.contains$1(source, "<" + t1);
+      t2 = !sourceContainsParent;
+      if (t2) {
+        t3 = type$.WhereTypeIterable_Element;
+        t3 = A.List_List$of(new A.WhereTypeIterable(e.get$children(0)._childNodes, t3), false, t3._eval$1("Iterable.E")).length === 0;
       } else
-        t4 = false;
-      if (t4)
+        t3 = false;
+      if (t3)
         return "";
       if (sourceContainsParent)
-        if (noChildren)
-          out = "\n" + t2 + "(\n";
+        if (selfClosing)
+          out = "\n" + t1 + "(\n";
         else
-          out = unSupportedComponent ? "DomComponent(tag: '" + t2 + "',children: [" : "\n" + t2 + "([";
+          out = unSupportedComponent ? "DomComponent(tag: '" + t1 + "',children: [" : "\n" + t1 + "([";
       else
         out = "";
-      t2 = e.get$nodes(0);
-      if (!t2.get$isEmpty(t2))
-        for (t2 = e.get$nodes(0)._list_proxy$_list, t4 = A._arrayInstanceType(t2), t2 = new J.ArrayIterator(t2, t2.length, t4._eval$1("ArrayIterator<1>")), t4 = t4._precomputed1; t2.moveNext$0();) {
-          t5 = t2.__interceptors$_current;
-          if (t5 == null)
-            t5 = t4._as(t5);
-          if (t5.get$nodeType(t5) === 3) {
-            t6 = t5.get$text(t5);
-            t6 = t6 == null ? null : B.JSString_methods.trim$0(t6).length !== 0;
-            t6 = t6 === true;
+      t1 = e.get$nodes(0);
+      if (!t1.get$isEmpty(t1))
+        for (t1 = e.get$nodes(0)._list_proxy$_list, t3 = A._arrayInstanceType(t1), t1 = new J.ArrayIterator(t1, t1.length, t3._eval$1("ArrayIterator<1>")), t3 = t3._precomputed1; t1.moveNext$0();) {
+          t4 = t1.__interceptors$_current;
+          if (t4 == null)
+            t4 = t3._as(t4);
+          if (t4.get$nodeType(t4) === 3) {
+            t5 = t4.get$text(t4);
+            t5 = t5 == null ? null : B.JSString_methods.trim$0(t5).length !== 0;
+            t5 = t5 === true;
           } else
-            t6 = false;
-          if (t6) {
-            t5 = t5.get$text(t5);
-            t5.toString;
-            out += "text('" + A.stringReplaceAllUnchecked(t5, "\n", "") + "'),";
+            t5 = false;
+          if (t5) {
+            t4 = t4.get$text(t4);
+            t4.toString;
+            value = A.stringReplaceAllUnchecked(t4, "\n", "");
+            value = A.stringReplaceAllUnchecked(value, "\\", "\\\\");
+            value = A.stringReplaceAllUnchecked(value, "$", "\\$");
+            out += "text('" + A.stringReplaceAllUnchecked(value, "'", "\\'") + "'),";
           }
         }
-      for (t2 = type$.WhereTypeIterable_Element, t2 = A.List_List$of(new A.WhereTypeIterable(e.get$children(0)._childNodes, t2), false, t2._eval$1("Iterable.E")), t4 = A._arrayInstanceType(t2), t2 = new J.ArrayIterator(t2, t2.length, t4._eval$1("ArrayIterator<1>")), t4 = t4._precomputed1; t2.moveNext$0();) {
-        t5 = t2.__interceptors$_current;
-        out += this._convertElement$2(t5 == null ? t4._as(t5) : t5, source);
+      for (t1 = type$.WhereTypeIterable_Element, t1 = A.List_List$of(new A.WhereTypeIterable(e.get$children(0)._childNodes, t1), false, t1._eval$1("Iterable.E")), t3 = A._arrayInstanceType(t1), t1 = new J.ArrayIterator(t1, t1.length, t3._eval$1("ArrayIterator<1>")), t3 = t3._precomputed1; t1.moveNext$0();) {
+        t4 = t1.__interceptors$_current;
+        out += this._convertElement$2(t4 == null ? t3._as(t4) : t4, source);
       }
-      if (t3)
+      if (t2)
         return out;
-      if (!noChildren)
+      if (!selfClosing)
         out += "],";
       if (e.get$className(0).length !== 0)
-        out = this.classesAsList ? out + ("classes: ['" + new A.MappedListIterable(A._setArrayType(e.get$className(0).split(" "), t1), type$.String_Function_String._as(new A.JasprConverter__convertElement_closure()), type$.MappedListIterable_String_String).join$1(0, "', '") + "',].join(' '),") : out + ("classes: '" + e.get$className(0) + "',");
+        out = this.classesAsList ? out + ("classes: ['" + new A.MappedListIterable(A._setArrayType(e.get$className(0).split(" "), type$.JSArray_String), type$.String_Function_String._as(new A.JasprConverter__convertElement_closure0()), type$.MappedListIterable_String_String).join$1(0, "', '") + "',].join(' '),") : out + ("classes: '" + e.get$className(0) + "',");
       if (e.attributes.containsKey$1("style")) {
         rawStyles = J.toString$0$(e.attributes.$index(0, "style")).split(";");
         t1 = rawStyles.length;
@@ -25161,90 +25170,94 @@
           out += "}),";
         }
       }
-      t1 = type$.String;
-      unsupportedAttrMap = A.LinkedHashMap_LinkedHashMap$_empty(t1, t1);
-      specialAttrMap = A.LinkedHashMap_LinkedHashMap$_empty(t1, t1);
-      for (t1 = e.attributes.get$entries(0), t1 = t1.get$iterator(t1), t2 = eName === "svg", t3 = eName === "img", t4 = eName === "form", t5 = eName === "button", t6 = eName === "input", t7 = eName === "path"; t1.moveNext$0();) {
-        t8 = t1.get$current();
-        attrKey = J.toString$0$(t8.key);
-        if (attrKey === "class" || attrKey === "style")
-          continue;
-        if (unSupportedComponent && attrKey !== "id") {
-          unsupportedAttrMap.$indexSet(0, attrKey, t8.value);
-          continue;
-        }
-        if (attrKey === "for")
-          attrKey = "htmlFor";
-        if (B.JSArray_methods.contains$1($._unsupportedAttributes, attrKey) || B.JSString_methods.startsWith$1(attrKey, "aria") || B.JSString_methods.startsWith$1(attrKey, "stroke")) {
-          if (!(t7 && attrKey === "stroke-width")) {
-            unsupportedAttrMap.$indexSet(0, attrKey, t8.value);
+      if (!unSupportedComponent) {
+        t1 = type$.String;
+        unsupportedAttrMap = A.LinkedHashMap_LinkedHashMap$_empty(t1, t1);
+        for (t2 = e.attributes.get$entries(0), t2 = t2.get$iterator(t2), t3 = c.attributes, t4 = type$.ComponentAttribute; t2.moveNext$0();) {
+          t5 = t2.get$current();
+          attrKey = J.toString$0$(t5.key);
+          if (attrKey === "class" || attrKey === "style")
+            continue;
+          attrSchema = A.IterableExtension_firstWhereOrNull(t3, new A.JasprConverter__convertElement_closure1(attrKey), t4);
+          if (attrKey === "id") {
+            out += "id: '" + A.S(t5.value) + "',";
             continue;
           }
-          attrKey = "strokeWidth";
+          if (attrSchema == null) {
+            unsupportedAttrMap.$indexSet(0, attrKey, t5.value);
+            continue;
+          }
+          t6 = attrSchema.type;
+          if (t6 === "Unit") {
+            t5 = t5.value;
+            px = A.stringReplaceAllUnchecked(t5, "px", "");
+            out += attrSchema.name + ": Unit.pixels(" + px + "),";
+          } else if (t6 === "Color") {
+            t5 = t5.value;
+            t6 = J.startsWith$1$s(t5, "#");
+            t7 = attrSchema.name;
+            out = t6 ? out + (t7 + ": Color.hex('" + A.S(t5) + "'),") : out + (t7 + ": Color.named('" + A.S(t5) + "'),");
+          } else if (t6 === "ButtonType")
+            out += attrSchema.name + ": ButtonType." + A.S(t5.value) + ",";
+          else if (t6 === "InputType") {
+            t5 = t5.value;
+            t6 = J.getInterceptor$(t5);
+            if (t6.$eq(t5, "datetime"))
+              out += attrSchema.name + ": InputType.date,";
+            else {
+              t6 = t6.$eq(t5, "datetime-local");
+              t7 = attrSchema.name;
+              out = t6 ? out + (t7 + ": InputType.dateTimeLocal,") : out + (t7 + ": InputType." + A.S(t5) + ",");
+            }
+          } else if (t6 === "NumberingType") {
+            typeMap = A.LinkedHashMap_LinkedHashMap$_literal(["a", "lowercaseLetters", "A", "uppercaseLetters", "i", "lowercaseRomanNumerals", "I", "uppercaseRomanNumerals", "1", "numbers"], t1, t1);
+            t5 = t5.value;
+            if (typeMap.containsKey$1(t5))
+              out += attrSchema.name + ": NumberingType." + A.S(typeMap.$index(0, t5)) + ",";
+          } else if (t6 === "boolean")
+            out += attrSchema.name + ": true,";
+          else {
+            t6 = t6 === "int" || t6 === "double";
+            t7 = attrSchema.name;
+            t5 = t5.value;
+            out = t6 ? out + (t7 + ": " + A.S(t5) + ",") : out + (t7 + ": '" + A.S(t5) + "',");
+          }
         }
-        if (t6 && attrKey === "type") {
-          specialAttrMap.$indexSet(0, attrKey, "InputType." + A.ReCase$(t8.value)._getSnakeCase$0());
-          continue;
+        if (unsupportedAttrMap.__js_helper$_length !== 0) {
+          out += "attributes: {";
+          for (t1 = unsupportedAttrMap.get$entries(0), t1 = t1.get$iterator(t1); t1.moveNext$0();) {
+            t2 = t1.get$current();
+            out += "'" + A.S(t2.key) + "': '" + A.S(t2.value) + "',";
+          }
+          out += "},";
         }
-        if (t5 && attrKey === "type") {
-          specialAttrMap.$indexSet(0, attrKey, "ButtonType." + A.ReCase$(t8.value)._getSnakeCase$0());
-          continue;
-        }
-        if (t4 && attrKey === "method") {
-          specialAttrMap.$indexSet(0, attrKey, "FormMethod." + A.ReCase$(t8.value)._getSnakeCase$0());
-          continue;
-        }
-        if (t2)
-          t9 = attrKey === "width" || attrKey === "height";
-        else
-          t9 = false;
-        if (t9) {
-          specialAttrMap.$indexSet(0, attrKey, "Unit.pixels(" + A.S(t8.value) + ")");
-          continue;
-        }
-        if (t3)
-          t9 = attrKey === "width" || attrKey === "height";
-        else
-          t9 = false;
-        if (t9) {
-          specialAttrMap.$indexSet(0, attrKey, t8.value);
-          continue;
-        }
-        if (t2)
-          t9 = attrKey === "x" || attrKey === "y";
-        else
-          t9 = false;
-        if (t9) {
-          unsupportedAttrMap.$indexSet(0, attrKey, t8.value);
-          continue;
-        }
-        out += attrKey + ": '" + A.S(t8.value) + "',";
-      }
-      if (specialAttrMap.__js_helper$_length !== 0)
-        for (t1 = specialAttrMap.get$entries(0), t1 = t1.get$iterator(t1); t1.moveNext$0();) {
-          t2 = t1.get$current();
-          out += A.S(t2.key) + ": " + A.S(t2.value) + ",";
-        }
-      if (unsupportedAttrMap.__js_helper$_length !== 0) {
-        out += "attributes: {";
-        for (t1 = unsupportedAttrMap.get$entries(0), t1 = t1.get$iterator(t1); t1.moveNext$0();) {
-          t2 = t1.get$current();
-          out += "'" + A.S(t2.key) + "': '" + A.S(t2.value) + "',";
-        }
-        out += "},";
       }
       return out + "),\n";
     }
   };
   A.JasprConverter__convertElement_closure.prototype = {
+    call$1(c) {
+      return type$.ComponentStructure._as(c).name === this.eName;
+    },
+    $signature: 49
+  };
+  A.JasprConverter__convertElement_closure0.prototype = {
     call$1(e) {
       var t1;
       A._asString(e);
       t1 = A.RegExp_RegExp("\\s+", false);
       return B.JSString_methods.trim$0(A.stringReplaceAllUnchecked(e, t1, " "));
     },
-    $signature: 8
+    $signature: 11
   };
+  A.JasprConverter__convertElement_closure1.prototype = {
+    call$1(a) {
+      return type$.ComponentAttribute._as(a).raw === this.attrKey;
+    },
+    $signature: 50
+  };
+  A.ComponentStructure.prototype = {};
+  A.ComponentAttribute.prototype = {};
   A.App.prototype = {
     createState$0() {
       return new A.AppState(B._StateLifecycle_0);
@@ -25359,7 +25372,7 @@
       t2 = type$.ProviderListenable_StateController_String._as(t1).read$1(0, t2.container);
       J.getInterceptor$z(t2).super$StateNotifier$state(t2, A.instanceType(t2)._precomputed1._as(value));
     },
-    $signature: 22
+    $signature: 33
   };
   A.DartInputArea.prototype = {
     createState$0() {
@@ -25668,21 +25681,21 @@
       type$.StateProviderRef_String._as(ref);
       return "<div><h1>Hello, World!</h1></div>";
     },
-    $signature: 24
+    $signature: 30
   };
   A.outputProvider_closure.prototype = {
     call$1(ref) {
       type$.StateProviderRef_String._as(ref);
       return "";
     },
-    $signature: 24
+    $signature: 30
   };
   A.classAsListProvider_closure.prototype = {
     call$1(ref) {
       type$.StateProviderRef_bool._as(ref);
       return false;
     },
-    $signature: 50
+    $signature: 52
   };
   A.ProviderScope.prototype = {
     createState$0() {
@@ -25871,7 +25884,7 @@
       });
       return A._asyncStartSync($async$call$0, $async$completer);
     },
-    $signature: 32
+    $signature: 27
   };
   A._UncontrolledProviderScopeElement__jasprVsync__closure.prototype = {
     call$0() {
@@ -25883,7 +25896,7 @@
       type$.ProviderRef_AppBinding._as(_);
       return A.throwExpression(A.UnimplementedError$("Overridden by ProviderScope."));
     },
-    $signature: 52
+    $signature: 54
   };
   A.ProviderDependencies.prototype = {
     didRebuild$0() {
@@ -25993,7 +26006,7 @@
       type$.StateProviderRef_Map_String_dynamic._as(ref);
       return A.LinkedHashMap_LinkedHashMap$_empty(type$.String, type$.dynamic);
     },
-    $signature: 53
+    $signature: 55
   };
   A.SyncScopeMixin.prototype = {
     updateState$1(value) {
@@ -26019,7 +26032,7 @@
         }
       return t1;
     },
-    $signature: 54
+    $signature: 56
   };
   A.PrimaryButton.prototype = {
     createState$0() {
@@ -26377,7 +26390,7 @@
       A._asStringQ(arg);
       return arg == null ? "null" : '"' + arg + '"';
     },
-    $signature: 55
+    $signature: 57
   };
   A.InternalStyle.prototype = {
     getRoot$1(path) {
@@ -26783,53 +26796,6 @@
     },
     $signature: 3
   };
-  A.ReCase.prototype = {
-    _groupIntoWords$1(text) {
-      var t1, t2, t3, t4, i, char, nextChar, t5, isEndOfWord,
-        sb = new A.StringBuffer(""),
-        words = A._setArrayType([], type$.JSArray_String);
-      for (t1 = text.length, t2 = this.symbolSet, t3 = this._upperAlphaRegex._nativeRegExp, t4 = text.toUpperCase() !== text, i = 0; i < t1;) {
-        char = text[i];
-        ++i;
-        if (i === t1)
-          nextChar = null;
-        else {
-          if (!(i < t1))
-            return A.ioore(text, i);
-          nextChar = text[i];
-        }
-        if (t2.contains$1(0, char))
-          continue;
-        t5 = sb._contents += char;
-        if (nextChar != null)
-          isEndOfWord = t3.test(nextChar) && t4 || t2.contains$1(0, nextChar);
-        else
-          isEndOfWord = true;
-        if (isEndOfWord) {
-          B.JSArray_methods.add$1(words, t5.charCodeAt(0) == 0 ? t5 : t5);
-          sb._contents = "";
-        }
-      }
-      return words;
-    },
-    _getSnakeCase$0() {
-      var t2, t3,
-        t1 = this.__ReCase__words_A;
-      t1 === $ && A.throwLateFieldNI("_words");
-      t2 = A._arrayInstanceType(t1);
-      t3 = t2._eval$1("MappedListIterable<1,String>");
-      return B.JSArray_methods.join$1(A.List_List$of(new A.MappedListIterable(t1, t2._eval$1("String(1)")._as(new A.ReCase__getSnakeCase_closure()), t3), true, t3._eval$1("ListIterable.E")), "_");
-    },
-    set$__ReCase__words_A(__ReCase__words_A) {
-      this.__ReCase__words_A = type$.List_String._as(__ReCase__words_A);
-    }
-  };
-  A.ReCase__getSnakeCase_closure.prototype = {
-    call$1(word) {
-      return A._asString(word).toLowerCase();
-    },
-    $signature: 8
-  };
   A.AlwaysAliveProviderListenable.prototype = {};
   A.AlwaysAliveProviderBase.prototype = {};
   A._StateReader.prototype = {
@@ -26864,7 +26830,7 @@
         A.runTernaryGuarded(observer.get$didAddProvider(), t1, t5, t2, t6, t7, t8);
       }
     },
-    $signature: 56
+    $signature: 58
   };
   A._StateReader__create_closure0.prototype = {
     call$1(error) {
@@ -26878,7 +26844,7 @@
         A.runQuaternaryGuarded(observer0.get$providerDidFail(), t1, t4, t6, t2, t5, t9, t10, t7);
       }
     },
-    $signature: 57
+    $signature: 59
   };
   A.ProviderContainer.prototype = {
     ProviderContainer$3$observers$overrides$parent(observers, overrides, $parent) {
@@ -27081,7 +27047,7 @@
         root._stateReaders.$indexSet(0, t4, reader);
       return reader;
     },
-    $signature: 25
+    $signature: 26
   };
   A.ProviderContainer__putIfAbsent_getReader_closure.prototype = {
     call$1(dep) {
@@ -27094,13 +27060,13 @@
       familyOverride = t1._overrideForFamily.$index(0, dep);
       return familyOverride == null ? null : familyOverride.container;
     },
-    $signature: 59
+    $signature: 61
   };
   A.ProviderContainer__putIfAbsent_getReader_closure0.prototype = {
     call$1(container) {
       return type$.nullable_ProviderContainer._as(container) != null;
     },
-    $signature: 60
+    $signature: 62
   };
   A.ProviderContainer__putIfAbsent_getReader_closure1.prototype = {
     call$2(previous, container) {
@@ -27110,14 +27076,14 @@
         return container;
       return previous;
     },
-    $signature: 61
+    $signature: 63
   };
   A.ProviderContainer__putIfAbsent_getReader_closure2.prototype = {
     call$0() {
       var t1 = this.provider;
       return new A._StateReader(t1, t1, this.deepestOverrideContainer, true);
     },
-    $signature: 25
+    $signature: 26
   };
   A.ProviderContainer_getAllProviderElementsInOrder_closure.prototype = {
     call$1(element) {
@@ -27126,18 +27092,18 @@
       if (t1 === this.$this)
         this._box_0.hasAncestorsInContainer = true;
     },
-    $signature: 14
+    $signature: 10
   };
   A.ProviderContainer_getAllProviderElementsInOrder_closure0.prototype = {
     call$1(dependent) {
       dependent.get$container();
     },
-    $signature: 14
+    $signature: 10
   };
   A.ProviderContainer_getAllProviderElementsInOrder_closure1.prototype = {
     call$1(_) {
     },
-    $signature: 95
+    $signature: 65
   };
   A.ProviderOverride.prototype = {$isOverride: 1,
     get$_origin() {
@@ -27409,7 +27375,7 @@
     call$1(element) {
       return type$.ProviderElementBase_dynamic._as(element).flush$0();
     },
-    $signature: 14
+    $signature: 10
   };
   A.ProviderElementBase__notifyListeners_closure.prototype = {
     call$1(newState) {
@@ -27551,7 +27517,7 @@
       var t1 = A._instanceType(this.$this);
       return this.listener.call$2(t1._eval$1("1?")._as(prev), t1._precomputed1._as(next));
     },
-    $signature: 18
+    $signature: 31
   };
   A._ProviderStateSubscription.prototype = {
     read$0(_) {
@@ -27841,7 +27807,7 @@
     call$1(frame) {
       return frame.get$$package() === "riverpod";
     },
-    $signature: 65
+    $signature: 67
   };
   A.StateController.prototype = {};
   A._notifier_closure.prototype = {
@@ -28396,7 +28362,7 @@
     call$0() {
       return this.color;
     },
-    $signature: 66
+    $signature: 68
   };
   A.Highlighter$__closure.prototype = {
     call$1(line) {
@@ -28404,7 +28370,7 @@
         t2 = A._arrayInstanceType(t1);
       return new A.WhereIterable(t1, t2._eval$1("bool(1)")._as(new A.Highlighter$___closure()), t2._eval$1("WhereIterable<1>")).get$length(0);
     },
-    $signature: 67
+    $signature: 69
   };
   A.Highlighter$___closure.prototype = {
     call$1(highlight) {
@@ -28417,21 +28383,21 @@
     call$1(line) {
       return type$._Line._as(line).url;
     },
-    $signature: 69
+    $signature: 71
   };
   A.Highlighter__collateLines_closure.prototype = {
     call$1(highlight) {
       var t1 = type$._Highlight._as(highlight).span.get$sourceUrl();
       return t1 == null ? new A.Object() : t1;
     },
-    $signature: 70
+    $signature: 72
   };
   A.Highlighter__collateLines_closure0.prototype = {
     call$2(highlight1, highlight2) {
       var t1 = type$._Highlight;
       return t1._as(highlight1).span.compareTo$1(0, t1._as(highlight2).span);
     },
-    $signature: 71
+    $signature: 73
   };
   A.Highlighter__collateLines_closure1.prototype = {
     call$1(entry) {
@@ -28476,7 +28442,7 @@
       }
       return lines;
     },
-    $signature: 72
+    $signature: 74
   };
   A.Highlighter__collateLines__closure.prototype = {
     call$1(highlight) {
@@ -28584,7 +28550,7 @@
       t2 = t2._contents += B.JSString_methods.$mul("^", Math.max(endColumn + (tabsBefore + tabsInside) * 3 - startColumn, 1));
       return t2.length - t3.length;
     },
-    $signature: 28
+    $signature: 22
   };
   A.Highlighter__writeIndicator_closure0.prototype = {
     call$0() {
@@ -28605,7 +28571,7 @@
         t1._writeArrow$3$beginning(_this.line, Math.max(_this.highlight.span.get$end().get$column() - 1, 0), false);
       return t2._contents.length - t3.length;
     },
-    $signature: 28
+    $signature: 22
   };
   A.Highlighter__writeSidebar_closure.prototype = {
     call$0() {
@@ -28642,7 +28608,7 @@
       }
       return A._Highlight__normalizeEndOfLine(A._Highlight__normalizeTrailingNewline(A._Highlight__normalizeNewlines(t1)));
     },
-    $signature: 74
+    $signature: 76
   };
   A._Line.prototype = {
     toString$0(_) {
@@ -28828,7 +28794,7 @@
     call$0() {
       return A.Chain_Chain$parse(this.trace.toString$0(0));
     },
-    $signature: 76
+    $signature: 78
   };
   A.Chain_Chain$parse_closure.prototype = {
     call$1(line) {
@@ -28840,7 +28806,7 @@
     call$1(trace) {
       return type$.Trace._as(trace).foldFrames$2$terse(this.predicate, this.terse);
     },
-    $signature: 77
+    $signature: 79
   };
   A.Chain_foldFrames_closure0.prototype = {
     call$1(trace) {
@@ -28853,13 +28819,13 @@
         return false;
       return B.JSArray_methods.get$single(trace.get$frames()).get$line() != null;
     },
-    $signature: 78
+    $signature: 80
   };
   A.Chain_toTrace_closure.prototype = {
     call$1(trace) {
       return type$.Trace._as(trace).get$frames();
     },
-    $signature: 79
+    $signature: 81
   };
   A.Chain_toString_closure0.prototype = {
     call$1(trace) {
@@ -28867,14 +28833,14 @@
         t2 = A._arrayInstanceType(t1);
       return new A.MappedListIterable(t1, t2._eval$1("int(1)")._as(new A.Chain_toString__closure0()), t2._eval$1("MappedListIterable<1,int>")).fold$1$2(0, 0, B.CONSTANT, type$.int);
     },
-    $signature: 80
+    $signature: 82
   };
   A.Chain_toString__closure0.prototype = {
     call$1(frame) {
       type$.Frame._as(frame);
       return frame.get$location(frame).length;
     },
-    $signature: 30
+    $signature: 21
   };
   A.Chain_toString_closure.prototype = {
     call$1(trace) {
@@ -28882,14 +28848,14 @@
         t2 = A._arrayInstanceType(t1);
       return new A.MappedListIterable(t1, t2._eval$1("String(1)")._as(new A.Chain_toString__closure(this.longest)), t2._eval$1("MappedListIterable<1,String>")).join$0(0);
     },
-    $signature: 82
+    $signature: 84
   };
   A.Chain_toString__closure.prototype = {
     call$1(frame) {
       type$.Frame._as(frame);
       return B.JSString_methods.padRight$1(frame.get$location(frame), this.longest) + "  " + A.S(frame.get$member()) + "\n";
     },
-    $signature: 16
+    $signature: 14
   };
   A.Frame.prototype = {
     get$library() {
@@ -29033,7 +28999,7 @@
       columnMatch = t1[3];
       return new A.Frame(uri, line, columnMatch != null ? A.int_parse(columnMatch, _null) : _null, member);
     },
-    $signature: 85
+    $signature: 87
   };
   A.Frame_Frame$_parseFirefoxEval_closure.prototype = {
     call$0() {
@@ -29304,7 +29270,7 @@
       type$.Frame._as(frame);
       return frame.get$location(frame).length;
     },
-    $signature: 30
+    $signature: 21
   };
   A.Trace_toString_closure.prototype = {
     call$1(frame) {
@@ -29313,7 +29279,7 @@
         return frame.toString$0(0) + "\n";
       return B.JSString_methods.padRight$1(frame.get$location(frame), this.longest) + "  " + A.S(frame.get$member()) + "\n";
     },
-    $signature: 16
+    $signature: 14
   };
   A.UnparsedFrame.prototype = {
     toString$0(_) {
@@ -29366,13 +29332,13 @@
         column = 0;
       return number + member + " (" + frame.get$uri().toString$0(0) + ":" + line + ":" + column + ")\n";
     },
-    $signature: 16
+    $signature: 14
   };
   A.VMTrace_toString__closure.prototype = {
     call$1(match) {
       return A.S(match.$index(0, 1)) + ".<" + A.S(match.$index(0, 1)) + "_async_body>";
     },
-    $signature: 86
+    $signature: 88
   };
   A.StateNotifierListenerError.prototype = {
     toString$0(_) {
@@ -29529,19 +29495,19 @@
       _instance_0_u = hunkHelpers._instance_0u,
       _static = hunkHelpers.installStaticTearOff,
       _instance_1_u = hunkHelpers._instance_1u;
-    _static_2(J, "_interceptors_JSArray__compareAny$closure", "JSArray__compareAny", 33);
-    _instance(J.JSString.prototype, "get$startsWith", 1, 1, null, ["call$2", "call$1"], ["startsWith$2", "startsWith$1"], 83, 0, 0);
-    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 10);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 10);
-    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 10);
+    _static_2(J, "_interceptors_JSArray__compareAny$closure", "JSArray__compareAny", 29);
+    _instance(J.JSString.prototype, "get$startsWith", 1, 1, null, ["call$2", "call$1"], ["startsWith$2", "startsWith$1"], 45, 0, 0);
+    _static_1(A, "async__AsyncRun__scheduleImmediateJsOverride$closure", "_AsyncRun__scheduleImmediateJsOverride", 9);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithSetImmediate$closure", "_AsyncRun__scheduleImmediateWithSetImmediate", 9);
+    _static_1(A, "async__AsyncRun__scheduleImmediateWithTimer$closure", "_AsyncRun__scheduleImmediateWithTimer", 9);
     _static_0(A, "async___startMicrotaskLoop$closure", "_startMicrotaskLoop", 1);
-    _instance_2_u(A._RootZone.prototype, "get$handleUncaughtError", "handleUncaughtError$2", 29);
-    _static_2(A, "collection_ListBase__compareAny$closure", "ListBase__compareAny", 33);
-    _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 8);
-    _static_1(A, "constants__isWhitespace$closure", "isWhitespace", 17);
-    _static_1(A, "constants__isDigit$closure", "isDigit", 17);
-    _static_1(A, "constants__isHexDigit$closure", "isHexDigit", 17);
-    _static_1(A, "constants__AsciiUpperToLower__asciiToLower$closure", "AsciiUpperToLower__asciiToLower", 89);
+    _instance_2_u(A._RootZone.prototype, "get$handleUncaughtError", "handleUncaughtError$2", 18);
+    _static_2(A, "collection_ListBase__compareAny$closure", "ListBase__compareAny", 29);
+    _static_1(A, "core_Uri_decodeComponent$closure", "Uri_decodeComponent", 11);
+    _static_1(A, "constants__isWhitespace$closure", "isWhitespace", 16);
+    _static_1(A, "constants__isDigit$closure", "isDigit", 16);
+    _static_1(A, "constants__isHexDigit$closure", "isHexDigit", 16);
+    _static_1(A, "constants__AsciiUpperToLower__asciiToLower$closure", "AsciiUpperToLower__asciiToLower", 91);
     var _;
     _instance_0_u(_ = A.HtmlTokenizer.prototype, "get$dataState", "dataState$0", 0);
     _instance_0_u(_, "get$entityDataState", "entityDataState$0", 0);
@@ -29619,29 +29585,29 @@
       return A.events(null, onClick, null, V1, V2);
     }, function(onChange, onInput, V1, V2) {
       return A.events(onChange, null, onInput, V1, V2);
-    }], 90, 0);
-    _static_2(A, "framework_Element__sort$closure", "Element__sort", 91);
-    _static_1(A, "framework__InactiveElements__deactivateRecursively$closure", "_InactiveElements__deactivateRecursively", 12);
+    }], 92, 0);
+    _static_2(A, "framework_Element__sort$closure", "Element__sort", 93);
+    _static_1(A, "framework__InactiveElements__deactivateRecursively$closure", "_InactiveElements__deactivateRecursively", 17);
     _instance_0_u(A.BuildOwner.prototype, "get$performBuild", "performBuild$0", 1);
     _instance_0_u(A._InactiveElements.prototype, "get$_unmountAll", "_unmountAll$0", 1);
     _instance_0_u(A.AppState.prototype, "get$convert", "convert$0", 1);
     _instance_0_u(A.JasprRenderAreaState.prototype, "get$copyToClipboard", "copyToClipboard$0", 1);
-    _instance_1_u(A._UncontrolledProviderScopeElement.prototype, "get$_jasprVsync", "_jasprVsync$1", 10);
-    _instance_1_u(A.ProviderElementBase.prototype, "get$update", "update$1", 26);
-    _instance_1_u(A.ValueProviderElement.prototype, "get$update", "update$1", 26);
-    _instance_2_u(A._ValueListenable.prototype, "get$_notifyError", "_notifyError$2", 29);
-    _static_2(A, "stack_trace__throwErrorWithCombinedStackTrace$closure", "throwErrorWithCombinedStackTrace", 92);
+    _instance_1_u(A._UncontrolledProviderScopeElement.prototype, "get$_jasprVsync", "_jasprVsync$1", 9);
+    _instance_1_u(A.ProviderElementBase.prototype, "get$update", "update$1", 24);
+    _instance_1_u(A.ValueProviderElement.prototype, "get$update", "update$1", 24);
+    _instance_2_u(A._ValueListenable.prototype, "get$_notifyError", "_notifyError$2", 18);
+    _static_2(A, "stack_trace__throwErrorWithCombinedStackTrace$closure", "throwErrorWithCombinedStackTrace", 94);
     _instance_0_u(A.Chain.prototype, "get$toTrace", "toTrace$0", 4);
     _static_1(A, "frame_Frame___parseVM_tearOff$closure", "Frame___parseVM_tearOff", 6);
     _static_1(A, "frame_Frame___parseV8_tearOff$closure", "Frame___parseV8_tearOff", 6);
     _static_1(A, "frame_Frame___parseFirefox_tearOff$closure", "Frame___parseFirefox_tearOff", 6);
     _static_1(A, "frame_Frame___parseFriendly_tearOff$closure", "Frame___parseFriendly_tearOff", 6);
     _instance_0_u(A.LazyChain.prototype, "get$toTrace", "toTrace$0", 4);
-    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 27);
-    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 27);
+    _static_1(A, "trace_Trace___parseVM_tearOff$closure", "Trace___parseVM_tearOff", 23);
+    _static_1(A, "trace_Trace___parseFriendly_tearOff$closure", "Trace___parseFriendly_tearOff", 23);
     _static(A, "math__max$closure", 2, null, ["call$1$2", "call$2"], ["max", function(a, b) {
       return A.max(a, b, type$.num);
-    }], 63, 0);
+    }], 64, 0);
   })();
   (function inheritance() {
     var _mixin = hunkHelpers.mixin,
@@ -29649,7 +29615,7 @@
       _inherit = hunkHelpers.inherit,
       _inheritMany = hunkHelpers.inheritMany;
     _inherit(A.Object, null);
-    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, J.ArrayIterator, A.Converter, A.Iterable, A.CastIterator, A.Closure, A.MapBase, A.Error, A.ListBase, A.SentinelValue, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.SkipWhileIterator, A.EmptyIterator, A.WhereTypeIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A._Record, A.ConstantMap, A._KeysOrValuesOrElementsIterator, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A._Cell, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A._SyncStarIterator, A.AsyncError, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.Stream, A._StreamIterator, A._Zone, A._HashMapKeyIterator, A.SetBase, A._HashSetIterator, A._LinkedHashSetCell, A._LinkedHashSetIterator, A._LinkedListIterator, A.LinkedListEntry, A._DoubleLinkedQueueEntry, A._DoubleLinkedQueueIterator, A._ListQueueIterator, A.Codec, A._Base64Decoder, A._Utf8Encoder, A._Utf8Decoder, A.DateTime, A.Duration, A._Enum, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.MapEntry, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Events, A._EventStreamSubscription, A.ImmutableListMixin, A.FixedSizeListIterator, A._DOMWindowCrossFrame, A.NullRejectionException, A.ByteReader, A.AttributeName, A._ParentNode, A._NonElementParentNode, A._ElementAndDocument, A.Node, A.TreeVisitor, A.HtmlParser, A.Phase, A.ParseError, A.ReparseException, A.EncodingBytes, A.ContentAttrParser, A._EncodingRangeException, A.HtmlInputStream, A.Token, A.TagAttribute, A.HtmlTokenizer, A.TreeBuilder, A.Pair, A._AppBinding_Object_SchedulerBinding, A.RenderObject, A.EventBinding, A.SchedulerBinding, A.SyncBinding, A.SyncStateMixin, A.BuildOwner, A.ComponentsBinding, A.Component, A.Element, A._InactiveElements, A.Key, A.RenderObjectElement, A.State, A.JasprConverter, A.ProviderDependencies, A.SyncScopeMixin, A.ButtonStyle, A.TailwindThemeData, A.Context, A.Style, A.ParsedPath, A.PathException, A.ReCase, A.AlwaysAliveProviderListenable, A.AlwaysAliveProviderBase, A._StateReader, A.ProviderContainer, A.ProviderOverride, A.ProviderElementBase, A.ProviderOrFamily, A.ProviderListenable, A.ProviderSubscription, A.OverrideWithValueMixin, A._ProviderElementProxy_Object_ProviderListenable, A.ProviderScheduler, A._ValueListenable, A.ResultData, A.ResultError, A.StateNotifier, A.SourceFile, A.SourceLocationMixin, A.SourceSpanMixin, A.Highlighter, A._Highlight, A._Line, A.SourceLocation, A.Chain, A.Frame, A.LazyChain, A.LazyTrace, A.Trace, A.UnparsedFrame, A.VMTrace]);
+    _inheritMany(A.Object, [A.JS_CONST, J.Interceptor, J.ArrayIterator, A.Converter, A.Iterable, A.CastIterator, A.Closure, A.MapBase, A.Error, A.ListBase, A.SentinelValue, A.ListIterator, A.MappedIterator, A.WhereIterator, A.ExpandIterator, A.TakeIterator, A.SkipIterator, A.SkipWhileIterator, A.EmptyIterator, A.WhereTypeIterator, A.FixedLengthListMixin, A.UnmodifiableListMixin, A._Record, A.ConstantMap, A._KeysOrValuesOrElementsIterator, A.TypeErrorDecoder, A.NullThrownFromJavaScriptException, A.ExceptionAndStackTrace, A._StackTrace, A.LinkedHashMapCell, A.LinkedHashMapKeyIterator, A.JSSyntaxRegExp, A._MatchImplementation, A._AllMatchesIterator, A.StringMatch, A._StringAllMatchesIterator, A._Cell, A.Rti, A._FunctionParameters, A._Type, A._TimerImpl, A._AsyncAwaitCompleter, A._SyncStarIterator, A.AsyncError, A._Completer, A._FutureListener, A._Future, A._AsyncCallbackEntry, A.Stream, A._StreamIterator, A._Zone, A._HashMapKeyIterator, A.SetBase, A._HashSetIterator, A._LinkedHashSetCell, A._LinkedHashSetIterator, A._LinkedListIterator, A.LinkedListEntry, A._DoubleLinkedQueueEntry, A._DoubleLinkedQueueIterator, A._ListQueueIterator, A.Codec, A._Base64Decoder, A._Utf8Encoder, A._Utf8Decoder, A.DateTime, A.Duration, A._Enum, A.OutOfMemoryError, A.StackOverflowError, A._Exception, A.FormatException, A.MapEntry, A.Null, A._StringStackTrace, A.StringBuffer, A._Uri, A.UriData, A._SimpleUri, A.Events, A._EventStreamSubscription, A.ImmutableListMixin, A.FixedSizeListIterator, A._DOMWindowCrossFrame, A.NullRejectionException, A.ByteReader, A.AttributeName, A._ParentNode, A._NonElementParentNode, A._ElementAndDocument, A.Node, A.TreeVisitor, A.HtmlParser, A.Phase, A.ParseError, A.ReparseException, A.EncodingBytes, A.ContentAttrParser, A._EncodingRangeException, A.HtmlInputStream, A.Token, A.TagAttribute, A.HtmlTokenizer, A.TreeBuilder, A.Pair, A._AppBinding_Object_SchedulerBinding, A.RenderObject, A.EventBinding, A.SchedulerBinding, A.SyncBinding, A.SyncStateMixin, A.BuildOwner, A.ComponentsBinding, A.Component, A.Element, A._InactiveElements, A.Key, A.RenderObjectElement, A.State, A.JasprConverter, A.ComponentStructure, A.ComponentAttribute, A.ProviderDependencies, A.SyncScopeMixin, A.ButtonStyle, A.TailwindThemeData, A.Context, A.Style, A.ParsedPath, A.PathException, A.AlwaysAliveProviderListenable, A.AlwaysAliveProviderBase, A._StateReader, A.ProviderContainer, A.ProviderOverride, A.ProviderElementBase, A.ProviderOrFamily, A.ProviderListenable, A.ProviderSubscription, A.OverrideWithValueMixin, A._ProviderElementProxy_Object_ProviderListenable, A.ProviderScheduler, A._ValueListenable, A.ResultData, A.ResultError, A.StateNotifier, A.SourceFile, A.SourceLocationMixin, A.SourceSpanMixin, A.Highlighter, A._Highlight, A._Line, A.SourceLocation, A.Chain, A.Frame, A.LazyChain, A.LazyTrace, A.Trace, A.UnparsedFrame, A.VMTrace]);
     _inheritMany(J.Interceptor, [J.JSBool, J.JSNull, J.JavaScriptObject, J.JavaScriptBigInt, J.JavaScriptSymbol, J.JSNumber, J.JSString]);
     _inheritMany(J.JavaScriptObject, [J.LegacyJavaScriptObject, J.JSArray, A.NativeByteBuffer, A.NativeTypedData, A.EventTarget, A.Blob, A.DomException, A.Event, A._FileList_JavaScriptObject_ListMixin, A._HtmlCollection_JavaScriptObject_ListMixin, A.Location, A._NodeList_JavaScriptObject_ListMixin, A.__NamedNodeMap_JavaScriptObject_ListMixin]);
     _inheritMany(J.LegacyJavaScriptObject, [J.PlainJavaScriptObject, J.UnknownJavaScriptObject, J.JavaScriptFunction, A._JasprConfig, A._ComponentConfig]);
@@ -29660,7 +29626,7 @@
     _inheritMany(A._CastIterableBase, [A.CastIterable, A.__CastListBase__CastIterableBase_ListMixin]);
     _inherit(A._EfficientLengthCastIterable, A.CastIterable);
     _inherit(A._CastListBase, A.__CastListBase__CastIterableBase_ListMixin);
-    _inheritMany(A.Closure, [A.Closure2Args, A.CastMap_entries_closure, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._RootZone_bindUnaryCallbackGuarded_closure, A.MapBase_entries_closure, A._Uri__makePath_closure, A._createTables_setChars, A._createTables_setRange, A.SelectElement_selectedOptions_closure, A._EventStreamSubscription_closure, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.FilteredElementList_removeRange_closure, A.InTableTextPhase_flushCharacters_closure, A.HtmlTokenizer_consumeEntity_closure, A.BrowserAppBinding_scheduleFrame_closure, A.DomRenderObject_updateElement_closure, A.DomRenderObject_updateElement_closure1, A.EventBinding_closure, A.events_closure, A._callWithValue_closure, A._callWithValue___closure, A._callWithValue__closure0, A.ComponentsBinding_attachRootComponent__closure, A.Element__updateAncestorSiblingRecursively_closure, A._InactiveElements__unmount_closure, A.MultiChildElement_updateChildren_replaceWithNullIfForgotten, A.JasprConverter__convertElement_closure, A.AppState_build_closure0, A.BoolConvertorOptionState_build_closure, A.inputProvider_closure, A.outputProvider_closure, A.classAsListProvider_closure, A._bindingProvider_closure, A._syncStateProvider_closure, A.SyncScopeMixin_updateState_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A.ReCase__getSnakeCase_closure, A._StateReader__create_closure, A._StateReader__create_closure0, A.ProviderContainer__putIfAbsent_getReader_closure, A.ProviderContainer__putIfAbsent_getReader_closure0, A.ProviderContainer_getAllProviderElementsInOrder_closure, A.ProviderContainer_getAllProviderElementsInOrder_closure0, A.ProviderContainer_getAllProviderElementsInOrder_closure1, A.ProviderElementBase_requireState_closure, A.ProviderElementBase_mount_closure, A.ProviderElementBase_mount_closure0, A.ProviderElementBase__maybeRebuildDependencies_closure, A.ProviderElementBase__notifyListeners_closure, A.ProviderElementBase__notifyListeners_closure0, A.ProviderElementBase__notifyListeners_closure1, A.ProviderElementBase__notifyListeners_closure2, A.ProviderElementBase__notifyListeners_closure3, A.ProviderElementBase__notifyListeners_closure4, A.ProxyElementValueNotifier_result_closure, A._ValueListenable__notifyValue_closure, A._ValueListenable__notifyError_closure, A.throwErrorWithCombinedStackTrace_closure, A._notifier_closure, A.StateProviderElement_create_closure, A.Highlighter$__closure, A.Highlighter$___closure, A.Highlighter$__closure0, A.Highlighter__collateLines_closure, A.Highlighter__collateLines_closure1, A.Highlighter__collateLines__closure, A.Highlighter_highlight_closure, A.Chain_Chain$parse_closure, A.Chain_foldFrames_closure, A.Chain_foldFrames_closure0, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A.VMTrace_toString_closure, A.VMTrace_toString__closure]);
+    _inheritMany(A.Closure, [A.Closure2Args, A.CastMap_entries_closure, A.Closure0Args, A.Instantiation, A.TearOffClosure, A.JsLinkedHashMap_values_closure, A.initHooks_closure, A.initHooks_closure1, A._AsyncRun__initializeScheduleImmediate_internalCallback, A._AsyncRun__initializeScheduleImmediate_closure, A._awaitOnObject_closure, A._Future__chainForeignFuture_closure, A._Future__propagateToListeners_handleWhenCompleteCallback_closure, A.Stream_length_closure, A._RootZone_bindUnaryCallbackGuarded_closure, A.MapBase_entries_closure, A._Uri__makePath_closure, A._createTables_setChars, A._createTables_setRange, A.SelectElement_selectedOptions_closure, A._EventStreamSubscription_closure, A.promiseToFuture_closure, A.promiseToFuture_closure0, A.FilteredElementList_removeRange_closure, A.InTableTextPhase_flushCharacters_closure, A.HtmlTokenizer_consumeEntity_closure, A.BrowserAppBinding_scheduleFrame_closure, A.DomRenderObject_updateElement_closure, A.DomRenderObject_updateElement_closure1, A.EventBinding_closure, A.events_closure, A._callWithValue_closure, A._callWithValue___closure, A._callWithValue__closure0, A.ComponentsBinding_attachRootComponent__closure, A.Element__updateAncestorSiblingRecursively_closure, A._InactiveElements__unmount_closure, A.MultiChildElement_updateChildren_replaceWithNullIfForgotten, A.JasprConverter__convertElement_closure, A.JasprConverter__convertElement_closure0, A.JasprConverter__convertElement_closure1, A.AppState_build_closure0, A.BoolConvertorOptionState_build_closure, A.inputProvider_closure, A.outputProvider_closure, A.classAsListProvider_closure, A._bindingProvider_closure, A._syncStateProvider_closure, A.SyncScopeMixin_updateState_closure, A.Context_joinAll_closure, A.Context_split_closure, A._validateArgList_closure, A.WindowsStyle_absolutePathToUri_closure, A._StateReader__create_closure, A._StateReader__create_closure0, A.ProviderContainer__putIfAbsent_getReader_closure, A.ProviderContainer__putIfAbsent_getReader_closure0, A.ProviderContainer_getAllProviderElementsInOrder_closure, A.ProviderContainer_getAllProviderElementsInOrder_closure0, A.ProviderContainer_getAllProviderElementsInOrder_closure1, A.ProviderElementBase_requireState_closure, A.ProviderElementBase_mount_closure, A.ProviderElementBase_mount_closure0, A.ProviderElementBase__maybeRebuildDependencies_closure, A.ProviderElementBase__notifyListeners_closure, A.ProviderElementBase__notifyListeners_closure0, A.ProviderElementBase__notifyListeners_closure1, A.ProviderElementBase__notifyListeners_closure2, A.ProviderElementBase__notifyListeners_closure3, A.ProviderElementBase__notifyListeners_closure4, A.ProxyElementValueNotifier_result_closure, A._ValueListenable__notifyValue_closure, A._ValueListenable__notifyError_closure, A.throwErrorWithCombinedStackTrace_closure, A._notifier_closure, A.StateProviderElement_create_closure, A.Highlighter$__closure, A.Highlighter$___closure, A.Highlighter$__closure0, A.Highlighter__collateLines_closure, A.Highlighter__collateLines_closure1, A.Highlighter__collateLines__closure, A.Highlighter_highlight_closure, A.Chain_Chain$parse_closure, A.Chain_foldFrames_closure, A.Chain_foldFrames_closure0, A.Chain_toTrace_closure, A.Chain_toString_closure0, A.Chain_toString__closure0, A.Chain_toString_closure, A.Chain_toString__closure, A.Trace__parseVM_closure, A.Trace$parseV8_closure, A.Trace$parseJSCore_closure, A.Trace$parseFirefox_closure, A.Trace$parseFriendly_closure, A.Trace_toString_closure0, A.Trace_toString_closure, A.VMTrace_toString_closure, A.VMTrace_toString__closure]);
     _inheritMany(A.Closure2Args, [A._CastListBase_sort_closure, A.CastMap_forEach_closure, A.JsLinkedHashMap_addAll_closure, A.initHooks_closure0, A._awaitOnObject_closure0, A._wrapJsFunctionForAsync_closure, A._Future__chainForeignFuture_closure0, A._HashMap_addAll_closure, A.HashMap_HashMap$from_closure, A.LinkedHashMap_LinkedHashMap$from_closure, A.MapBase_mapToString_closure, A.Uri__parseIPv4Address_error, A.Uri_parseIPv6Address_error, A.Uri_parseIPv6Address_parseHex, A._createTables_build, A.Phase_startTagHtml_closure, A.InBodyPhase_startTagBody_closure, A.formatStr_closure, A.DomRenderObject_clearEvents_closure, A.DomRenderObject_updateElement_closure0, A.DomElement_updateRenderObject_closure, A.DomElement_updateRenderObject_closure0, A.DomElement_updateRenderObject_closure1, A.DomElement_updateRenderObject_closure2, A.ProviderDependencies_watch_closure, A.ProviderContainer__putIfAbsent_getReader_closure1, A.ProviderBase_addListener_closure, A.Highlighter__collateLines_closure0, A.Frame_Frame$parseV8_closure_parseLocation]);
     _inherit(A.CastList, A._CastListBase);
     _inheritMany(A.MapBase, [A.CastMap, A.JsLinkedHashMap, A._HashMap, A._JsonMap, A._AttributeMap]);
@@ -29812,7 +29778,7 @@
     typeUniverse: {eC: new Map(), tR: {}, eT: {}, tPV: {}, sEA: []},
     mangledGlobalNames: {int: "int", double: "double", num: "num", String: "String", bool: "bool", Null: "Null", List: "List", Object: "Object", Map: "Map"},
     mangledNames: {},
-    types: ["bool()", "~()", "Null()", "bool(String)", "Trace()", "Frame()", "Frame(String)", "~(@)", "String(String)", "~(Event)", "~(~())", "Null(@)", "~(Element)", "String()", "~(ProviderElementBase<@>)", "bool(_Highlight)", "String(Frame)", "bool(String?)", "~(Object?,Object?)", "@()", "~(Uint8List,String,int)", "~(Object,String)", "~(String)", "Map<String,String>(Map<String,String>,Map<String,String>)", "String(StateProviderRef<String>)", "_StateReader()", "~(Object?)", "Trace(String)", "int()", "~(Object,StackTrace)", "int(Frame)", "~(@,@)", "Future<Null>()", "int(@,@)", "String(String,String)", "~(num)", "~(String,EventBinding)", "String(MapEntry<String,String>)", "~(String,~(Event))", "Uint8List(@,@)", "Object?()", "bool(InputType)", "String(OptionElement)", "Future<Null>?()", "~(String,int?)", "int(int,int)", "Map<String,~(Event)>(Map<String,~(Event)>,Map<String,~(Event)>)", "List<String>()", "Element?(Element)", "bool(OptionElement)", "bool(StateProviderRef<bool>)", "~(int,@)", "0&(ProviderRef<AppBinding>)", "Map<String,@>(StateProviderRef<Map<String,@>>)", "Map<String,@>(Map<String,@>)", "String(String?)", "~(ResultData<Object?>)", "~(ResultError<Object?>)", "@(@)", "ProviderContainer?(ProviderOrFamily)", "bool(ProviderContainer?)", "ProviderContainer(ProviderContainer,ProviderContainer?)", "Null(Object,StackTrace)", "0^(0^,0^)<num>", "~(Element0)", "bool(Frame)", "String?()", "int(_Line)", "Null(~())", "Object(_Line)", "Object(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(MapEntry<Object,List<_Highlight>>)", "@(@,String)", "SourceSpanWithContext()", "String(StringToken)", "Chain()", "Trace(Trace)", "bool(Trace)", "List<Frame>(Trace)", "int(Trace)", "Map<String,List<String>>()", "String(Trace)", "bool(Pattern[int])", "@(String)", "Frame(String,String)", "String(Match)", "Null(@,StackTrace)", "~(String,Object?)", "int(int)", "Map<String,~(Event)>({onChange:~(1^)?,onClick:~()?,onInput:~(0^)?})<Object?,Object?>", "int(Element,Element)", "0&(Object,StackTrace)", "~(String,int)", "_Future<@>(@)", "~(ProxyElementValueNotifier<@>)"],
+    types: ["bool()", "~()", "Null()", "bool(String)", "Trace()", "Frame()", "Frame(String)", "~(@)", "~(Event)", "~(~())", "~(ProviderElementBase<@>)", "String(String)", "Null(@)", "String()", "String(Frame)", "bool(_Highlight)", "bool(String?)", "~(Element)", "~(Object,StackTrace)", "~(@,@)", "@()", "int(Frame)", "int()", "Trace(String)", "~(Object?)", "~(Uint8List,String,int)", "_StateReader()", "Future<Null>()", "~(Object,String)", "int(@,@)", "String(StateProviderRef<String>)", "~(Object?,Object?)", "Map<String,String>(Map<String,String>,Map<String,String>)", "~(String)", "~(String,Object?)", "~(num)", "~(String,EventBinding)", "String(MapEntry<String,String>)", "~(String,~(Event))", "Null(~())", "Object?()", "bool(InputType)", "String(OptionElement)", "Future<Null>?()", "String(String,String)", "bool(Pattern[int])", "Map<String,~(Event)>(Map<String,~(Event)>,Map<String,~(Event)>)", "List<String>()", "Map<String,List<String>>()", "bool(ComponentStructure)", "bool(ComponentAttribute)", "String(StringToken)", "bool(StateProviderRef<bool>)", "~(Element0)", "0&(ProviderRef<AppBinding>)", "Map<String,@>(StateProviderRef<Map<String,@>>)", "Map<String,@>(Map<String,@>)", "String(String?)", "~(ResultData<Object?>)", "~(ResultError<Object?>)", "bool(OptionElement)", "ProviderContainer?(ProviderOrFamily)", "bool(ProviderContainer?)", "ProviderContainer(ProviderContainer,ProviderContainer?)", "0^(0^,0^)<num>", "~(ProxyElementValueNotifier<@>)", "Uint8List(@,@)", "bool(Frame)", "String?()", "int(_Line)", "int(int,int)", "Object(_Line)", "Object(_Highlight)", "int(_Highlight,_Highlight)", "List<_Line>(MapEntry<Object,List<_Highlight>>)", "~(String,int?)", "SourceSpanWithContext()", "@(@)", "Chain()", "Trace(Trace)", "bool(Trace)", "List<Frame>(Trace)", "int(Trace)", "~(String,int)", "String(Trace)", "@(String)", "@(@,String)", "Frame(String,String)", "String(Match)", "_Future<@>(@)", "Null(Object,StackTrace)", "int(int)", "Map<String,~(Event)>({onChange:~(1^)?,onClick:~()?,onInput:~(0^)?})<Object?,Object?>", "int(Element,Element)", "0&(Object,StackTrace)", "Null(@,StackTrace)", "~(int,@)", "Element?(Element)"],
     interceptorsByTag: null,
     leafTags: null,
     arrayRti: Symbol("$ti"),
@@ -29820,7 +29786,7 @@
       "2;": (t1, t2) => o => o instanceof A._Record_2 && t1._is(o._0) && t2._is(o._1)
     }
   };
-  A._Universe_addRules(init.typeUniverse, JSON.parse('{"PlainJavaScriptObject":"LegacyJavaScriptObject","UnknownJavaScriptObject":"LegacyJavaScriptObject","JavaScriptFunction":"LegacyJavaScriptObject","_JasprConfig":"LegacyJavaScriptObject","_ComponentConfig":"LegacyJavaScriptObject","AbortPaymentEvent":"Event","ExtendableEvent":"Event","MathMLElement":"Element1","_Clipboard":"EventTarget","AudioElement":"HtmlElement","MediaElement":"HtmlElement","HtmlDocument":"Node0","Document0":"Node0","Comment0":"CharacterData","HtmlFormControlsCollection":"HtmlCollection","CDataSection":"Text1","JSBool":{"bool":[],"TrustedGetRuntimeType":[]},"JSNull":{"Null":[],"TrustedGetRuntimeType":[]},"JSArray":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"JSUnmodifiableArray":{"JSArray":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"ArrayIterator":{"Iterator":["1"]},"JSNumber":{"num":[],"Comparable":["num"]},"JSInt":{"int":[],"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSNumNotInt":{"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSString":{"String":[],"Comparable":["String"],"Pattern":[],"TrustedGetRuntimeType":[]},"CastConverter":{"Converter":["3","4"],"Converter.S":"3","Converter.T":"4"},"_CastIterableBase":{"Iterable":["2"]},"CastIterator":{"Iterator":["2"]},"CastIterable":{"_CastIterableBase":["1","2"],"Iterable":["2"],"Iterable.E":"2"},"_EfficientLengthCastIterable":{"CastIterable":["1","2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"_CastListBase":{"ListBase":["2"],"List":["2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"]},"CastList":{"_CastListBase":["1","2"],"ListBase":["2"],"List":["2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListBase.E":"2","Iterable.E":"2"},"CastMap":{"MapBase":["3","4"],"Map":["3","4"],"MapBase.K":"3","MapBase.V":"4"},"LateError":{"Error":[]},"CodeUnits":{"ListBase":["int"],"UnmodifiableListMixin":["int"],"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"ListBase.E":"int","UnmodifiableListMixin.E":"int"},"EfficientLengthIterable":{"Iterable":["1"]},"ListIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"SubListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"ListIterator":{"Iterator":["1"]},"MappedIterable":{"Iterable":["2"],"Iterable.E":"2"},"EfficientLengthMappedIterable":{"MappedIterable":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"MappedIterator":{"Iterator":["2"]},"MappedListIterable":{"ListIterable":["2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListIterable.E":"2","Iterable.E":"2"},"WhereIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereIterator":{"Iterator":["1"]},"ExpandIterable":{"Iterable":["2"],"Iterable.E":"2"},"ExpandIterator":{"Iterator":["2"]},"TakeIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthTakeIterable":{"TakeIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"TakeIterator":{"Iterator":["1"]},"SkipIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthSkipIterable":{"SkipIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"SkipIterator":{"Iterator":["1"]},"SkipWhileIterable":{"Iterable":["1"],"Iterable.E":"1"},"SkipWhileIterator":{"Iterator":["1"]},"EmptyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"EmptyIterator":{"Iterator":["1"]},"WhereTypeIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereTypeIterator":{"Iterator":["1"]},"UnmodifiableListBase":{"ListBase":["1"],"UnmodifiableListMixin":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"ReversedListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"_Record_2":{"_Record2":[],"_Record":[]},"ConstantMap":{"Map":["1","2"]},"ConstantStringMap":{"ConstantMap":["1","2"],"Map":["1","2"]},"_KeysOrValues":{"Iterable":["1"],"Iterable.E":"1"},"_KeysOrValuesOrElementsIterator":{"Iterator":["1"]},"GeneralConstantMap":{"ConstantMap":["1","2"],"Map":["1","2"]},"Instantiation":{"Closure":[],"Function":[]},"Instantiation1":{"Closure":[],"Function":[]},"NullError":{"TypeError":[],"Error":[]},"JsNoSuchMethodError":{"Error":[]},"UnknownJsTypeError":{"Error":[]},"NullThrownFromJavaScriptException":{"Exception":[]},"_StackTrace":{"StackTrace":[]},"Closure":{"Function":[]},"Closure0Args":{"Closure":[],"Function":[]},"Closure2Args":{"Closure":[],"Function":[]},"TearOffClosure":{"Closure":[],"Function":[]},"StaticClosure":{"Closure":[],"Function":[]},"BoundClosure":{"Closure":[],"Function":[]},"_CyclicInitializationError":{"Error":[]},"RuntimeError":{"Error":[]},"_AssertionError":{"Error":[]},"JsLinkedHashMap":{"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"LinkedHashMapKeyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"LinkedHashMapKeyIterator":{"Iterator":["1"]},"JsConstantLinkedHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_Record2":{"_Record":[]},"JSSyntaxRegExp":{"RegExp":[],"Pattern":[]},"_MatchImplementation":{"RegExpMatch":[],"Match":[]},"_AllMatchesIterable":{"Iterable":["RegExpMatch"],"Iterable.E":"RegExpMatch"},"_AllMatchesIterator":{"Iterator":["RegExpMatch"]},"StringMatch":{"Match":[]},"_StringAllMatchesIterable":{"Iterable":["Match"],"Iterable.E":"Match"},"_StringAllMatchesIterator":{"Iterator":["Match"]},"NativeByteBuffer":{"TrustedGetRuntimeType":[]},"NativeByteData":{"TrustedGetRuntimeType":[]},"NativeTypedArray":{"JavaScriptIndexingBehavior":["1"]},"NativeTypedArrayOfInt":{"ListBase":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"]},"NativeInt8List":{"ListBase":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint32List":{"ListBase":["int"],"Uint32List":[],"List":["int"],"JavaScriptIndexingBehavior":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint8List":{"ListBase":["int"],"Uint8List":[],"List":["int"],"JavaScriptIndexingBehavior":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"_Type":{"Type":[]},"_Error":{"Error":[]},"_TypeError":{"TypeError":[],"Error":[]},"_Future":{"Future":["1"]},"_AsyncAwaitCompleter":{"Completer":["1"]},"_SyncStarIterator":{"Iterator":["1"]},"_SyncStarIterable":{"Iterable":["1"],"Iterable.E":"1"},"AsyncError":{"Error":[]},"_Completer":{"Completer":["1"]},"_AsyncCompleter":{"_Completer":["1"],"Completer":["1"]},"_Zone":{"Zone":[]},"_RootZone":{"_Zone":[],"Zone":[]},"_HashMap":{"MapBase":["1","2"],"HashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_HashMapKeyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"_HashMapKeyIterator":{"Iterator":["1"]},"_HashSet":{"_SetBase":["1"],"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_HashSetIterator":{"Iterator":["1"]},"_LinkedHashSet":{"_SetBase":["1"],"SetBase":["1"],"LinkedHashSet":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_LinkedHashSetIterator":{"Iterator":["1"]},"UnmodifiableListView":{"ListBase":["1"],"UnmodifiableListMixin":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1","UnmodifiableListMixin.E":"1"},"LinkedList":{"Iterable":["1"],"Iterable.E":"1"},"_LinkedListIterator":{"Iterator":["1"]},"ListBase":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"MapBase":{"Map":["1","2"]},"_DoubleLinkedQueueElement":{"_DoubleLinkedQueueEntry":["1"]},"_DoubleLinkedQueueSentinel":{"_DoubleLinkedQueueEntry":["1"]},"DoubleLinkedQueue":{"Queue":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"_DoubleLinkedQueueIterator":{"Iterator":["1"]},"ListQueue":{"Queue":["1"],"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"_ListQueueIterator":{"Iterator":["1"]},"SetBase":{"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_SetBase":{"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_JsonMap":{"MapBase":["String","@"],"Map":["String","@"],"MapBase.K":"String","MapBase.V":"@"},"_JsonMapKeyIterable":{"ListIterable":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"],"ListIterable.E":"String","Iterable.E":"String"},"AsciiCodec":{"Codec":["String","List<int>"],"Codec.T":"List<int>"},"_UnicodeSubsetEncoder":{"Converter":["String","List<int>"]},"AsciiEncoder":{"Converter":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"_UnicodeSubsetDecoder":{"Converter":["List<int>","String"]},"AsciiDecoder":{"Converter":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"Base64Codec":{"Codec":["List<int>","String"],"Codec.T":"String"},"Base64Encoder":{"Converter":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"Base64Decoder":{"Converter":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"_FusedCodec":{"Codec":["1","3"],"Codec.T":"3"},"Encoding":{"Codec":["String","List<int>"]},"JsonCodec":{"Codec":["Object?","String"],"Codec.T":"String"},"JsonDecoder":{"Converter":["String","Object?"],"Converter.S":"String","Converter.T":"Object?"},"Utf8Codec":{"Codec":["String","List<int>"],"Codec.T":"List<int>"},"Utf8Encoder":{"Converter":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"Utf8Decoder":{"Converter":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"DateTime":{"Comparable":["DateTime"]},"Duration":{"Comparable":["Duration"]},"int":{"num":[],"Comparable":["num"]},"List":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"num":{"Comparable":["num"]},"RegExpMatch":{"Match":[]},"String":{"Comparable":["String"],"Pattern":[]},"AssertionError":{"Error":[]},"TypeError":{"Error":[]},"ArgumentError":{"Error":[]},"RangeError":{"Error":[]},"IndexError":{"Error":[]},"UnsupportedError":{"Error":[]},"UnimplementedError":{"Error":[]},"StateError":{"Error":[]},"ConcurrentModificationError":{"Error":[]},"OutOfMemoryError":{"Error":[]},"StackOverflowError":{"Error":[]},"_Exception":{"Exception":[]},"FormatException":{"Exception":[]},"_StringStackTrace":{"StackTrace":[]},"StringBuffer":{"StringSink":[]},"_Uri":{"Uri":[]},"_SimpleUri":{"Uri":[]},"_DataUri":{"Uri":[]},"Node0":{"EventTarget":[]},"OptionElement":{"Element1":[],"Node0":[],"EventTarget":[]},"HtmlElement":{"Element1":[],"Node0":[],"EventTarget":[]},"AnchorElement":{"Element1":[],"Node0":[],"EventTarget":[]},"AreaElement":{"Element1":[],"Node0":[],"EventTarget":[]},"CharacterData":{"Node0":[],"EventTarget":[]},"_FrozenElementList":{"ListBase":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1"},"Element1":{"Node0":[],"EventTarget":[]},"FileList":{"ListBase":["File"],"ImmutableListMixin":["File"],"List":["File"],"JavaScriptIndexingBehavior":["File"],"EfficientLengthIterable":["File"],"Iterable":["File"],"ImmutableListMixin.E":"File","ListBase.E":"File"},"FormElement":{"Element1":[],"Node0":[],"EventTarget":[]},"HtmlCollection":{"ListBase":["Node0"],"ImmutableListMixin":["Node0"],"List":["Node0"],"JavaScriptIndexingBehavior":["Node0"],"EfficientLengthIterable":["Node0"],"Iterable":["Node0"],"ImmutableListMixin.E":"Node0","ListBase.E":"Node0"},"InputElement":{"Element1":[],"Node0":[],"EventTarget":[]},"_ChildNodeListLazy":{"ListBase":["Node0"],"List":["Node0"],"EfficientLengthIterable":["Node0"],"Iterable":["Node0"],"ListBase.E":"Node0"},"NodeList0":{"ListBase":["Node0"],"ImmutableListMixin":["Node0"],"List":["Node0"],"JavaScriptIndexingBehavior":["Node0"],"EfficientLengthIterable":["Node0"],"Iterable":["Node0"],"ImmutableListMixin.E":"Node0","ListBase.E":"Node0"},"SelectElement":{"Element1":[],"Node0":[],"EventTarget":[]},"Text1":{"Node0":[],"EventTarget":[]},"TextAreaElement":{"Element1":[],"Node0":[],"EventTarget":[]},"Window":{"WindowBase":[],"EventTarget":[]},"_Attr":{"Node0":[],"EventTarget":[]},"_NamedNodeMap":{"ListBase":["Node0"],"ImmutableListMixin":["Node0"],"List":["Node0"],"JavaScriptIndexingBehavior":["Node0"],"EfficientLengthIterable":["Node0"],"Iterable":["Node0"],"ImmutableListMixin.E":"Node0","ListBase.E":"Node0"},"_AttributeMap":{"MapBase":["String","String"],"Map":["String","String"]},"_ElementAttributeMap":{"MapBase":["String","String"],"Map":["String","String"],"MapBase.K":"String","MapBase.V":"String"},"_EventStream":{"Stream":["1"]},"_ElementEventStreamImpl":{"_EventStream":["1"],"Stream":["1"]},"_EventStreamSubscription":{"StreamSubscription":["1"]},"FixedSizeListIterator":{"Iterator":["1"]},"_DOMWindowCrossFrame":{"WindowBase":[],"EventTarget":[]},"VersionChangeEvent":{"Event":[]},"NullRejectionException":{"Exception":[]},"BinaryCodec":{"Codec":["@","Uint8List"],"Codec.T":"Uint8List"},"Decoder":{"Converter":["Uint8List","@"],"Converter.S":"Uint8List","Converter.T":"@"},"AttributeName":{"Comparable":["Object"]},"Document":{"Node":[]},"Element0":{"Node":[]},"DocumentType":{"Node":[]},"Text0":{"Node":[]},"Comment":{"Node":[]},"NodeList":{"ListProxy":["Node"],"ListBase":["Node"],"List":["Node"],"EfficientLengthIterable":["Node"],"Iterable":["Node"],"ListBase.E":"Node","ListProxy.E":"Node"},"FilteredElementList":{"ListBase":["Element0"],"List":["Element0"],"EfficientLengthIterable":["Element0"],"Iterable":["Element0"],"ListBase.E":"Element0","Iterable.E":"Element0"},"ParseError":{"Exception":[]},"InitialPhase":{"Phase":[]},"BeforeHtmlPhase":{"Phase":[]},"BeforeHeadPhase":{"Phase":[]},"InHeadPhase":{"Phase":[]},"AfterHeadPhase":{"Phase":[]},"InBodyPhase":{"Phase":[]},"TextPhase":{"Phase":[]},"InTablePhase":{"Phase":[]},"InTableTextPhase":{"Phase":[]},"InCaptionPhase":{"Phase":[]},"InColumnGroupPhase":{"Phase":[]},"InTableBodyPhase":{"Phase":[]},"InRowPhase":{"Phase":[]},"InCellPhase":{"Phase":[]},"InSelectPhase":{"Phase":[]},"InSelectInTablePhase":{"Phase":[]},"InForeignContentPhase":{"Phase":[]},"AfterBodyPhase":{"Phase":[]},"InFramesetPhase":{"Phase":[]},"AfterFramesetPhase":{"Phase":[]},"AfterAfterBodyPhase":{"Phase":[]},"AfterAfterFramesetPhase":{"Phase":[]},"_EncodingRangeException":{"Exception":[]},"ListProxy":{"ListBase":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"StringToken":{"Token":[]},"TagToken":{"Token":[]},"StartTagToken":{"TagToken":[],"Token":[]},"EndTagToken":{"TagToken":[],"Token":[]},"ParseErrorToken":{"StringToken":[],"Token":[]},"CharactersToken":{"StringToken":[],"Token":[]},"SpaceCharactersToken":{"StringToken":[],"Token":[]},"CommentToken":{"StringToken":[],"Token":[]},"DoctypeToken":{"Token":[]},"HtmlTokenizer":{"Iterator":["Token"]},"ActiveFormattingElements":{"ListProxy":["Element0?"],"ListBase":["Element0?"],"List":["Element0?"],"EfficientLengthIterable":["Element0?"],"Iterable":["Element0?"],"ListBase.E":"Element0?","ListProxy.E":"Element0?"},"BrowserAppBinding":{"AppBinding":[]},"DomRenderObject":{"RenderObject":[]},"RootDomRenderObject":{"DomRenderObject":[],"RenderObject":[]},"StateCodec":{"Codec":["@","String"],"Codec.T":"String"},"StateDecoder":{"Converter":["String","@"],"Converter.S":"String","Converter.T":"@"},"StateEncoder":{"Converter":["@","String"],"Converter.S":"@","Converter.T":"String"},"_WrappingDomComponent":{"InheritedComponent":[],"DomComponent":[],"Component":[]},"Element":{"BuildContext":[]},"InheritedComponent":{"Component":[]},"InheritedElement":{"Element":[],"BuildContext":[]},"ObserverElement":{"Element":[],"BuildContext":[]},"StatefulComponent":{"Component":[]},"_Root":{"Component":[]},"_RootElement":{"RenderObjectElement":[],"Element":[],"BuildContext":[]},"DomComponent":{"Component":[]},"DomElement":{"RenderObjectElement":[],"Element":[],"BuildContext":[]},"Text":{"Component":[]},"NoChildElement":{"Element":[],"BuildContext":[]},"TextElement":{"RenderObjectElement":[],"Element":[],"BuildContext":[]},"LocalKey":{"Key":[]},"UniqueKey":{"Key":[]},"MultiChildElement":{"Element":[],"BuildContext":[]},"SingleChildElement":{"Element":[],"BuildContext":[]},"StatefulElement":{"Element":[],"BuildContext":[]},"App":{"StatefulComponent":[],"Component":[]},"AppState":{"State":["App"],"State.T":"App"},"DartInputArea":{"StatefulComponent":[],"Component":[]},"DartInputAreaState":{"State":["DartInputArea"],"State.T":"DartInputArea"},"ConverterOptions":{"StatefulComponent":[],"Component":[]},"BoolConvertorOption":{"StatefulComponent":[],"Component":[]},"ConverterOptionsState":{"State":["ConverterOptions"],"State.T":"ConverterOptions"},"BoolConvertorOptionState":{"State":["BoolConvertorOption"],"State.T":"BoolConvertorOption"},"JasprRenderArea":{"StatefulComponent":[],"Component":[]},"JasprRenderAreaState":{"State":["JasprRenderArea"],"State.T":"JasprRenderArea"},"ProviderScope":{"StatefulComponent":[],"Component":[]},"UncontrolledProviderScope":{"InheritedComponent":[],"Component":[]},"ProviderScopeState":{"State":["ProviderScope"],"SyncState":["Map<String,@>"],"State.T":"ProviderScope"},"_UncontrolledProviderScopeElement":{"InheritedElement":[],"Element":[],"BuildContext":[]},"PrimaryButton":{"StatefulComponent":[],"Component":[]},"PrimaryButtonState":{"State":["PrimaryButton"],"State.T":"PrimaryButton"},"SecondaryButton":{"StatefulComponent":[],"Component":[]},"SecondaryButtonState":{"State":["SecondaryButton"],"State.T":"SecondaryButton"},"TailwindTheme":{"InheritedComponent":[],"Component":[]},"PathException":{"Exception":[]},"PosixStyle":{"InternalStyle":[]},"UrlStyle":{"InternalStyle":[]},"WindowsStyle":{"InternalStyle":[]},"AutoDisposeProviderElementMixin":{"ProviderElementBase":["1"],"Node1":[]},"ProviderContainer":{"Node1":[]},"ProviderElementBase":{"Node1":[]},"Family":{"ProviderOrFamily":[],"Override":[]},"ProviderBase":{"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"ProviderOverride":{"Override":[]},"CircularDependencyError":{"Error":[]},"_ProviderStateSubscription":{"ProviderSubscription":["1"]},"ProviderElementProxy":{"AlwaysAliveRefreshable":["2"],"ProviderListenable":["2"]},"ValueProvider":{"ProviderBase":["1"],"AlwaysAliveRefreshable":["1"],"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"ValueProviderElement":{"ProviderElementBase":["1"],"Node1":[]},"ProxyElementValueNotifier":{"_ValueListenable":["1"]},"InternalProvider":{"OverrideWithValueMixin":["1"],"ProviderBase":["1"],"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"Provider":{"InternalProvider":["1"],"OverrideWithValueMixin":["1"],"ProviderBase":["1"],"AlwaysAliveRefreshable":["1"],"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"ProviderElement":{"ProviderElementBase":["1"],"ProviderRef":["1"],"Node1":[]},"ResultData":{"Result":["1"]},"ResultError":{"Result":["1"]},"StateController":{"StateNotifier":["1"]},"_StateProviderBase":{"ProviderBase":["1"],"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"StateProvider":{"_StateProviderBase":["1"],"ProviderBase":["1"],"AlwaysAliveRefreshable":["1"],"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"StateProviderElement":{"ProviderElementBase":["1"],"StateProviderRef":["1"],"Node1":[]},"FileSpan":{"SourceSpanWithContext":[],"SourceSpan":[],"Comparable":["SourceSpan"]},"FileLocation":{"SourceLocation":[],"Comparable":["SourceLocation"]},"_FileSpan":{"FileSpan":[],"SourceSpanWithContext":[],"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceLocation":{"Comparable":["SourceLocation"]},"SourceLocationMixin":{"SourceLocation":[],"Comparable":["SourceLocation"]},"SourceSpan":{"Comparable":["SourceSpan"]},"SourceSpanBase":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanMixin":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanWithContext":{"SourceSpan":[],"Comparable":["SourceSpan"]},"Chain":{"StackTrace":[]},"LazyChain":{"Chain":[],"StackTrace":[]},"LazyTrace":{"Trace":[],"StackTrace":[]},"Trace":{"StackTrace":[]},"UnparsedFrame":{"Frame":[]},"VMTrace":{"StackTrace":[]},"_ListenerEntry":{"LinkedListEntry":["_ListenerEntry<1>"],"LinkedListEntry.E":"_ListenerEntry<1>"},"StateNotifierListenerError":{"Error":[]},"Int8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint32List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]}}'));
+  A._Universe_addRules(init.typeUniverse, JSON.parse('{"PlainJavaScriptObject":"LegacyJavaScriptObject","UnknownJavaScriptObject":"LegacyJavaScriptObject","JavaScriptFunction":"LegacyJavaScriptObject","_JasprConfig":"LegacyJavaScriptObject","_ComponentConfig":"LegacyJavaScriptObject","AbortPaymentEvent":"Event","ExtendableEvent":"Event","MathMLElement":"Element1","_Clipboard":"EventTarget","AudioElement":"HtmlElement","MediaElement":"HtmlElement","HtmlDocument":"Node0","Document0":"Node0","Comment0":"CharacterData","HtmlFormControlsCollection":"HtmlCollection","CDataSection":"Text1","JSBool":{"bool":[],"TrustedGetRuntimeType":[]},"JSNull":{"Null":[],"TrustedGetRuntimeType":[]},"JSArray":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"JSUnmodifiableArray":{"JSArray":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"ArrayIterator":{"Iterator":["1"]},"JSNumber":{"num":[],"Comparable":["num"]},"JSInt":{"int":[],"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSNumNotInt":{"num":[],"Comparable":["num"],"TrustedGetRuntimeType":[]},"JSString":{"String":[],"Comparable":["String"],"Pattern":[],"TrustedGetRuntimeType":[]},"CastConverter":{"Converter":["3","4"],"Converter.S":"3","Converter.T":"4"},"_CastIterableBase":{"Iterable":["2"]},"CastIterator":{"Iterator":["2"]},"CastIterable":{"_CastIterableBase":["1","2"],"Iterable":["2"],"Iterable.E":"2"},"_EfficientLengthCastIterable":{"CastIterable":["1","2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"_CastListBase":{"ListBase":["2"],"List":["2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"]},"CastList":{"_CastListBase":["1","2"],"ListBase":["2"],"List":["2"],"_CastIterableBase":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListBase.E":"2","Iterable.E":"2"},"CastMap":{"MapBase":["3","4"],"Map":["3","4"],"MapBase.K":"3","MapBase.V":"4"},"LateError":{"Error":[]},"CodeUnits":{"ListBase":["int"],"UnmodifiableListMixin":["int"],"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"ListBase.E":"int","UnmodifiableListMixin.E":"int"},"EfficientLengthIterable":{"Iterable":["1"]},"ListIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"SubListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"ListIterator":{"Iterator":["1"]},"MappedIterable":{"Iterable":["2"],"Iterable.E":"2"},"EfficientLengthMappedIterable":{"MappedIterable":["1","2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"Iterable.E":"2"},"MappedIterator":{"Iterator":["2"]},"MappedListIterable":{"ListIterable":["2"],"EfficientLengthIterable":["2"],"Iterable":["2"],"ListIterable.E":"2","Iterable.E":"2"},"WhereIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereIterator":{"Iterator":["1"]},"ExpandIterable":{"Iterable":["2"],"Iterable.E":"2"},"ExpandIterator":{"Iterator":["2"]},"TakeIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthTakeIterable":{"TakeIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"TakeIterator":{"Iterator":["1"]},"SkipIterable":{"Iterable":["1"],"Iterable.E":"1"},"EfficientLengthSkipIterable":{"SkipIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"SkipIterator":{"Iterator":["1"]},"SkipWhileIterable":{"Iterable":["1"],"Iterable.E":"1"},"SkipWhileIterator":{"Iterator":["1"]},"EmptyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"EmptyIterator":{"Iterator":["1"]},"WhereTypeIterable":{"Iterable":["1"],"Iterable.E":"1"},"WhereTypeIterator":{"Iterator":["1"]},"UnmodifiableListBase":{"ListBase":["1"],"UnmodifiableListMixin":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"ReversedListIterable":{"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"_Record_2":{"_Record2":[],"_Record":[]},"ConstantMap":{"Map":["1","2"]},"ConstantStringMap":{"ConstantMap":["1","2"],"Map":["1","2"]},"_KeysOrValues":{"Iterable":["1"],"Iterable.E":"1"},"_KeysOrValuesOrElementsIterator":{"Iterator":["1"]},"GeneralConstantMap":{"ConstantMap":["1","2"],"Map":["1","2"]},"Instantiation":{"Closure":[],"Function":[]},"Instantiation1":{"Closure":[],"Function":[]},"NullError":{"TypeError":[],"Error":[]},"JsNoSuchMethodError":{"Error":[]},"UnknownJsTypeError":{"Error":[]},"NullThrownFromJavaScriptException":{"Exception":[]},"_StackTrace":{"StackTrace":[]},"Closure":{"Function":[]},"Closure0Args":{"Closure":[],"Function":[]},"Closure2Args":{"Closure":[],"Function":[]},"TearOffClosure":{"Closure":[],"Function":[]},"StaticClosure":{"Closure":[],"Function":[]},"BoundClosure":{"Closure":[],"Function":[]},"_CyclicInitializationError":{"Error":[]},"RuntimeError":{"Error":[]},"_AssertionError":{"Error":[]},"JsLinkedHashMap":{"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"LinkedHashMapKeyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"LinkedHashMapKeyIterator":{"Iterator":["1"]},"JsConstantLinkedHashMap":{"JsLinkedHashMap":["1","2"],"MapBase":["1","2"],"LinkedHashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_Record2":{"_Record":[]},"JSSyntaxRegExp":{"RegExp":[],"Pattern":[]},"_MatchImplementation":{"RegExpMatch":[],"Match":[]},"_AllMatchesIterable":{"Iterable":["RegExpMatch"],"Iterable.E":"RegExpMatch"},"_AllMatchesIterator":{"Iterator":["RegExpMatch"]},"StringMatch":{"Match":[]},"_StringAllMatchesIterable":{"Iterable":["Match"],"Iterable.E":"Match"},"_StringAllMatchesIterator":{"Iterator":["Match"]},"NativeByteBuffer":{"TrustedGetRuntimeType":[]},"NativeByteData":{"TrustedGetRuntimeType":[]},"NativeTypedArray":{"JavaScriptIndexingBehavior":["1"]},"NativeTypedArrayOfInt":{"ListBase":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"]},"NativeInt8List":{"ListBase":["int"],"List":["int"],"JavaScriptIndexingBehavior":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint32List":{"ListBase":["int"],"Uint32List":[],"List":["int"],"JavaScriptIndexingBehavior":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"NativeUint8List":{"ListBase":["int"],"Uint8List":[],"List":["int"],"JavaScriptIndexingBehavior":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"],"FixedLengthListMixin":["int"],"TrustedGetRuntimeType":[],"ListBase.E":"int","FixedLengthListMixin.E":"int"},"_Type":{"Type":[]},"_Error":{"Error":[]},"_TypeError":{"TypeError":[],"Error":[]},"_Future":{"Future":["1"]},"_AsyncAwaitCompleter":{"Completer":["1"]},"_SyncStarIterator":{"Iterator":["1"]},"_SyncStarIterable":{"Iterable":["1"],"Iterable.E":"1"},"AsyncError":{"Error":[]},"_Completer":{"Completer":["1"]},"_AsyncCompleter":{"_Completer":["1"],"Completer":["1"]},"_Zone":{"Zone":[]},"_RootZone":{"_Zone":[],"Zone":[]},"_HashMap":{"MapBase":["1","2"],"HashMap":["1","2"],"Map":["1","2"],"MapBase.K":"1","MapBase.V":"2"},"_HashMapKeyIterable":{"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"_HashMapKeyIterator":{"Iterator":["1"]},"_HashSet":{"_SetBase":["1"],"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_HashSetIterator":{"Iterator":["1"]},"_LinkedHashSet":{"_SetBase":["1"],"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_LinkedHashSetIterator":{"Iterator":["1"]},"UnmodifiableListView":{"ListBase":["1"],"UnmodifiableListMixin":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1","UnmodifiableListMixin.E":"1"},"LinkedList":{"Iterable":["1"],"Iterable.E":"1"},"_LinkedListIterator":{"Iterator":["1"]},"ListBase":{"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"MapBase":{"Map":["1","2"]},"_DoubleLinkedQueueElement":{"_DoubleLinkedQueueEntry":["1"]},"_DoubleLinkedQueueSentinel":{"_DoubleLinkedQueueEntry":["1"]},"DoubleLinkedQueue":{"Queue":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"Iterable.E":"1"},"_DoubleLinkedQueueIterator":{"Iterator":["1"]},"ListQueue":{"Queue":["1"],"ListIterable":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListIterable.E":"1","Iterable.E":"1"},"_ListQueueIterator":{"Iterator":["1"]},"SetBase":{"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_SetBase":{"SetBase":["1"],"Set":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"_JsonMap":{"MapBase":["String","@"],"Map":["String","@"],"MapBase.K":"String","MapBase.V":"@"},"_JsonMapKeyIterable":{"ListIterable":["String"],"EfficientLengthIterable":["String"],"Iterable":["String"],"ListIterable.E":"String","Iterable.E":"String"},"AsciiCodec":{"Codec":["String","List<int>"],"Codec.T":"List<int>"},"_UnicodeSubsetEncoder":{"Converter":["String","List<int>"]},"AsciiEncoder":{"Converter":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"_UnicodeSubsetDecoder":{"Converter":["List<int>","String"]},"AsciiDecoder":{"Converter":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"Base64Codec":{"Codec":["List<int>","String"],"Codec.T":"String"},"Base64Encoder":{"Converter":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"Base64Decoder":{"Converter":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"_FusedCodec":{"Codec":["1","3"],"Codec.T":"3"},"Encoding":{"Codec":["String","List<int>"]},"JsonCodec":{"Codec":["Object?","String"],"Codec.T":"String"},"JsonDecoder":{"Converter":["String","Object?"],"Converter.S":"String","Converter.T":"Object?"},"Utf8Codec":{"Codec":["String","List<int>"],"Codec.T":"List<int>"},"Utf8Encoder":{"Converter":["String","List<int>"],"Converter.S":"String","Converter.T":"List<int>"},"Utf8Decoder":{"Converter":["List<int>","String"],"Converter.S":"List<int>","Converter.T":"String"},"DateTime":{"Comparable":["DateTime"]},"Duration":{"Comparable":["Duration"]},"int":{"num":[],"Comparable":["num"]},"List":{"EfficientLengthIterable":["1"],"Iterable":["1"]},"num":{"Comparable":["num"]},"RegExpMatch":{"Match":[]},"String":{"Comparable":["String"],"Pattern":[]},"AssertionError":{"Error":[]},"TypeError":{"Error":[]},"ArgumentError":{"Error":[]},"RangeError":{"Error":[]},"IndexError":{"Error":[]},"UnsupportedError":{"Error":[]},"UnimplementedError":{"Error":[]},"StateError":{"Error":[]},"ConcurrentModificationError":{"Error":[]},"OutOfMemoryError":{"Error":[]},"StackOverflowError":{"Error":[]},"_Exception":{"Exception":[]},"FormatException":{"Exception":[]},"_StringStackTrace":{"StackTrace":[]},"StringBuffer":{"StringSink":[]},"_Uri":{"Uri":[]},"_SimpleUri":{"Uri":[]},"_DataUri":{"Uri":[]},"Node0":{"EventTarget":[]},"OptionElement":{"Element1":[],"Node0":[],"EventTarget":[]},"HtmlElement":{"Element1":[],"Node0":[],"EventTarget":[]},"AnchorElement":{"Element1":[],"Node0":[],"EventTarget":[]},"AreaElement":{"Element1":[],"Node0":[],"EventTarget":[]},"CharacterData":{"Node0":[],"EventTarget":[]},"_FrozenElementList":{"ListBase":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"],"ListBase.E":"1"},"Element1":{"Node0":[],"EventTarget":[]},"FileList":{"ListBase":["File"],"ImmutableListMixin":["File"],"List":["File"],"JavaScriptIndexingBehavior":["File"],"EfficientLengthIterable":["File"],"Iterable":["File"],"ImmutableListMixin.E":"File","ListBase.E":"File"},"FormElement":{"Element1":[],"Node0":[],"EventTarget":[]},"HtmlCollection":{"ListBase":["Node0"],"ImmutableListMixin":["Node0"],"List":["Node0"],"JavaScriptIndexingBehavior":["Node0"],"EfficientLengthIterable":["Node0"],"Iterable":["Node0"],"ImmutableListMixin.E":"Node0","ListBase.E":"Node0"},"InputElement":{"Element1":[],"Node0":[],"EventTarget":[]},"_ChildNodeListLazy":{"ListBase":["Node0"],"List":["Node0"],"EfficientLengthIterable":["Node0"],"Iterable":["Node0"],"ListBase.E":"Node0"},"NodeList0":{"ListBase":["Node0"],"ImmutableListMixin":["Node0"],"List":["Node0"],"JavaScriptIndexingBehavior":["Node0"],"EfficientLengthIterable":["Node0"],"Iterable":["Node0"],"ImmutableListMixin.E":"Node0","ListBase.E":"Node0"},"SelectElement":{"Element1":[],"Node0":[],"EventTarget":[]},"Text1":{"Node0":[],"EventTarget":[]},"TextAreaElement":{"Element1":[],"Node0":[],"EventTarget":[]},"Window":{"WindowBase":[],"EventTarget":[]},"_Attr":{"Node0":[],"EventTarget":[]},"_NamedNodeMap":{"ListBase":["Node0"],"ImmutableListMixin":["Node0"],"List":["Node0"],"JavaScriptIndexingBehavior":["Node0"],"EfficientLengthIterable":["Node0"],"Iterable":["Node0"],"ImmutableListMixin.E":"Node0","ListBase.E":"Node0"},"_AttributeMap":{"MapBase":["String","String"],"Map":["String","String"]},"_ElementAttributeMap":{"MapBase":["String","String"],"Map":["String","String"],"MapBase.K":"String","MapBase.V":"String"},"_EventStream":{"Stream":["1"]},"_ElementEventStreamImpl":{"_EventStream":["1"],"Stream":["1"]},"_EventStreamSubscription":{"StreamSubscription":["1"]},"FixedSizeListIterator":{"Iterator":["1"]},"_DOMWindowCrossFrame":{"WindowBase":[],"EventTarget":[]},"VersionChangeEvent":{"Event":[]},"NullRejectionException":{"Exception":[]},"BinaryCodec":{"Codec":["@","Uint8List"],"Codec.T":"Uint8List"},"Decoder":{"Converter":["Uint8List","@"],"Converter.S":"Uint8List","Converter.T":"@"},"AttributeName":{"Comparable":["Object"]},"Document":{"Node":[]},"Element0":{"Node":[]},"DocumentType":{"Node":[]},"Text0":{"Node":[]},"Comment":{"Node":[]},"NodeList":{"ListProxy":["Node"],"ListBase":["Node"],"List":["Node"],"EfficientLengthIterable":["Node"],"Iterable":["Node"],"ListBase.E":"Node","ListProxy.E":"Node"},"FilteredElementList":{"ListBase":["Element0"],"List":["Element0"],"EfficientLengthIterable":["Element0"],"Iterable":["Element0"],"ListBase.E":"Element0","Iterable.E":"Element0"},"ParseError":{"Exception":[]},"InitialPhase":{"Phase":[]},"BeforeHtmlPhase":{"Phase":[]},"BeforeHeadPhase":{"Phase":[]},"InHeadPhase":{"Phase":[]},"AfterHeadPhase":{"Phase":[]},"InBodyPhase":{"Phase":[]},"TextPhase":{"Phase":[]},"InTablePhase":{"Phase":[]},"InTableTextPhase":{"Phase":[]},"InCaptionPhase":{"Phase":[]},"InColumnGroupPhase":{"Phase":[]},"InTableBodyPhase":{"Phase":[]},"InRowPhase":{"Phase":[]},"InCellPhase":{"Phase":[]},"InSelectPhase":{"Phase":[]},"InSelectInTablePhase":{"Phase":[]},"InForeignContentPhase":{"Phase":[]},"AfterBodyPhase":{"Phase":[]},"InFramesetPhase":{"Phase":[]},"AfterFramesetPhase":{"Phase":[]},"AfterAfterBodyPhase":{"Phase":[]},"AfterAfterFramesetPhase":{"Phase":[]},"_EncodingRangeException":{"Exception":[]},"ListProxy":{"ListBase":["1"],"List":["1"],"EfficientLengthIterable":["1"],"Iterable":["1"]},"StringToken":{"Token":[]},"TagToken":{"Token":[]},"StartTagToken":{"TagToken":[],"Token":[]},"EndTagToken":{"TagToken":[],"Token":[]},"ParseErrorToken":{"StringToken":[],"Token":[]},"CharactersToken":{"StringToken":[],"Token":[]},"SpaceCharactersToken":{"StringToken":[],"Token":[]},"CommentToken":{"StringToken":[],"Token":[]},"DoctypeToken":{"Token":[]},"HtmlTokenizer":{"Iterator":["Token"]},"ActiveFormattingElements":{"ListProxy":["Element0?"],"ListBase":["Element0?"],"List":["Element0?"],"EfficientLengthIterable":["Element0?"],"Iterable":["Element0?"],"ListBase.E":"Element0?","ListProxy.E":"Element0?"},"BrowserAppBinding":{"AppBinding":[]},"DomRenderObject":{"RenderObject":[]},"RootDomRenderObject":{"DomRenderObject":[],"RenderObject":[]},"StateCodec":{"Codec":["@","String"],"Codec.T":"String"},"StateDecoder":{"Converter":["String","@"],"Converter.S":"String","Converter.T":"@"},"StateEncoder":{"Converter":["@","String"],"Converter.S":"@","Converter.T":"String"},"_WrappingDomComponent":{"InheritedComponent":[],"DomComponent":[],"Component":[]},"Element":{"BuildContext":[]},"InheritedComponent":{"Component":[]},"InheritedElement":{"Element":[],"BuildContext":[]},"ObserverElement":{"Element":[],"BuildContext":[]},"StatefulComponent":{"Component":[]},"_Root":{"Component":[]},"_RootElement":{"RenderObjectElement":[],"Element":[],"BuildContext":[]},"DomComponent":{"Component":[]},"DomElement":{"RenderObjectElement":[],"Element":[],"BuildContext":[]},"Text":{"Component":[]},"NoChildElement":{"Element":[],"BuildContext":[]},"TextElement":{"RenderObjectElement":[],"Element":[],"BuildContext":[]},"LocalKey":{"Key":[]},"UniqueKey":{"Key":[]},"MultiChildElement":{"Element":[],"BuildContext":[]},"SingleChildElement":{"Element":[],"BuildContext":[]},"StatefulElement":{"Element":[],"BuildContext":[]},"App":{"StatefulComponent":[],"Component":[]},"AppState":{"State":["App"],"State.T":"App"},"DartInputArea":{"StatefulComponent":[],"Component":[]},"DartInputAreaState":{"State":["DartInputArea"],"State.T":"DartInputArea"},"ConverterOptions":{"StatefulComponent":[],"Component":[]},"BoolConvertorOption":{"StatefulComponent":[],"Component":[]},"ConverterOptionsState":{"State":["ConverterOptions"],"State.T":"ConverterOptions"},"BoolConvertorOptionState":{"State":["BoolConvertorOption"],"State.T":"BoolConvertorOption"},"JasprRenderArea":{"StatefulComponent":[],"Component":[]},"JasprRenderAreaState":{"State":["JasprRenderArea"],"State.T":"JasprRenderArea"},"ProviderScope":{"StatefulComponent":[],"Component":[]},"UncontrolledProviderScope":{"InheritedComponent":[],"Component":[]},"ProviderScopeState":{"State":["ProviderScope"],"SyncState":["Map<String,@>"],"State.T":"ProviderScope"},"_UncontrolledProviderScopeElement":{"InheritedElement":[],"Element":[],"BuildContext":[]},"PrimaryButton":{"StatefulComponent":[],"Component":[]},"PrimaryButtonState":{"State":["PrimaryButton"],"State.T":"PrimaryButton"},"SecondaryButton":{"StatefulComponent":[],"Component":[]},"SecondaryButtonState":{"State":["SecondaryButton"],"State.T":"SecondaryButton"},"TailwindTheme":{"InheritedComponent":[],"Component":[]},"PathException":{"Exception":[]},"PosixStyle":{"InternalStyle":[]},"UrlStyle":{"InternalStyle":[]},"WindowsStyle":{"InternalStyle":[]},"AutoDisposeProviderElementMixin":{"ProviderElementBase":["1"],"Node1":[]},"ProviderContainer":{"Node1":[]},"ProviderElementBase":{"Node1":[]},"Family":{"ProviderOrFamily":[],"Override":[]},"ProviderBase":{"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"ProviderOverride":{"Override":[]},"CircularDependencyError":{"Error":[]},"_ProviderStateSubscription":{"ProviderSubscription":["1"]},"ProviderElementProxy":{"AlwaysAliveRefreshable":["2"],"ProviderListenable":["2"]},"ValueProvider":{"ProviderBase":["1"],"AlwaysAliveRefreshable":["1"],"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"ValueProviderElement":{"ProviderElementBase":["1"],"Node1":[]},"ProxyElementValueNotifier":{"_ValueListenable":["1"]},"InternalProvider":{"OverrideWithValueMixin":["1"],"ProviderBase":["1"],"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"Provider":{"InternalProvider":["1"],"OverrideWithValueMixin":["1"],"ProviderBase":["1"],"AlwaysAliveRefreshable":["1"],"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"ProviderElement":{"ProviderElementBase":["1"],"ProviderRef":["1"],"Node1":[]},"ResultData":{"Result":["1"]},"ResultError":{"Result":["1"]},"StateController":{"StateNotifier":["1"]},"_StateProviderBase":{"ProviderBase":["1"],"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"StateProvider":{"_StateProviderBase":["1"],"ProviderBase":["1"],"AlwaysAliveRefreshable":["1"],"ProviderOrFamily":[],"ProviderListenable":["1"],"ProviderOverride":[],"Override":[]},"StateProviderElement":{"ProviderElementBase":["1"],"StateProviderRef":["1"],"Node1":[]},"FileSpan":{"SourceSpanWithContext":[],"SourceSpan":[],"Comparable":["SourceSpan"]},"FileLocation":{"SourceLocation":[],"Comparable":["SourceLocation"]},"_FileSpan":{"FileSpan":[],"SourceSpanWithContext":[],"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceLocation":{"Comparable":["SourceLocation"]},"SourceLocationMixin":{"SourceLocation":[],"Comparable":["SourceLocation"]},"SourceSpan":{"Comparable":["SourceSpan"]},"SourceSpanBase":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanMixin":{"SourceSpan":[],"Comparable":["SourceSpan"]},"SourceSpanWithContext":{"SourceSpan":[],"Comparable":["SourceSpan"]},"Chain":{"StackTrace":[]},"LazyChain":{"Chain":[],"StackTrace":[]},"LazyTrace":{"Trace":[],"StackTrace":[]},"Trace":{"StackTrace":[]},"UnparsedFrame":{"Frame":[]},"VMTrace":{"StackTrace":[]},"_ListenerEntry":{"LinkedListEntry":["_ListenerEntry<1>"],"LinkedListEntry.E":"_ListenerEntry<1>"},"StateNotifierListenerError":{"Error":[]},"Int8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint8List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]},"Uint32List":{"List":["int"],"EfficientLengthIterable":["int"],"Iterable":["int"]}}'));
   A._Universe_addErasedTypes(init.typeUniverse, JSON.parse('{"UnmodifiableListBase":1,"__CastListBase__CastIterableBase_ListMixin":2,"NativeTypedArray":1,"SyncStateMixin":2,"AutoDisposeProviderElementMixin":1,"Family":1,"ProviderSubscription":1,"AlwaysAliveProviderListenable":1,"AlwaysAliveProviderBase":1,"_ProviderBase_ProviderOrFamily_ProviderListenable":1,"_ProviderElementProxy_Object_ProviderListenable":2,"_ProviderElementProxy_Object_ProviderListenable_AlwaysAliveProviderListenable":2,"_ValueProvider_ProviderBase_AlwaysAliveProviderBase":1,"_InternalProvider_ProviderBase_OverrideWithValueMixin":1,"_Provider_InternalProvider_AlwaysAliveProviderBase":1,"_StateProvider__StateProviderBase_AlwaysAliveProviderBase":1}'));
   var string$ = {
     x20___fo: "    focus-visible:outline \n    focus-visible:outline-2 \n    focus-visible:outline-offset-2 \n    focus-visible:outline-slate-900 \n    dark:focus-visible:outline-slate-200\n    ",
@@ -29856,6 +29822,8 @@
       Comment: findType("Comment"),
       CommentToken: findType("CommentToken"),
       Comparable_dynamic: findType("Comparable<@>"),
+      ComponentAttribute: findType("ComponentAttribute"),
+      ComponentStructure: findType("ComponentStructure"),
       ConstantStringMap_String_String: findType("ConstantStringMap<String,String>"),
       DateTime: findType("DateTime"),
       DoctypeToken: findType("DoctypeToken"),
@@ -29892,6 +29860,7 @@
       Iterable_dynamic: findType("Iterable<@>"),
       JSArray_AutoDisposeProviderElementMixin_nullable_Object: findType("JSArray<AutoDisposeProviderElementMixin<Object?>>"),
       JSArray_Component: findType("JSArray<Component>"),
+      JSArray_ComponentAttribute: findType("JSArray<ComponentAttribute>"),
       JSArray_Element: findType("JSArray<Element>"),
       JSArray_Element_2: findType("JSArray<Element0>"),
       JSArray_Frame: findType("JSArray<Frame>"),
@@ -30389,6 +30358,197 @@
     B.List_SxB = A._setArrayType(makeConstList([B.Pair_06w, B.Pair_wsa]), type$.JSArray_Pair_String_String);
     B.Pair_DVt = new A.Pair("http://www.w3.org/1998/Math/MathML", "annotaion-xml", type$.Pair_String_String);
     B.List_VRr = A._setArrayType(makeConstList([B.Pair_DVt, B.Pair_SDM, B.Pair_ijl, B.Pair_27z]), type$.JSArray_Pair_String_String);
+    B.List_empty2 = A._setArrayType(makeConstList([]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_article_List_empty_false = new A.ComponentStructure("article", B.List_empty2, false);
+    B.ComponentStructure_aside_List_empty_false = new A.ComponentStructure("aside", B.List_empty2, false);
+    B.ComponentStructure_body_List_empty_false = new A.ComponentStructure("body", B.List_empty2, false);
+    B.ComponentStructure_footer_List_empty_false = new A.ComponentStructure("footer", B.List_empty2, false);
+    B.ComponentStructure_head_List_empty_false = new A.ComponentStructure("head", B.List_empty2, false);
+    B.ComponentStructure_header_List_empty_false = new A.ComponentStructure("header", B.List_empty2, false);
+    B.ComponentStructure_html_List_empty_false = new A.ComponentStructure("html", B.List_empty2, false);
+    B.ComponentStructure_h1_List_empty_false = new A.ComponentStructure("h1", B.List_empty2, false);
+    B.ComponentStructure_h2_List_empty_false = new A.ComponentStructure("h2", B.List_empty2, false);
+    B.ComponentStructure_h3_List_empty_false = new A.ComponentStructure("h3", B.List_empty2, false);
+    B.ComponentStructure_h4_List_empty_false = new A.ComponentStructure("h4", B.List_empty2, false);
+    B.ComponentStructure_h5_List_empty_false = new A.ComponentStructure("h5", B.List_empty2, false);
+    B.ComponentStructure_h6_List_empty_false = new A.ComponentStructure("h6", B.List_empty2, false);
+    B.ComponentStructure_nav_List_empty_false = new A.ComponentStructure("nav", B.List_empty2, false);
+    B.ComponentStructure_section_List_empty_false = new A.ComponentStructure("section", B.List_empty2, false);
+    B.ComponentAttribute_cite_cite_string = new A.ComponentAttribute("cite", "cite", "string");
+    B.List_W2j = A._setArrayType(makeConstList([B.ComponentAttribute_cite_cite_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_kuW = new A.ComponentStructure("blockquote", B.List_W2j, false);
+    B.ComponentStructure_div_List_empty_false = new A.ComponentStructure("div", B.List_empty2, false);
+    B.ComponentStructure_ul_List_empty_false = new A.ComponentStructure("ul", B.List_empty2, false);
+    B.ComponentAttribute_reversed_reversed_boolean = new A.ComponentAttribute("reversed", "reversed", "boolean");
+    B.ComponentAttribute_start_start_int = new A.ComponentAttribute("start", "start", "int");
+    B.ComponentAttribute_type_type_NumberingType = new A.ComponentAttribute("type", "type", "NumberingType");
+    B.List_iHy = A._setArrayType(makeConstList([B.ComponentAttribute_reversed_reversed_boolean, B.ComponentAttribute_start_start_int, B.ComponentAttribute_type_type_NumberingType]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_IEF = new A.ComponentStructure("ol", B.List_iHy, false);
+    B.ComponentAttribute_value_value_int = new A.ComponentAttribute("value", "value", "int");
+    B.List_ComponentAttribute_value_value_int = A._setArrayType(makeConstList([B.ComponentAttribute_value_value_int]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_IAG = new A.ComponentStructure("li", B.List_ComponentAttribute_value_value_int, false);
+    B.ComponentStructure_hr_List_empty_true = new A.ComponentStructure("hr", B.List_empty2, true);
+    B.ComponentStructure_p_List_empty_false = new A.ComponentStructure("p", B.List_empty2, false);
+    B.ComponentStructure_pre_List_empty_false = new A.ComponentStructure("pre", B.List_empty2, false);
+    B.ComponentAttribute_download_download_string = new A.ComponentAttribute("download", "download", "string");
+    B.ComponentAttribute_href_href_string = new A.ComponentAttribute("href", "href", "string");
+    B.ComponentAttribute_target_target_Target = new A.ComponentAttribute("target", "target", "Target");
+    B.ComponentAttribute_type_type_string = new A.ComponentAttribute("type", "type", "string");
+    B.ComponentAttribute_mGg = new A.ComponentAttribute("referrerpolicy", "referrerPolicy", "ReferrerPolicy");
+    B.List_VaT = A._setArrayType(makeConstList([B.ComponentAttribute_download_download_string, B.ComponentAttribute_href_href_string, B.ComponentAttribute_target_target_Target, B.ComponentAttribute_type_type_string, B.ComponentAttribute_mGg]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_BSc = new A.ComponentStructure("a", B.List_VaT, false);
+    B.ComponentStructure_b_List_empty_false = new A.ComponentStructure("b", B.List_empty2, false);
+    B.ComponentStructure_br_List_empty_true = new A.ComponentStructure("br", B.List_empty2, true);
+    B.ComponentStructure_code_List_empty_false = new A.ComponentStructure("code", B.List_empty2, false);
+    B.ComponentStructure_em_List_empty_false = new A.ComponentStructure("em", B.List_empty2, false);
+    B.ComponentStructure_i_List_empty_false = new A.ComponentStructure("i", B.List_empty2, false);
+    B.ComponentStructure_s_List_empty_false = new A.ComponentStructure("s", B.List_empty2, false);
+    B.ComponentStructure_small_List_empty_false = new A.ComponentStructure("small", B.List_empty2, false);
+    B.ComponentStructure_span_List_empty_false = new A.ComponentStructure("span", B.List_empty2, false);
+    B.ComponentStructure_strong_List_empty_false = new A.ComponentStructure("strong", B.List_empty2, false);
+    B.ComponentStructure_u_List_empty_false = new A.ComponentStructure("u", B.List_empty2, false);
+    B.ComponentAttribute_autoplay_autoplay_boolean = new A.ComponentAttribute("autoplay", "autoplay", "boolean");
+    B.ComponentAttribute_controls_controls_boolean = new A.ComponentAttribute("controls", "controls", "boolean");
+    B.ComponentAttribute_WLl = new A.ComponentAttribute("crossorigin", "crossOrigin", "CrossOrigin");
+    B.ComponentAttribute_loop_loop_boolean = new A.ComponentAttribute("loop", "loop", "boolean");
+    B.ComponentAttribute_muted_muted_boolean = new A.ComponentAttribute("muted", "muted", "boolean");
+    B.ComponentAttribute_preload_preload_Preload = new A.ComponentAttribute("preload", "preload", "Preload");
+    B.ComponentAttribute_src_src_string = new A.ComponentAttribute("src", "src", "string");
+    B.List_U0a = A._setArrayType(makeConstList([B.ComponentAttribute_autoplay_autoplay_boolean, B.ComponentAttribute_controls_controls_boolean, B.ComponentAttribute_WLl, B.ComponentAttribute_loop_loop_boolean, B.ComponentAttribute_muted_muted_boolean, B.ComponentAttribute_preload_preload_Preload, B.ComponentAttribute_src_src_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_Pnz = new A.ComponentStructure("audio", B.List_U0a, false);
+    B.ComponentAttribute_alt_alt_string = new A.ComponentAttribute("alt", "alt", "string");
+    B.ComponentAttribute_width_width_int = new A.ComponentAttribute("width", "width", "int");
+    B.ComponentAttribute_height_height_int = new A.ComponentAttribute("height", "height", "int");
+    B.ComponentAttribute_loading_loading_MediaLoading = new A.ComponentAttribute("loading", "loading", "MediaLoading");
+    B.List_Azz = A._setArrayType(makeConstList([B.ComponentAttribute_alt_alt_string, B.ComponentAttribute_WLl, B.ComponentAttribute_width_width_int, B.ComponentAttribute_height_height_int, B.ComponentAttribute_loading_loading_MediaLoading, B.ComponentAttribute_src_src_string, B.ComponentAttribute_mGg]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_EeP = new A.ComponentStructure("img", B.List_Azz, true);
+    B.ComponentAttribute_poster_poster_string = new A.ComponentAttribute("poster", "poster", "string");
+    B.List_Au4 = A._setArrayType(makeConstList([B.ComponentAttribute_autoplay_autoplay_boolean, B.ComponentAttribute_controls_controls_boolean, B.ComponentAttribute_WLl, B.ComponentAttribute_loop_loop_boolean, B.ComponentAttribute_muted_muted_boolean, B.ComponentAttribute_poster_poster_string, B.ComponentAttribute_preload_preload_Preload, B.ComponentAttribute_src_src_string, B.ComponentAttribute_width_width_int, B.ComponentAttribute_height_height_int]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_imy = new A.ComponentStructure("video", B.List_Au4, false);
+    B.List_wrR = A._setArrayType(makeConstList([B.ComponentAttribute_src_src_string, B.ComponentAttribute_type_type_string, B.ComponentAttribute_width_width_int, B.ComponentAttribute_height_height_int]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_qrv = new A.ComponentStructure("embed", B.List_wrR, true);
+    B.ComponentAttribute_allow_allow_string = new A.ComponentAttribute("allow", "allow", "string");
+    B.ComponentAttribute_csp_csp_string = new A.ComponentAttribute("csp", "csp", "string");
+    B.ComponentAttribute_name_name_string = new A.ComponentAttribute("name", "name", "string");
+    B.ComponentAttribute_sandbox_sandbox_string = new A.ComponentAttribute("sandbox", "sandbox", "string");
+    B.List_0 = A._setArrayType(makeConstList([B.ComponentAttribute_src_src_string, B.ComponentAttribute_allow_allow_string, B.ComponentAttribute_csp_csp_string, B.ComponentAttribute_loading_loading_MediaLoading, B.ComponentAttribute_name_name_string, B.ComponentAttribute_sandbox_sandbox_string, B.ComponentAttribute_mGg, B.ComponentAttribute_width_width_int, B.ComponentAttribute_height_height_int]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_dYJ = new A.ComponentStructure("iframe", B.List_0, false);
+    B.ComponentAttribute_data_data_string = new A.ComponentAttribute("data", "data", "string");
+    B.List_G1A = A._setArrayType(makeConstList([B.ComponentAttribute_data_data_string, B.ComponentAttribute_name_name_string, B.ComponentAttribute_type_type_string, B.ComponentAttribute_width_width_int, B.ComponentAttribute_height_height_int]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_woc = new A.ComponentStructure("object", B.List_G1A, false);
+    B.List_Z6u = A._setArrayType(makeConstList([B.ComponentAttribute_type_type_string, B.ComponentAttribute_src_src_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_2jN = new A.ComponentStructure("source", B.List_Z6u, true);
+    B.ComponentAttribute_autofocus_autofocus_boolean = new A.ComponentAttribute("autofocus", "autofocus", "boolean");
+    B.ComponentAttribute_disabled_disabled_boolean = new A.ComponentAttribute("disabled", "disabled", "boolean");
+    B.ComponentAttribute_type_type_ButtonType = new A.ComponentAttribute("type", "type", "ButtonType");
+    B.ComponentAttribute_onClick_onClick_VoidCallback = new A.ComponentAttribute("onClick", "onClick", "VoidCallback");
+    B.List_MQy = A._setArrayType(makeConstList([B.ComponentAttribute_autofocus_autofocus_boolean, B.ComponentAttribute_disabled_disabled_boolean, B.ComponentAttribute_type_type_ButtonType, B.ComponentAttribute_onClick_onClick_VoidCallback]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_6z6 = new A.ComponentStructure("button", B.List_MQy, false);
+    B.ComponentAttribute_action_action_string = new A.ComponentAttribute("action", "action", "string");
+    B.ComponentAttribute_method_method_FormMethod = new A.ComponentAttribute("method", "method", "FormMethod");
+    B.ComponentAttribute_enctype_encType_FormEncType = new A.ComponentAttribute("enctype", "encType", "FormEncType");
+    B.ComponentAttribute_64z = new A.ComponentAttribute("autocomplete", "autoComplete", "AutoComplete");
+    B.ComponentAttribute_novalidate_noValidate_boolean = new A.ComponentAttribute("novalidate", "noValidate", "boolean");
+    B.List_adS0 = A._setArrayType(makeConstList([B.ComponentAttribute_action_action_string, B.ComponentAttribute_method_method_FormMethod, B.ComponentAttribute_enctype_encType_FormEncType, B.ComponentAttribute_64z, B.ComponentAttribute_name_name_string, B.ComponentAttribute_novalidate_noValidate_boolean, B.ComponentAttribute_target_target_Target]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_sOS = new A.ComponentStructure("form", B.List_adS0, false);
+    B.ComponentAttribute_type_type_InputType = new A.ComponentAttribute("type", "type", "InputType");
+    B.ComponentAttribute_value_value_string = new A.ComponentAttribute("value", "value", "string");
+    B.ComponentAttribute_QDZ = new A.ComponentAttribute("onInput", "onInput", "ValueChanged<dynamic>");
+    B.ComponentAttribute_Uuv = new A.ComponentAttribute("onChange", "onChange", "ValueChanged<dynamic>");
+    B.List_qpT = A._setArrayType(makeConstList([B.ComponentAttribute_type_type_InputType, B.ComponentAttribute_name_name_string, B.ComponentAttribute_value_value_string, B.ComponentAttribute_disabled_disabled_boolean, B.ComponentAttribute_QDZ, B.ComponentAttribute_Uuv]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_xw8 = new A.ComponentStructure("input", B.List_qpT, false);
+    B.ComponentAttribute_for_htmlFor_string = new A.ComponentAttribute("for", "htmlFor", "string");
+    B.List_aWR = A._setArrayType(makeConstList([B.ComponentAttribute_for_htmlFor_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_5k4 = new A.ComponentStructure("label", B.List_aWR, false);
+    B.ComponentStructure_datalist_List_empty_false = new A.ComponentStructure("datalist", B.List_empty2, false);
+    B.ComponentStructure_legend_List_empty_false = new A.ComponentStructure("legend", B.List_empty2, false);
+    B.ComponentAttribute_value_value_double = new A.ComponentAttribute("value", "value", "double");
+    B.ComponentAttribute_min_min_double = new A.ComponentAttribute("min", "min", "double");
+    B.ComponentAttribute_max_max_double = new A.ComponentAttribute("max", "max", "double");
+    B.ComponentAttribute_low_low_double = new A.ComponentAttribute("low", "low", "double");
+    B.ComponentAttribute_high_high_double = new A.ComponentAttribute("high", "high", "double");
+    B.ComponentAttribute_optimum_optimum_double = new A.ComponentAttribute("optimum", "optimum", "double");
+    B.List_80w = A._setArrayType(makeConstList([B.ComponentAttribute_value_value_double, B.ComponentAttribute_min_min_double, B.ComponentAttribute_max_max_double, B.ComponentAttribute_low_low_double, B.ComponentAttribute_high_high_double, B.ComponentAttribute_optimum_optimum_double]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_cAf = new A.ComponentStructure("meter", B.List_80w, false);
+    B.List_kWM = A._setArrayType(makeConstList([B.ComponentAttribute_value_value_double, B.ComponentAttribute_max_max_double]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_RQ5 = new A.ComponentStructure("progress", B.List_kWM, false);
+    B.ComponentAttribute_label_label_string = new A.ComponentAttribute("label", "label", "string");
+    B.List_Gpa = A._setArrayType(makeConstList([B.ComponentAttribute_label_label_string, B.ComponentAttribute_disabled_disabled_boolean]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_2Zs = new A.ComponentStructure("optgroup", B.List_Gpa, false);
+    B.ComponentAttribute_selected_selected_boolean = new A.ComponentAttribute("selected", "selected", "boolean");
+    B.List_8ej = A._setArrayType(makeConstList([B.ComponentAttribute_label_label_string, B.ComponentAttribute_value_value_string, B.ComponentAttribute_selected_selected_boolean, B.ComponentAttribute_disabled_disabled_boolean]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_EF2 = new A.ComponentStructure("option", B.List_8ej, false);
+    B.ComponentAttribute_multiple_multiple_boolean = new A.ComponentAttribute("multiple", "multiple", "boolean");
+    B.ComponentAttribute_required_required_boolean = new A.ComponentAttribute("required", "required", "boolean");
+    B.ComponentAttribute_autocomplete_autocomplete_string = new A.ComponentAttribute("autocomplete", "autocomplete", "string");
+    B.ComponentAttribute_size_size_int = new A.ComponentAttribute("size", "size", "int");
+    B.ComponentAttribute_wdf = new A.ComponentAttribute("onInput", "onInput", "ValueChanged<List<String>>");
+    B.ComponentAttribute_woc = new A.ComponentAttribute("onChange", "onChange", "ValueChanged<List<String>>");
+    B.List_YQn = A._setArrayType(makeConstList([B.ComponentAttribute_name_name_string, B.ComponentAttribute_multiple_multiple_boolean, B.ComponentAttribute_required_required_boolean, B.ComponentAttribute_disabled_disabled_boolean, B.ComponentAttribute_autofocus_autofocus_boolean, B.ComponentAttribute_autocomplete_autocomplete_string, B.ComponentAttribute_size_size_int, B.ComponentAttribute_wdf, B.ComponentAttribute_woc]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_6HY = new A.ComponentStructure("select", B.List_YQn, false);
+    B.List_e4a = A._setArrayType(makeConstList([B.ComponentAttribute_name_name_string, B.ComponentAttribute_disabled_disabled_boolean]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_USy = new A.ComponentStructure("fieldset", B.List_e4a, false);
+    B.ComponentAttribute_cols_cols_int = new A.ComponentAttribute("cols", "cols", "int");
+    B.ComponentAttribute_minlength_minLength_int = new A.ComponentAttribute("minlength", "minLength", "int");
+    B.ComponentAttribute_placeholder_placeholder_string = new A.ComponentAttribute("placeholder", "placeholder", "string");
+    B.ComponentAttribute_readonly_readonly_boolean = new A.ComponentAttribute("readonly", "readonly", "boolean");
+    B.ComponentAttribute_rows_rows_int = new A.ComponentAttribute("rows", "rows", "int");
+    B.ComponentAttribute_spellcheck_spellCheck_SpellCheck = new A.ComponentAttribute("spellcheck", "spellCheck", "SpellCheck");
+    B.ComponentAttribute_wrap_wrap_TextWrap = new A.ComponentAttribute("wrap", "wrap", "TextWrap");
+    B.ComponentAttribute_uCu = new A.ComponentAttribute("onInput", "onInput", "ValueChanged<String>");
+    B.ComponentAttribute_mfA = new A.ComponentAttribute("onChange", "onChange", "ValueChanged<String>");
+    B.List_k4X = A._setArrayType(makeConstList([B.ComponentAttribute_64z, B.ComponentAttribute_autofocus_autofocus_boolean, B.ComponentAttribute_cols_cols_int, B.ComponentAttribute_disabled_disabled_boolean, B.ComponentAttribute_minlength_minLength_int, B.ComponentAttribute_name_name_string, B.ComponentAttribute_placeholder_placeholder_string, B.ComponentAttribute_readonly_readonly_boolean, B.ComponentAttribute_required_required_boolean, B.ComponentAttribute_rows_rows_int, B.ComponentAttribute_spellcheck_spellCheck_SpellCheck, B.ComponentAttribute_wrap_wrap_TextWrap, B.ComponentAttribute_uCu, B.ComponentAttribute_mfA]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_EuX = new A.ComponentStructure("textarea", B.List_k4X, false);
+    B.ComponentAttribute_open_open_boolean = new A.ComponentAttribute("open", "open", "boolean");
+    B.List_cIR = A._setArrayType(makeConstList([B.ComponentAttribute_open_open_boolean]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_8tD = new A.ComponentStructure("details", B.List_cIR, false);
+    B.ComponentStructure_iQ1 = new A.ComponentStructure("dialog", B.List_cIR, false);
+    B.ComponentStructure_summary_List_empty_false = new A.ComponentStructure("summary", B.List_empty2, false);
+    B.ComponentAttribute_rel_rel_string = new A.ComponentAttribute("rel", "rel", "string");
+    B.ComponentAttribute_as_as_string = new A.ComponentAttribute("as", "as", "string");
+    B.List_X0l = A._setArrayType(makeConstList([B.ComponentAttribute_href_href_string, B.ComponentAttribute_rel_rel_string, B.ComponentAttribute_type_type_string, B.ComponentAttribute_as_as_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_EYK = new A.ComponentStructure("link", B.List_X0l, true);
+    B.ComponentAttribute_async_async_boolean = new A.ComponentAttribute("async", "async", "boolean");
+    B.ComponentAttribute_defer_defer_boolean = new A.ComponentAttribute("defer", "defer", "boolean");
+    B.List_o8I = A._setArrayType(makeConstList([B.ComponentAttribute_async_async_boolean, B.ComponentAttribute_defer_defer_boolean, B.ComponentAttribute_src_src_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_v4j = new A.ComponentStructure("script", B.List_o8I, false);
+    B.ComponentAttribute_viewBox_viewBox_string = new A.ComponentAttribute("viewBox", "viewBox", "string");
+    B.ComponentAttribute_width_width_Unit = new A.ComponentAttribute("width", "width", "Unit");
+    B.ComponentAttribute_height_height_Unit = new A.ComponentAttribute("height", "height", "Unit");
+    B.List_ECL = A._setArrayType(makeConstList([B.ComponentAttribute_viewBox_viewBox_string, B.ComponentAttribute_width_width_Unit, B.ComponentAttribute_height_height_Unit]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_8Fs = new A.ComponentStructure("svg", B.List_ECL, false);
+    B.ComponentAttribute_fill_fill_Color = new A.ComponentAttribute("fill", "fill", "Color");
+    B.ComponentAttribute_stroke_stroke_Color = new A.ComponentAttribute("stroke", "stroke", "Color");
+    B.ComponentAttribute_yZf = new A.ComponentAttribute("stroke-width", "strokeWidth", "string");
+    B.ComponentAttribute_x_x_string = new A.ComponentAttribute("x", "x", "string");
+    B.ComponentAttribute_y_y_string = new A.ComponentAttribute("y", "y", "string");
+    B.ComponentAttribute_width_width_string = new A.ComponentAttribute("width", "width", "string");
+    B.ComponentAttribute_height_height_string = new A.ComponentAttribute("height", "height", "string");
+    B.List_DFB = A._setArrayType(makeConstList([B.ComponentAttribute_fill_fill_Color, B.ComponentAttribute_stroke_stroke_Color, B.ComponentAttribute_yZf, B.ComponentAttribute_x_x_string, B.ComponentAttribute_y_y_string, B.ComponentAttribute_width_width_string, B.ComponentAttribute_height_height_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_ww8 = new A.ComponentStructure("rect", B.List_DFB, false);
+    B.ComponentAttribute_cx_cx_string = new A.ComponentAttribute("cx", "cx", "string");
+    B.ComponentAttribute_cy_cy_string = new A.ComponentAttribute("cy", "cy", "string");
+    B.ComponentAttribute_r_r_string = new A.ComponentAttribute("r", "r", "string");
+    B.List_in5 = A._setArrayType(makeConstList([B.ComponentAttribute_fill_fill_Color, B.ComponentAttribute_stroke_stroke_Color, B.ComponentAttribute_yZf, B.ComponentAttribute_cx_cx_string, B.ComponentAttribute_cy_cy_string, B.ComponentAttribute_r_r_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_OPD = new A.ComponentStructure("circle", B.List_in5, false);
+    B.ComponentAttribute_rx_rx_string = new A.ComponentAttribute("rx", "rx", "string");
+    B.ComponentAttribute_ry_ry_string = new A.ComponentAttribute("ry", "ry", "string");
+    B.List_kGu = A._setArrayType(makeConstList([B.ComponentAttribute_fill_fill_Color, B.ComponentAttribute_stroke_stroke_Color, B.ComponentAttribute_yZf, B.ComponentAttribute_cx_cx_string, B.ComponentAttribute_cy_cy_string, B.ComponentAttribute_rx_rx_string, B.ComponentAttribute_ry_ry_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_y1j = new A.ComponentStructure("ellipse", B.List_kGu, false);
+    B.ComponentAttribute_x1_x1_string = new A.ComponentAttribute("x1", "x1", "string");
+    B.ComponentAttribute_y1_y1_string = new A.ComponentAttribute("y1", "y1", "string");
+    B.ComponentAttribute_x2_x2_string = new A.ComponentAttribute("x2", "x2", "string");
+    B.ComponentAttribute_y2_y2_string = new A.ComponentAttribute("y2", "y2", "string");
+    B.List_fHw = A._setArrayType(makeConstList([B.ComponentAttribute_fill_fill_Color, B.ComponentAttribute_stroke_stroke_Color, B.ComponentAttribute_yZf, B.ComponentAttribute_x1_x1_string, B.ComponentAttribute_y1_y1_string, B.ComponentAttribute_x2_x2_string, B.ComponentAttribute_y2_y2_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_FYI = new A.ComponentStructure("line", B.List_fHw, false);
+    B.ComponentAttribute_d_d_string = new A.ComponentAttribute("d", "d", "string");
+    B.List_oyn = A._setArrayType(makeConstList([B.ComponentAttribute_fill_fill_Color, B.ComponentAttribute_stroke_stroke_Color, B.ComponentAttribute_yZf, B.ComponentAttribute_d_d_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_qxZ = new A.ComponentStructure("path", B.List_oyn, false);
+    B.ComponentAttribute_points_points_string = new A.ComponentAttribute("points", "points", "string");
+    B.List_5ia = A._setArrayType(makeConstList([B.ComponentAttribute_fill_fill_Color, B.ComponentAttribute_stroke_stroke_Color, B.ComponentAttribute_yZf, B.ComponentAttribute_points_points_string]), type$.JSArray_ComponentAttribute);
+    B.ComponentStructure_XGg = new A.ComponentStructure("polygon", B.List_5ia, false);
+    B.ComponentStructure_qVK = new A.ComponentStructure("polyline", B.List_5ia, false);
+    B.List_VzM = A._setArrayType(makeConstList([B.ComponentStructure_article_List_empty_false, B.ComponentStructure_aside_List_empty_false, B.ComponentStructure_body_List_empty_false, B.ComponentStructure_footer_List_empty_false, B.ComponentStructure_head_List_empty_false, B.ComponentStructure_header_List_empty_false, B.ComponentStructure_html_List_empty_false, B.ComponentStructure_h1_List_empty_false, B.ComponentStructure_h2_List_empty_false, B.ComponentStructure_h3_List_empty_false, B.ComponentStructure_h4_List_empty_false, B.ComponentStructure_h5_List_empty_false, B.ComponentStructure_h6_List_empty_false, B.ComponentStructure_nav_List_empty_false, B.ComponentStructure_section_List_empty_false, B.ComponentStructure_kuW, B.ComponentStructure_div_List_empty_false, B.ComponentStructure_ul_List_empty_false, B.ComponentStructure_IEF, B.ComponentStructure_IAG, B.ComponentStructure_hr_List_empty_true, B.ComponentStructure_p_List_empty_false, B.ComponentStructure_pre_List_empty_false, B.ComponentStructure_BSc, B.ComponentStructure_b_List_empty_false, B.ComponentStructure_br_List_empty_true, B.ComponentStructure_code_List_empty_false, B.ComponentStructure_em_List_empty_false, B.ComponentStructure_i_List_empty_false, B.ComponentStructure_s_List_empty_false, B.ComponentStructure_small_List_empty_false, B.ComponentStructure_span_List_empty_false, B.ComponentStructure_strong_List_empty_false, B.ComponentStructure_u_List_empty_false, B.ComponentStructure_Pnz, B.ComponentStructure_EeP, B.ComponentStructure_imy, B.ComponentStructure_qrv, B.ComponentStructure_dYJ, B.ComponentStructure_woc, B.ComponentStructure_2jN, B.ComponentStructure_6z6, B.ComponentStructure_sOS, B.ComponentStructure_xw8, B.ComponentStructure_5k4, B.ComponentStructure_datalist_List_empty_false, B.ComponentStructure_legend_List_empty_false, B.ComponentStructure_cAf, B.ComponentStructure_RQ5, B.ComponentStructure_2Zs, B.ComponentStructure_EF2, B.ComponentStructure_6HY, B.ComponentStructure_USy, B.ComponentStructure_EuX, B.ComponentStructure_8tD, B.ComponentStructure_iQ1, B.ComponentStructure_summary_List_empty_false, B.ComponentStructure_EYK, B.ComponentStructure_v4j, B.ComponentStructure_8Fs, B.ComponentStructure_ww8, B.ComponentStructure_OPD, B.ComponentStructure_y1j, B.ComponentStructure_FYI, B.ComponentStructure_qxZ, B.ComponentStructure_XGg, B.ComponentStructure_qVK]), A.findType("JSArray<ComponentStructure>"));
     B.List_XRg0 = A._setArrayType(makeConstList([0, 0, 32722, 12287, 65535, 34815, 65534, 18431]), type$.JSArray_int);
     B.List_XRg = A._setArrayType(makeConstList([0, 0, 65490, 12287, 65535, 34815, 65534, 18431]), type$.JSArray_int);
     B.List_YmH = A._setArrayType(makeConstList([0, 0, 32776, 33792, 1, 10240, 0, 0]), type$.JSArray_int);
@@ -30502,8 +30662,6 @@
     $.Uri__cachedBaseString = "";
     $.Uri__cachedBaseUri = null;
     $.Element__nextHashCode = 1;
-    $._unsupportedAttributes = A._setArrayType(["autocomplete", "required", "fill", "fill-rule", "clip-rule", "version", "xmlns", "placeholder"], type$.JSArray_String);
-    $._components = A._setArrayType(["a", "b", "br", "code", "em", "i", "s", "small", "span", "strong", "u", "audio", "img", "video", "embed", "iframe", "object", "source", "svg", "rect", "circle", "ellipse", "line", "path", "polygon", "polyline", "button", "form", "input", "label", "datalist", "legend", "meter", "progress", "optgroup", "option", "select", "fieldset", "textarea", "details", "dialog", "summary", "link", "script", "article", "aside", "body", "footer", "head", "header", "html", "h1", "h2", "h3", "h4", "h5", "h6", "nav", "section", "blockquote", "div", "ul", "ol", "li", "hr", "p", "pre"], type$.JSArray_String);
     $._currentUriBase = null;
     $._current = null;
     $._circularDependencyLock = null;
